@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import "src/assets/scss/variables.scss";
+
+.wrapper {
+  max-width: 1170px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  background: #404040;
+}

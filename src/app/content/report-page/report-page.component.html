@@ -1,0 +1,28 @@
+<div class="block">
+  <p class="block">report-page works!</p>
+  <div class="table">
+    <div class="table-header-cell">
+      {{ rows[0] }}
+    </div>
+    <div class="table-header-cell">
+      {{ rows[1] }}
+    </div>
+    <div class="table-header-cell">
+      {{ rows[2] }}
+    </div>
+    <div class="table-row" *ngFor="let report of rows">
+      <div class="table-header-cell">{{report + report}}</div>
+      <div class="table-cell">{{report}} + 2</div>
+      <div class="table-cell">{{report + report + report + report }} + 2</div>
+    </div>
+  </div>
+  <div style="display: contents; width: 400px; height:400px; position:relative; top:50px; left:50px; border: 1px solid black; background:green;">
+    <!-- Красный блок с абсолютным позиционированием -->
+    <div style="width: 100px; height:100px; position:absolute; top:50px; left:50px; border: 1px solid black; background:red;"></div>
+    <!-- Синий блок с абсолютным позиционированием -->
+    <div style="width: 100px; height:100px; position:absolute; bottom:50px; right:50px; border: 1px solid black; background:blue;"></div>
+  </div>
+</div>
+
+
+

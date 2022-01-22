@@ -1,0 +1,26 @@
+.table {
+  display: table;
+  position: relative;
+  right: -100px;
+  top: 50px;
+}
+.table-row {
+  display: table-row;
+}
+.table-cell {
+  display: table-cell;
+  padding: 10px;
+  border: 1px solid black;
+  background: blueviolet;
+}
+.table-header-cell {
+  @extend .table-cell;
+  background: #404040;
+}
+.table-row:nth-child(even) {
+  background: lightblue;
+}
+.block {
+  display: block;
+  background: aqua;
+}
