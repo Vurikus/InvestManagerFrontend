@@ -1,0 +1,11 @@
+.git
+.gitignore
+.github
+.vscode
+.editorconfig
+Dockerfile
+package-lock.json
+README.md
+dist
+e2e
+node_modules

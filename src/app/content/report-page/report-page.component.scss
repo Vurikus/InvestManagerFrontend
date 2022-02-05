@@ -1,3 +1,5 @@
+@import "src/assets/scss/variables.scss";
+
 .table {
   display: table;
   position: relative;
@@ -11,16 +13,16 @@
   display: table-cell;
   padding: 10px;
   border: 1px solid black;
-  background: blueviolet;
+  background: $bg_lightest;
 }
 .table-header-cell {
   @extend .table-cell;
-  background: #404040;
+  background: $bg_light;
 }
 .table-row:nth-child(even) {
   background: lightblue;
 }
 .block {
   display: block;
-  background: aqua;
+  background: $bg_middle;
 }

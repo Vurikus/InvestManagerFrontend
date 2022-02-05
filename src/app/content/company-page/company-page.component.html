@@ -1,0 +1,17 @@
+<app-header></app-header>
+<div>
+  <div class="companies" *ngFor="let company of companies">
+    <p>{{company.organisationName}} ({{company.ticker}})</p>
+  </div>
+  <div class="company-info">
+    <ul>
+      <li>Тикер: <span>{{currentCompany.ticker}}</span></li>
+      <li>Название: <span>{{currentCompany.organisationName}}</span></li>
+      <li>Головной офис: <span>{{currentCompany.headquartersCountry}}</span></li>
+      <li>Страна: <span>{{currentCompany.country}}</span></li>
+      <li>Сектор: <span>{{sectorName()}}</span></li>
+    </ul>
+  </div>
+  <app-report-page></app-report-page>
+</div>
+

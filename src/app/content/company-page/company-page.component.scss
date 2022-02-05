@@ -1,0 +1,25 @@
+.companies {
+  float: left;
+  background: #404040;
+  width: 150px;
+}
+
+.company-info {
+  flex: 0 0 24%;
+  float: left;
+  background: brown;
+  margin-left: 170px;
+}
+
+ui {
+  padding: 25px;
+}
+
+li {
+  list-style-type: none;
+  border-color: black;
+  background-color: aquamarine;
+  display: block;
+}
+
+

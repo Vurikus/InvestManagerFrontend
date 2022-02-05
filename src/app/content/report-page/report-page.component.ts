@@ -30,6 +30,7 @@ export class ReportPageComponent implements OnInit {
   constructRows(): void {
     this.ticker = 'GAZP';
     this.reportService.getReports(this.ticker, this.reportType).subscribe((data) => {
+      console.log(data);
       this.reports = data;
     });
   }

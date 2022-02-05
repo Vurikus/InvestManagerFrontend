@@ -1,7 +1,11 @@
-<section>
-  <div class="wrapper">
-    {{ title }}
-    <app-report-page></app-report-page>
-  </div>
-  <router-outlet></router-outlet>
-</section>
+<ng-container>
+  <app-header [ngClass]="{'starter': showMain}"></app-header>
+<!--  <app-sidebar *ngIf="showMain" [ngClass]="{'open': isSidebarShown, 'starter': showMain}"></app-sidebar>-->
+  <app-main-menu></app-main-menu>
+  <main [ngClass]="{'starter': showMain}">
+    <router-outlet></router-outlet>
+  </main>
+</ng-container>
+
+<!--<notifier-container></notifier-container>-->
+<!--<ngx-ui-loader></ngx-ui-loader>-->

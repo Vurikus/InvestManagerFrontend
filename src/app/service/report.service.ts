@@ -14,6 +14,6 @@ export class ReportService {
   }
 
   getReports(ticker: string, reportType: ReportType): Observable<Report[]>{
-    return this.http.get<Report[]>(`${environment.url}/report/${ticker}/${reportType}`);
+    return this.http.get<Report[]>(`${environment.apiUrl}/report/${ticker}/${reportType}`);
   }
 }

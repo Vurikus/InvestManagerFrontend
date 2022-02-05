@@ -1,0 +1,9 @@
+<div class='starter-page flex'>
+  <div *ngFor='let item of data'>
+    <div class='cart' [routerLink]='item.router'>
+      <div class='content'>
+        <span class='title'>{{item.title}}</span>
+      </div>
+    </div>
+  </div>
+</div>
