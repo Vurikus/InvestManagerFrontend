@@ -3,6 +3,7 @@
 $diration: 0.1s;
 .starter-page {
   margin: 15px;
+  height: 95%;
   flex-direction: column;
   justify-content: center;
 }
@@ -31,10 +32,10 @@ $diration: 0.1s;
     }
   }
   &:hover {
-    border-color: $info;
+    border-color: $pink;
     .content {
       .title {
-        color: $info;
+        color: $pink;
       }
     }
   }

@@ -1,11 +1,3 @@
 <ng-container>
-  <app-header [ngClass]="{'starter': showMain}"></app-header>
-<!--  <app-sidebar *ngIf="showMain" [ngClass]="{'open': isSidebarShown, 'starter': showMain}"></app-sidebar>-->
-  <app-main-menu></app-main-menu>
-  <main [ngClass]="{'starter': showMain}">
-    <router-outlet></router-outlet>
-  </main>
+  <router-outlet></router-outlet>
 </ng-container>
-
-<!--<notifier-container></notifier-container>-->
-<!--<ngx-ui-loader></ngx-ui-loader>-->

@@ -11,6 +11,9 @@ import { HeaderComponent } from './header/header/header.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { ContentPageComponent } from './content/content-page/content-page.component';
 import { MainMenuComponent } from './layout/main-menu/main-menu.component';
+import { InvestmentPageComponent } from './content/investment-page/investment-page.component';
+import { StatisticPageComponent } from './content/statistic-page/statistic-page.component';
+import { MarketPageComponent } from './content/market-page/market-page.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { MainMenuComponent } from './layout/main-menu/main-menu.component';
     HeaderComponent,
     MainPageComponent,
     ContentPageComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    InvestmentPageComponent,
+    StatisticPageComponent,
+    MarketPageComponent
   ],
   imports: [
     BrowserModule,
