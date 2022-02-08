@@ -360,7 +360,7 @@ app-breadcrumbs {
   top: 10px;
   bottom: 10px;
   border-radius: 6px;
-  background-color: lighten($bg_dark, 2%);
+  background-color: $bg_middle;
   overflow: hidden;
   @include shadow();
 
@@ -798,11 +798,11 @@ app-breadcrumbs {
 		  FORM
 *************************/
 .form-control {
-  color: $text-light;
-  background-color: $bg_light;
+  display: inherit;
+  color: $text_dark;
+  background-color: $cursor_pointer_bg;
   background-clip: padding-box;
-  border: 1px solid darken($bg_middle, 2%);
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  //transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .form-control:focus {

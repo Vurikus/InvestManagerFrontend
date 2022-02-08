@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {CompanyService} from "../../service/company.service";
-import {Company} from '../../model/company';
-import {Sector} from "../../model/sector";
+import {CompanyService} from "../../../service/company.service";
+import {Company} from '../../../model/company';
+import {Sector} from "../../../model/sector";
 
 @Component({
   selector: 'app-company-page',

@@ -4,8 +4,8 @@ $bg_middle: #464445;
 $bg_dark: #282626;
 $bg_darkest: #161616;
 
-$text_dark: #8a949e;
-$text_middle: #d7d6d6;
+$text_dark: #363636;
+$text_middle: #919191;
 $text_light: #f5f6f6;
 
 $cyan: #47b6dc;
@@ -14,9 +14,14 @@ $yellow: #bfd252;
 $indigo: #271f5d;
 $pink: #d7437b;
 $orange: #f35e32;
+
+$cursor_pointer_border: $pink;
+$cursor_pointer_bg: #cccccc;
+$cursor_pointer_bg_hover: #b9b9b9;
+$cursor_pointer_bg_click: $bg_lightest;
 //STATUS COLOR
 $black: #161616;
-$white: #ebebeb;
+$white: #e7e7e7;
 $grey: #555;
 $red: #ed4224;
 $green: #19c158;

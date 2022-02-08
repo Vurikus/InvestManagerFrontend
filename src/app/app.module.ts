@@ -3,17 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ReportPageComponent } from './content/report-page/report-page.component';
+import { ReportPageComponent } from './content/report/report-page/report-page.component';
 import { ReportService } from './service/report.service';
 import {HttpClientModule} from '@angular/common/http';
-import { CompanyPageComponent } from './content/company-page/company-page.component';
+import { CompanyPageComponent } from './content/report/company-page/company-page.component';
 import { HeaderComponent } from './header/header/header.component';
 import { MainPageComponent } from './main-page/main-page.component';
-import { ContentPageComponent } from './content/content-page/content-page.component';
 import { MainMenuComponent } from './layout/main-menu/main-menu.component';
-import { InvestmentPageComponent } from './content/investment-page/investment-page.component';
-import { StatisticPageComponent } from './content/statistic-page/statistic-page.component';
-import { MarketPageComponent } from './content/market-page/market-page.component';
+import { InvestmentPageComponent } from './content/investment/investment-page/investment-page.component';
+import { StatisticPageComponent } from './content/statistic/statistic-page/statistic-page.component';
+import { MarketPageComponent } from './content/market/market-page/market-page.component';
+import { ReportHeaderComponent } from './content/report/report-header/report-header.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +22,11 @@ import { MarketPageComponent } from './content/market-page/market-page.component
     CompanyPageComponent,
     HeaderComponent,
     MainPageComponent,
-    ContentPageComponent,
     MainMenuComponent,
     InvestmentPageComponent,
     StatisticPageComponent,
-    MarketPageComponent
+    MarketPageComponent,
+    ReportHeaderComponent
   ],
   imports: [
     BrowserModule,

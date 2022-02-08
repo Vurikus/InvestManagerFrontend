@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {MainMenuComponent} from './layout/main-menu/main-menu.component';
-import {InvestmentPageComponent} from './content/investment-page/investment-page.component';
-import {StatisticPageComponent} from './content/statistic-page/statistic-page.component';
-import {ReportPageComponent} from './content/report-page/report-page.component';
-import {MarketPageComponent} from './content/market-page/market-page.component';
+import {InvestmentPageComponent} from './content/investment/investment-page/investment-page.component';
+import {StatisticPageComponent} from './content/statistic/statistic-page/statistic-page.component';
+import {ReportPageComponent} from './content/report/report-page/report-page.component';
+import {MarketPageComponent} from './content/market/market-page/market-page.component';
 
 const routes: Routes = [
   {

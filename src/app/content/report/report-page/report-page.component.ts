@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ReportService} from '../../service/report.service';
-import {Report} from '../../model/report';
-import {ReportType} from '../../model/reportType';
+import {ReportService} from '../../../service/report.service';
+import {Report} from '../../../model/report';
+import {ReportType} from '../../../model/reportType';
 
 @Component({
   selector: 'app-report-page',
