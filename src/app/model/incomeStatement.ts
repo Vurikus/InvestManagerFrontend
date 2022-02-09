@@ -1,6 +1,8 @@
 import {CurrencyInfo} from './currencyInfo';
+import {Report} from './report';
+import {ReportHeaderName} from './ReportHeaderName';
 
-export interface IncomeStatement {
+export class IncomeStatement implements Report{
   id: number;
   date: Date;
   currencyInfo: CurrencyInfo;
@@ -26,4 +28,24 @@ export interface IncomeStatement {
   // Other
   countStocks: number;
   profitPerStock: number;
+
+  getValueByHeaderName(headerName: ReportHeaderName): number | string | Date {
+    switch (headerName){
+      case ReportHeaderName.id: return this.id;
+      case ReportHeaderName.date: return this.date;
+      case ReportHeaderName.currencyInfo: return this.currencyInfo.currency;
+      case ReportHeaderName.revenue: return this.revenue;
+      case ReportHeaderName.costSales: return this.costSales;
+      default: return '';
+    }
+  }
+
+  getHeaders(): ReportHeaderName[]{
+    return [ReportHeaderName.id,
+      ReportHeaderName.date,
+      ReportHeaderName.currencyInfo,
+      ReportHeaderName.revenue,
+      ReportHeaderName.costSales
+    ];
+  }
 }

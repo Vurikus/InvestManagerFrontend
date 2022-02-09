@@ -1,4 +1,8 @@
+import {ReportHeaderName} from "./ReportHeaderName";
+
 export interface Report {
   id: number;
-  getHeaderName(): string[];
+  date: Date;
+  getValueByHeaderName(headerName: string): number | string | Date;
+  getHeaders(): ReportHeaderName[];
 }

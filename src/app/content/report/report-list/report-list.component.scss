@@ -1,0 +1,47 @@
+@import "src/assets/scss/variables";
+
+.tableFixHead {
+  @include scroll($blue);
+  max-height: 83vh;
+  table  { border-collapse: collapse; width: 100%; }
+  th {
+    position: sticky;
+    top: 0;
+    background-color: $bg_dark;
+    border-top: none;
+    border-bottom: 1px solid $bg_light;
+    &.activeSort{
+      background-color: darken($bg_dark, 2%);
+    }
+  }
+}
+.priority_column{
+  min-width: 35px;
+}
+
+.table {
+  display: table;
+  position: relative;
+  right: -100px;
+  top: 50px;
+}
+.table-row {
+  display: table-row;
+}
+.table-cell {
+  display: table-cell;
+  padding: 10px;
+  border: 1px solid black;
+  background: $bg_lightest;
+}
+.table-header-cell {
+  @extend .table-cell;
+  background: $bg_light;
+}
+.table-row:nth-child(even) {
+  background: lightblue;
+}
+.block {
+  display: block;
+  background: $bg_middle;
+}

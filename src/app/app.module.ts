@@ -14,6 +14,9 @@ import { InvestmentPageComponent } from './content/investment/investment-page/in
 import { StatisticPageComponent } from './content/statistic/statistic-page/statistic-page.component';
 import { MarketPageComponent } from './content/market/market-page/market-page.component';
 import { ReportHeaderComponent } from './content/report/report-header/report-header.component';
+import {FormsModule} from "@angular/forms";
+import { ReportListComponent } from './content/report/report-list/report-list.component';
+import { ReportGraphComponent } from './content/report/report-graph/report-graph.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +29,16 @@ import { ReportHeaderComponent } from './content/report/report-header/report-hea
     InvestmentPageComponent,
     StatisticPageComponent,
     MarketPageComponent,
-    ReportHeaderComponent
+    ReportHeaderComponent,
+    ReportListComponent,
+    ReportGraphComponent
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        FormsModule
+    ],
   providers: [ReportService],
   bootstrap: [AppComponent]
 })

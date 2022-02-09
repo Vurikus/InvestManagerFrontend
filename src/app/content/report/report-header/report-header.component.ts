@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {CompanyService} from "../../../service/company.service";
+import {Company} from "../../../model/company";
 
 @Component({
   selector: 'app-report-header',
@@ -8,10 +10,18 @@ import { Component, OnInit } from '@angular/core';
 export class ReportHeaderComponent implements OnInit {
 
   searchPanelOn: boolean;
+  inputSearch: string;
+  companies: Company[];
 
-  constructor() { }
+  constructor(private companyService: CompanyService) { }
 
   ngOnInit(): void {
     this.searchPanelOn = true;
+  }
+
+  sendSearch(): void {
+    this.companyService.getCompaniesBySearch(this.inputSearch).subscribe(res => {
+      this.companies = res;
+    });
   }
 }

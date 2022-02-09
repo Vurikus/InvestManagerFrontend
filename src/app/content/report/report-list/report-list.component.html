@@ -1,0 +1,78 @@
+<div class="block">
+  <div class="table">
+    <div class="table-header-cell"></div>
+    <div class="table-header-cell" *ngFor="let report of reportList">
+      {{report.date | date:'MM.yy' }}
+    </div>
+    <div class="table-row" *ngFor="let h of headerName">
+      <div class="table-header-cell">{{h}}</div>
+      <div class="table-cell" *ngFor="let i of reportList; let l = index">
+        <div >{{reportList[l].getValueByHeaderName(h)}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<div class="report_list">-->
+<!--  <div class="table-responsive tableFixHead">-->
+<!--    <table class="table table-striped">-->
+<!--      <thead>-->
+<!--        <tr>-->
+<!--          <th scope="col" class="priority_column">-->
+<!--            Пр.-->
+<!--          </th>-->
+<!--          <th scope="col">-->
+<!--            Тип-->
+<!--          </th>-->
+<!--          <th scope="col">-->
+<!--            Дата заявки-->
+<!--          </th>-->
+<!--          <th scope="col">-->
+<!--            AQ-->
+<!--          </th>-->
+<!--        </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--        <tr *ngFor="let report of reportList">-->
+<!--          <td>-->
+<!--            <div *ngIf="report.id">-->
+<!--                    <span [ngSwitch]="report.id">-->
+<!--                        <span *ngSwitchCase="1" class="badge badge-danger" tooltip="Приоритет: {{report.id}}">-->
+<!--                          4!-->
+<!--                        </span>-->
+<!--                        <span *ngSwitchCase="2" class="badge badge-danger" tooltip="Приоритет: {{report.id}}">-->
+<!--                          3-->
+<!--                        </span>-->
+<!--                        <span *ngSwitchCase="3" class="badge badge-warning" tooltip="Приоритет: {{report.id}}">-->
+<!--                          2-->
+<!--                        </span>-->
+<!--                        <span *ngSwitchCase="4" class="badge badge-secondary" tooltip="Приоритет: {{report.id}}">-->
+<!--                          1-->
+<!--                        </span>-->
+<!--                    </span>-->
+<!--            </div>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--                  <span [ngSwitch]="report.id" tooltip="{{report.id}}">-->
+<!--                    <span *ngSwitchCase="1" class="badge badge-pill  badge-warning">-->
+<!--                      Частично-->
+<!--                    </span>-->
+<!--                    <span *ngSwitchCase="2" class="badge badge-pill  badge-danger">-->
+<!--                      Простой-->
+<!--                    </span>-->
+<!--                    <span *ngSwitchCase="3" class="badge badge-pill  badge-primary">-->
+<!--                      Без простоя-->
+<!--                    </span>-->
+<!--                  </span>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--                  <span *ngIf="report.id">-->
+<!--                    <a [routerLink]="[ '/monitoring/unit', report.id ]" tooltip="{{report.id}}">{{ report.id }}</a>-->
+<!--                  </span>-->
+<!--          </td>-->
+<!--          <td>{{report.date | date:'dd.MM.yy H:mm' }}</td>-->
+<!--        </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+<!--</div>-->
