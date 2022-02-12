@@ -1,5 +1,5 @@
 export enum ReportHeaderName {
-  id = 'Ид.номер',
+  id = 'ID',
   date = 'Дата',
   currencyInfo = 'Валюта',
 // CrossProfit

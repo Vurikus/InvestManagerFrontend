@@ -100,7 +100,7 @@ hr {
 }
 
 .text-light {
-  color: $text_light;
+  color: $text_lightest;
 }
 
 app-breadcrumbs {
@@ -136,7 +136,7 @@ app-breadcrumbs {
 }
 
 .text_light {
-  color: $text_light;
+  color: $text_lightest;
 }
 
 .text_middle {
@@ -315,7 +315,7 @@ app-breadcrumbs {
   height: 18px;
   line-height: 18px;
   font-size: 12px;
-  color: $text_light;
+  color: $text_lightest;
   &.idle,
   &.alarm {
     background-color: $yellow;
@@ -340,7 +340,7 @@ app-breadcrumbs {
   max-height: 250px;
   padding: 5px;
   @include scroll($blue);
-  color: $text-light;
+  color: $text_lightest;
   background-color: $bg_light;
   background-clip: padding-box;
   border: 1px solid darken($bg_middle, 2%);
@@ -503,7 +503,7 @@ app-breadcrumbs {
     padding: 7px 0px 7px 0px;
     width: 100%;
     border-radius: 5px 5px 0 0;
-    color: $text_light;
+    color: $text_lightest;
     font-size: 12px;
     text-transform: uppercase;
     height: 34px;
@@ -531,7 +531,7 @@ app-breadcrumbs {
     background-color: $bg_middle;
     border-radius: 0 0 5px 5px;
     overflow-y: scroll;
-    color: $text_light;
+    color: $text_lightest;
     .table_header {
       margin: 0;
       padding-bottom: 7px;
@@ -682,7 +682,7 @@ app-breadcrumbs {
   }
 
   .ngx-select__toggle.btn.form-control {
-    color: $text_light;
+    color: $text_lightest;
     background-color: $bg_light;
     border-color: $bg_light;
     display: inline-flex;
@@ -697,7 +697,7 @@ app-breadcrumbs {
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
     a {
-      color: $text_light;
+      color: $text_lightest;
     }
   }
   .ngx-select__disabled {
@@ -734,7 +734,7 @@ app-breadcrumbs {
 
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: $text_light;
+  color: $text_lightest;
   background-color: $bg_dark;
   border-color: $bg_dark;
 }
@@ -806,7 +806,7 @@ app-breadcrumbs {
 }
 
 .form-control:focus {
-  color: $text-light;
+  color: $text_lightest;
   background-color: $bg_lightest;
   outline: 0;
   border-color: rgba(36, 41, 44, 0.5);
@@ -843,7 +843,7 @@ select.form-control[multiple] {
   line-height: 1.5;
   content: 'Browse';
   background-color: $bg_middle;
-  color: $text_light;
+  color: $text_lightest;
   border-left: inherit;
   border-radius: 0 0.25rem 0.25rem 0;
 }
@@ -953,7 +953,7 @@ form {
 .popover {
   background-color: $bg_middle;
   a {
-    color: $text_light;
+    color: $text_lightest;
     white-space: nowrap;
   }
 }
@@ -1165,19 +1165,19 @@ form {
 }
 
 .btn-primary {
-  color: $text_light;
+  color: $text_lightest;
   background-color: $blue;
   border-color: $blue;
 }
 
 .btn-success {
-  color: $text_light;
+  color: $text_lightest;
   background-color: $green;
   border-color: $green;
 }
 
 .btn-danger {
-  color: $text_light;
+  color: $text_lightest;
   background-color: $red;
   border-color: $red;
 }
@@ -1189,11 +1189,11 @@ form {
 
 .btn-link {
   font-weight: 400;
-  color: $text_light;
+  color: $text_lightest;
 }
 
 .btn-link:hover {
-  color: darken($text_light, 25%);
+  color: darken($text_lightest, 25%);
   text-decoration: underline;
 }
 
@@ -1289,9 +1289,9 @@ bs-datepicker-container {
 
   td span.selected,
   td.selected span {
-    color: $text_light;
+    color: $text_lightest;
     border: 1px solid;
-    border-color: $text_light;
+    border-color: $text_lightest;
   }
 
   .interval {
@@ -1390,7 +1390,7 @@ timepicker {
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1;
-  color: $text_light;
+  color: $text_lightest;
   text-shadow: 0 1px 0 #000000;
   opacity: 0.7;
 }
@@ -1601,7 +1601,7 @@ $notifier-warning-icon-color: $bg_dark !default;
       display: inline-block;
       color: $text-dark;
       &:last-child a {
-        color: $text-light;
+        color: $text_lightest;
       }
       &:last-child a.enterprise {
         color: $text-dark;
@@ -1610,12 +1610,12 @@ $notifier-warning-icon-color: $bg_dark !default;
         color: $text-dark;
       }
       a:hover {
-        color: $text-light;
+        color: $text_lightest;
       }
     }
   }
   li.current {
-    color: $text-light;
+    color: $text_lightest;
   }
   li:before {
     content: '/\A0';
@@ -1772,24 +1772,19 @@ g {
 *************************************/
 
 .table {
+
   thead {
     margin: 0;
     padding-bottom: 7px;
     align-items: center;
-    color: $text_dark;
-    background-color: $bg_dark;
-    border-top: none;
-    border-bottom: 1px solid $bg_light;
+    color: $text_lightest;
     th {
       font-weight: 400;
-      border-top: 1px solid $bg_light;
-      border-bottom: 1px solid $bg_light;
+      background-color: $bg_darkest;
       overflow: hidden;
       padding: 8px;
       &.activeSort {
-        color: #fff;
         position: relative;
-        background-color: darken($bg_dark, 2%);
         padding-right: 20px;
         &:after {
           content: '\021C5';
@@ -1810,28 +1805,42 @@ g {
     }
   }
 
-  td {
-    color: $text_middle;
-    border-top: 1px solid $bg_light;
-
-    &.primary {
-      color: $blue;
+  tbody{
+    background-color: $bg_lightest;
+    color: $text_dark;
+    tr:hover {
+      color: $text_dark;
+      background-color: $bg_light;
     }
+    td {
+      padding: 4px 8px 4px 8px;
+      border-top: 1px solid $bg_light;
+      min-width: 100px;
 
-    &.danger {
-      color: $red;
-    }
+      &.title-column {
+        color: $text_light;
+        background-color: $bg_dark;
+      }
 
-    &.warning {
-      color: $yellow;
-    }
+      &.primary {
+        color: $blue;
+      }
 
-    &.info {
-      color: $info;
-    }
+      &.danger {
+        color: $red;
+      }
 
-    &.success {
-      color: $green;
+      &.warning {
+        color: $yellow;
+      }
+
+      &.info {
+        color: $info;
+      }
+
+      &.success {
+        color: $green;
+      }
     }
   }
 }
@@ -1848,7 +1857,7 @@ g {
 }
 
 .tableFixHead {
-  @include scroll($blue);
+  @include scroll($pink);
   table {
     border-collapse: collapse;
     width: 100%;
@@ -1856,62 +1865,59 @@ g {
   th {
     position: sticky;
     top: 0;
-    background-color: $bg_dark;
-    border-top: none;
-    border-bottom: 1px solid $bg_light;
     &.activeSort {
       background-color: darken($bg_dark, 2%);
     }
   }
 }
 
-.table-header {
-  margin: 0;
-  align-items: center;
-  color: $text_dark;
-  background-color: $bg_dark;
-  border-top: none;
-  border-bottom: 1px solid $bg_light;
-  .row {
-    padding: 5px;
-    margin-right: 0px;
-    margin-left: 0px;
-  }
-  .td {
-    font-weight: 400;
-  }
-}
+//.table-header {
+//  margin: 0;
+//  align-items: center;
+//  color: $text_dark;
+//  background-color: $bg_dark;
+//  border-top: none;
+//  border-bottom: 1px solid $bg_light;
+//  .row {
+//    padding: 5px;
+//    margin-right: 0px;
+//    margin-left: 0px;
+//  }
+//  .td {
+//    font-weight: 400;
+//  }
+//}
 
-.table-body {
-  margin: 0;
-  padding-bottom: 7px;
-  align-items: center;
-  color: $text_middle;
-  border-top: none;
-  .row {
-    padding: 5px;
-    margin-right: 0px;
-    margin-left: 0px;
-    border-bottom: 1px solid $bg_light;
-    .small {
-      color: $text_dark;
-    }
-  }
-}
+//.table-body {
+//  margin: 0;
+//  padding-bottom: 7px;
+//  align-items: center;
+//  color: $text_middle;
+//  border-top: none;
+//  .row {
+//    padding: 5px;
+//    margin-right: 0px;
+//    margin-left: 0px;
+//    border-bottom: 1px solid $bg_light;
+//    .small {
+//      color: $text_dark;
+//    }
+//  }
+//}
 
-.table-body.table-striped > .row:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-@media screen and (max-width: 768px) {
-  .table-responsive {
-    border: 1px solid $bg_lightest;
-  }
-
-  .table-body.table-striped > .row:nth-of-type(odd) {
-    background-color: rgba(0, 0, 0, 0.15);
-  }
-}
+//.table-body.table-striped > .row:nth-of-type(odd) {
+//  background-color: rgba(0, 0, 0, 0.05);
+//}
+//
+//@media screen and (max-width: 768px) {
+//  .table-responsive {
+//    border: 1px solid $bg_lightest;
+//  }
+//
+//  .table-body.table-striped > .row:nth-of-type(odd) {
+//    background-color: rgba(0, 0, 0, 0.15);
+//  }
+//}
 
 .nowrap {
   white-space: nowrap;
@@ -2044,7 +2050,7 @@ g {
 }
 
 .page-item.disabled .page-link {
-  color: $text_light;
+  color: $text_lightest;
   pointer-events: none;
   cursor: auto;
   background-color: transparent;

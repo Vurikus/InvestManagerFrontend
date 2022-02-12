@@ -1,12 +1,13 @@
-$bg_lightest: #7e7c7d;
-$bg_light: #646162;
+$bg_lightest: #a2a29c;
+$bg_light: #7c7c78;
 $bg_middle: #464445;
 $bg_dark: #282626;
 $bg_darkest: #161616;
 
 $text_dark: #363636;
 $text_middle: #919191;
-$text_light: #f5f6f6;
+$text_light: #c5c5c5;
+$text_lightest: #f5f6f6;
 
 $cyan: #47b6dc;
 $green: #00a658;
@@ -49,7 +50,7 @@ $purple: #79377c;
 
   &::-webkit-scrollbar {
     background-color: inherit;
-    width: 5px;
+    width: 7px;
     height: 3px;
     border-radius: 10px;
   }

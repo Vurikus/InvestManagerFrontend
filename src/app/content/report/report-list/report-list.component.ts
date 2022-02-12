@@ -1,8 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Report} from '../../../model/report';
 import {IncomeStatement} from '../../../model/incomeStatement';
-import {ReportHeaderName} from "../../../model/ReportHeaderName";
-import {Abbreviation, Currency} from "../../../model/currencyInfo";
+import {ReportHeaderName} from '../../../model/reportHeaderName';
+import {Abbreviation, Currency, CurrencyInfo} from '../../../model/currencyInfo';
+import {FormControl, FormGroup} from '@angular/forms';
+import {ReportType} from '../../../model/reportType';
+import {EnumUtil} from '../../../util/EnumUtil';
+import {BalanceSheet} from "../../../model/balanceSheet";
 
 @Component({
   selector: 'app-report-list',
@@ -13,6 +17,10 @@ export class ReportListComponent implements OnInit {
 
   reportList: Array<Report> = [];
   headerName: ReportHeaderName[];
+  reportForm: FormGroup;
+  currentReportType: ReportType;
+  currentCurrency: CurrencyInfo = {currency: Currency.RUR, abbreviation: Abbreviation.MLN};
+  newReport: Report;
 
   constructor() {
   }
@@ -28,5 +36,27 @@ export class ReportListComponent implements OnInit {
       this.reportList.push(is);
     }
     this.headerName = this.reportList[0].getHeaders();
+    this.createFormGroup(ReportType.INCOME_STATEMENT);
+  }
+
+  createFormGroup(type: ReportType): void {
+    let headers: ReportHeaderName[];
+    if (type === ReportType.BALANCE_SHEET) {
+      headers = BalanceSheet.getHeadersStatic();
+    } else if (type === ReportType.INCOME_STATEMENT) {
+      headers = IncomeStatement.getHeadersStatic();
+    } else {
+      throw new Error(`Illegal report type: ${type}`);
+    }
+    const group = {};
+    headers.forEach(rhn => {
+      group[rhn] = new FormControl('');
+    });
+    this.reportForm = new FormGroup(group);
+    console.log(this.reportForm);
+  }
+
+  saveReport() {
+
   }
 }
