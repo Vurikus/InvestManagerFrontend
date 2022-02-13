@@ -1,34 +1,11 @@
+@import 'src/assets/scss/variables.scss';
+
 .tableFixHead {
   margin: 10px;
   width: 50%;
   border-radius: 6px;
 }
-//
-//.table {
-//  display: table;
-//  margin: 10px;
-//  //@include scroll($blue);
-//  border-collapse: collapse;
-//  width: 50%;
-//  overflow: auto;
-//}
-//.table-row {
-//  display: table-row;
-//  overflow: auto;
-//}
-//.table-cell {
-//  display: table-cell;
-//  padding: 10px;
-//  border: 1px solid black;
-//  background: $bg_lightest;
-//  overflow: auto;
-//}
-//.table-header-cell {
-//  @extend .table-cell;
-//  background: $bg_light;
-//  overflow: auto;
-//}
-//
-//.table-row:hover .table-cell {
-//  background-color: $cursor_pointer_bg;
-//}
+
+.total {
+  background-color: $black;
+}

@@ -5,8 +5,7 @@ import {ReportHeaderName} from '../../../model/reportHeaderName';
 import {Abbreviation, Currency, CurrencyInfo} from '../../../model/currencyInfo';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ReportType} from '../../../model/reportType';
-import {EnumUtil} from '../../../util/EnumUtil';
-import {BalanceSheet} from "../../../model/balanceSheet";
+import {BalanceSheet} from '../../../model/balanceSheet';
 
 @Component({
   selector: 'app-report-list',
@@ -20,7 +19,12 @@ export class ReportListComponent implements OnInit {
   reportForm: FormGroup;
   currentReportType: ReportType;
   currentCurrency: CurrencyInfo = {currency: Currency.RUR, abbreviation: Abbreviation.MLN};
-  newReport: Report;
+  currentReport: Report;
+  totalHeaderRow: Array<ReportHeaderName> = [
+    ReportHeaderName.crossProfit,
+    ReportHeaderName.netProfit,
+    ReportHeaderName.operatingProfit,
+  ];
 
   constructor() {
   }
@@ -35,8 +39,9 @@ export class ReportListComponent implements OnInit {
       is.costSales = 780 + i * 90;
       this.reportList.push(is);
     }
+    this.currentReportType = ReportType.INCOME_STATEMENT;
     this.headerName = this.reportList[0].getHeaders();
-    this.createFormGroup(ReportType.INCOME_STATEMENT);
+    this.createFormGroup(this.currentReportType);
   }
 
   createFormGroup(type: ReportType): void {
@@ -56,7 +61,8 @@ export class ReportListComponent implements OnInit {
     console.log(this.reportForm);
   }
 
-  saveReport() {
-
+  isTotalRow(header: ReportHeaderName): boolean {
+    return this.totalHeaderRow.includes(header);
   }
 }
+

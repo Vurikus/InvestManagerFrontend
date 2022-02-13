@@ -2,7 +2,7 @@ import {CurrencyInfo} from './currencyInfo';
 import {Report} from './report';
 import {ReportHeaderName} from './reportHeaderName';
 
-export class BalanceSheet implements Report{
+export class BalanceSheet extends Report{
   id: number;
   date: Date;
   currencyInfo: CurrencyInfo;
@@ -34,5 +34,8 @@ export class BalanceSheet implements Report{
 
   getHeaders(): ReportHeaderName[]{
     return BalanceSheet.getHeadersStatic();
+  }
+
+  setCurrency(value: CurrencyInfo): void {
   }
 }

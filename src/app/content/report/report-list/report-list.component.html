@@ -1,32 +1,21 @@
-<form [formGroup]="reportForm" (ngSubmit)="saveReport()">
-  <div class="tableFixHead">
-    <table class="table">
-      <thead>
-      <tr>
-        <th></th>
-        <th *ngFor="let report of reportList">
-          {{report.date | date:'MM.yy' }}
-        </th>
-        <th>
-          <input type="date" [required]="true" formControlName="Дата"/>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let h of headerName">
-        <td class="title-column">{{h}}</td>
-        <td *ngFor="let i of reportList; let l = index">
-          <span>{{reportList[l].getValueByHeaderName(h)}}</span>
-        </td>
-        <td>
-          <input type=number [formControlName]="h"/>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <button class="btn btn-default" [disabled]="reportForm.invalid">
-    Сохранить
-  </button>
-</form>
+<div class="tableFixHead">
+  <table class="table">
+    <thead>
+    <tr>
+      <th></th>
+      <th *ngFor="let report of reportList">
+        {{report.date | date:'MM.yy' }}
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let h of headerName">
+      <td class="title-column">{{h}}</td>
+      <td [class.title-column]="isTotalRow(h)" *ngFor="let report of reportList; let l = index">
+        <span>{{reportList[l].getValueByHeaderName(h)}}</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 

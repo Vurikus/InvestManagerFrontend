@@ -1,9 +1,20 @@
 import {ReportHeaderName} from './reportHeaderName';
+import {CurrencyInfo} from './currencyInfo';
 
-export interface Report {
+export abstract class Report {
   id: number;
   date: Date;
-  getValueByHeaderName(headerName: string): number | string | Date;
-  getHeaders(): ReportHeaderName[];
-  setValueByHeaderName(headerName: string, value: any): void;
+  currencyInfo: CurrencyInfo;
+  abstract getValueByHeaderName(headerName: string): number | string | Date;
+  abstract getHeaders(): ReportHeaderName[];
+  abstract setValueByHeaderName(headerName: string, value: any): void;
+  abstract setCurrency(value: CurrencyInfo): void;
+
+  public convertMoneyValueToDisplayString(value: number): string {
+    if (value === undefined) {
+      return '-';
+    }
+    return value >= 0 ? `${value} ${this.currencyInfo.abbreviation} ${this.currencyInfo.currency}` :
+      `(${value}) ${this.currencyInfo.abbreviation} ${this.currencyInfo.currency}`;
+  }
 }
