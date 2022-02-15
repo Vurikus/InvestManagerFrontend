@@ -1,4 +1,5 @@
 export enum ReportType {
+  BALANCE_SHEET = 'balance-sheet',
   INCOME_STATEMENT = 'income-statement',
-  BALANCE_SHEET = 'balance-sheet'
+  CASH_FLOW_STATEMENT = 'cash-flow-statement',
 }

@@ -6,6 +6,8 @@ import {Abbreviation, Currency, CurrencyInfo} from '../../../model/currencyInfo'
 import {FormControl, FormGroup} from '@angular/forms';
 import {ReportType} from '../../../model/reportType';
 import {BalanceSheet} from '../../../model/balanceSheet';
+import {ReportService} from '../../../service/report.service';
+import {Company} from '../../../model/company';
 
 @Component({
   selector: 'app-report-list',
@@ -18,15 +20,21 @@ export class ReportListComponent implements OnInit {
   headerName: ReportHeaderName[];
   reportForm: FormGroup;
   currentReportType: ReportType;
-  currentCurrency: CurrencyInfo = {currency: Currency.RUR, abbreviation: Abbreviation.MLN};
-  currentReport: Report;
+  currentCurrency: CurrencyInfo;
+  companies: Array<Company> = [];
   totalHeaderRow: Array<ReportHeaderName> = [
     ReportHeaderName.crossProfit,
     ReportHeaderName.netProfit,
     ReportHeaderName.operatingProfit,
   ];
 
-  constructor() {
+  private reportTypes = Object.values(ReportType);
+  reportTypes2: ReportType[];
+
+  constructor(private reportService: ReportService) {
+    this.currentReportType = ReportType.BALANCE_SHEET;
+    this.currentCurrency = {currency: Currency.RUR, abbreviation: Abbreviation.MLN};
+    this.reportTypes2 = Object.values(ReportType);
   }
 
   ngOnInit(): void {
@@ -59,6 +67,20 @@ export class ReportListComponent implements OnInit {
     });
     this.reportForm = new FormGroup(group);
     console.log(this.reportForm);
+  }
+
+  loadReport(): void {
+    const tickers: string[] = this.companies.map(c => {
+      return c.ticker;
+    });
+    this.reportService.getReports(tickers, this.currentReportType).subscribe((reports) => {
+      this.reportList = reports;
+    });
+  }
+
+  changeReportType(type: ReportType): void {
+    this.currentReportType = type;
+    this.loadReport();
   }
 
   isTotalRow(header: ReportHeaderName): boolean {

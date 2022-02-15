@@ -1,3 +1,18 @@
+<div>
+  <div>Конфигурация
+    <div>Отчетность:
+      <ng-container *ngFor="let type of reportTypes2">
+        <ng-container [ngSwitch]="type">
+          <input type="radio" [(ngModel)]="currentReportType" (click)="changeReportType(type)" [checked]="currentReportType == type" [value]="type"/>
+          <label *ngSwitchCase="'balance-sheet'">Балансовый отчет</label>
+          <label *ngSwitchCase="'income-statement'">Отчёт о финансовых результатах</label>
+          <label *ngSwitchCase="'cash-flow-statement'">Отчёт о движении денежных средств</label>
+          <br>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
 <div class="tableFixHead">
   <table class="table">
     <thead>

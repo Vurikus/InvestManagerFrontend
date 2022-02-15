@@ -13,7 +13,8 @@ export class ReportService {
   constructor(private http: HttpClient) {
   }
 
-  getReports(ticker: string, reportType: ReportType): Observable<Report[]>{
-    return this.http.get<Report[]>(`${environment.apiUrl}/report/${ticker}/${reportType}`);
+  getReports(tickers: string[], reportType: ReportType): Observable<Report[]> {
+    const parameters = {ticker: tickers};
+    return this.http.get<Report[]>(`${environment.apiUrl}/report/${reportType}`, {params: parameters});
   }
 }
