@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Report} from '../../../model/report';
 import {IncomeStatement} from '../../../model/incomeStatement';
 import {ReportHeaderName} from '../../../model/reportHeaderName';
@@ -14,7 +14,7 @@ import {Company} from '../../../model/company';
   templateUrl: './report-list.component.html',
   styleUrls: ['./report-list.component.scss']
 })
-export class ReportListComponent implements OnInit {
+export class ReportListComponent implements OnInit, OnChanges {
 
   reportList: Array<Report> = [];
   headerName: ReportHeaderName[];
@@ -28,28 +28,36 @@ export class ReportListComponent implements OnInit {
     ReportHeaderName.operatingProfit,
   ];
 
-  private reportTypes = Object.values(ReportType);
-  reportTypes2: ReportType[];
-
   constructor(private reportService: ReportService) {
     this.currentReportType = ReportType.BALANCE_SHEET;
     this.currentCurrency = {currency: Currency.RUR, abbreviation: Abbreviation.MLN};
-    this.reportTypes2 = Object.values(ReportType);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.currentReportType === ReportType.INCOME_STATEMENT) {
+      for (let i = 0; i < 3; i++) {
+        const is = new IncomeStatement();
+        is.id = i;
+        is.date = new Date(2134781985 + i * 10000000000);
+        is.revenue = 890 + i * 100;
+        is.currencyInfo = {currency: Currency.RUR, abbreviation: Abbreviation.TS};
+        is.costSales = 780 + i * 90;
+        this.reportList.push(is);
+      }
+    } else {
+      for (let i = 0; i < 3; i++) {
+        const is = new BalanceSheet();
+        is.id = i;
+        is.date = new Date(2134781985 + i * 10000000000);
+        is.currencyInfo = {currency: Currency.RUR, abbreviation: Abbreviation.TS};
+        this.reportList.push(is);
+      }
+    }
+    // this.headerName = this.reportList[0].getHeaders();
   }
 
   ngOnInit(): void {
-    for (let i = 0; i < 3; i++) {
-      const is = new IncomeStatement();
-      is.id = i;
-      is.date = new Date(2134781985 + i * 10000000000);
-      is.revenue = 890 + i * 100;
-      is.currencyInfo = {currency: Currency.RUR, abbreviation: Abbreviation.TS};
-      is.costSales = 780 + i * 90;
-      this.reportList.push(is);
-    }
-    this.currentReportType = ReportType.INCOME_STATEMENT;
-    this.headerName = this.reportList[0].getHeaders();
-    this.createFormGroup(this.currentReportType);
+    this.loadReport();
   }
 
   createFormGroup(type: ReportType): void {
@@ -75,12 +83,41 @@ export class ReportListComponent implements OnInit {
     });
     this.reportService.getReports(tickers, this.currentReportType).subscribe((reports) => {
       this.reportList = reports;
+      this.headerName = reports[0].getHeaders();
     });
+    const reports = [];
+    if (this.currentReportType === ReportType.INCOME_STATEMENT) {
+      for (let i = 0; i < 3; i++) {
+        const is = new IncomeStatement();
+        is.id = i;
+        is.date = new Date(2134781985 + i * 10000000000);
+        is.revenue = 890 + i * 100;
+        is.currencyInfo = {currency: Currency.RUR, abbreviation: Abbreviation.TS};
+        is.costSales = 780 + i * 90;
+        reports.push(is);
+      }
+    } else {
+      for (let i = 0; i < 3; i++) {
+        const is = new BalanceSheet();
+        is.id = i;
+        is.date = new Date(2134781985 + i * 10000000000);
+        is.currencyInfo = {currency: Currency.RUR, abbreviation: Abbreviation.TS};
+        reports.push(is);
+      }
+    }
+    this.reportList = reports;
+    this.headerName = reports[0].getHeaders();
   }
 
-  changeReportType(type: ReportType): void {
-    this.currentReportType = type;
+  changeReportType(type: string): void {
+    this.currentReportType = type as ReportType;
+    console.log(this.currentReportType);
     this.loadReport();
+  }
+
+  recalculate(): void {
+    this.reportList = this.reportService.calcReportsAfterChangeCurrency(this.reportList, this.currentCurrency);
+    console.log(this.reportList);
   }
 
   isTotalRow(header: ReportHeaderName): boolean {

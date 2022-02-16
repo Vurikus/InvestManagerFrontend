@@ -1,15 +1,33 @@
 <div>
   <div>Конфигурация
     <div>Отчетность:
-      <ng-container *ngFor="let type of reportTypes2">
-        <ng-container [ngSwitch]="type">
-          <input type="radio" [(ngModel)]="currentReportType" (click)="changeReportType(type)" [checked]="currentReportType == type" [value]="type"/>
-          <label *ngSwitchCase="'balance-sheet'">Балансовый отчет</label>
-          <label *ngSwitchCase="'income-statement'">Отчёт о финансовых результатах</label>
-          <label *ngSwitchCase="'cash-flow-statement'">Отчёт о движении денежных средств</label>
-          <br>
-        </ng-container>
-      </ng-container>
+      <label class="radio_container">Балансовый отчет
+        <input type="radio" [(ngModel)]="currentReportType" (change)="changeReportType('balance-sheet')"
+               [checked]="currentReportType == 'balance-sheet'" value="balance-sheet"/>
+        <span class="checkmark"></span>
+      </label><br>
+      <label class="radio_container">Отчёт о финансовых результатах
+        <input type="radio" [(ngModel)]="currentReportType" (change)="changeReportType('income-statement')"
+               [checked]="currentReportType == 'income-statement'" [value]="'income-statement'"/>
+        <span class="checkmark"></span>
+      </label><br>
+      <label class="radio_container">Отчёт о движении денежных средств
+        <input type="radio" [(ngModel)]="currentReportType" (change)="changeReportType('cash-flow-statement')"
+               [checked]="currentReportType == 'cash-flow-statement'" [value]="'cash-flow-statement'"/>
+        <span class="checkmark"></span>
+      </label><br>
+    </div>
+    <div>Валюта
+      <label class="radio_container">RUB
+        <input name="currency" type="radio" [(ngModel)]="currentCurrency.currency" (change)="recalculate()"
+               [checked]="currentCurrency.currency == 'руб.'" value="руб."/>
+        <span class="checkmark"></span>
+      </label><br>
+      <label class="radio_container">USD
+        <input name="currency" type="radio" [(ngModel)]="currentCurrency.currency" (change)="recalculate()"
+               [checked]="currentCurrency.currency == 'дол.'" value="дол."/>
+        <span class="checkmark"></span>
+      </label><br>
     </div>
   </div>
 </div>
