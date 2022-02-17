@@ -8,7 +8,7 @@ export abstract class Report {
   abstract getValueByHeaderName(headerName: string): number | string | Date;
   abstract getHeaders(): ReportHeaderName[];
   abstract setValueByHeaderName(headerName: string, value: any): void;
-  abstract setCurrency(value: CurrencyInfo): void;
+  abstract setCurrency(value: CurrencyInfo, factor: number): void;
 
   public convertMoneyValueToDisplayString(value: number): string {
     if (value === undefined) {
@@ -17,4 +17,6 @@ export abstract class Report {
     return value >= 0 ? `${value} ${this.currencyInfo.abbreviation} ${this.currencyInfo.currency}` :
       `(${value}) ${this.currencyInfo.abbreviation} ${this.currencyInfo.currency}`;
   }
+
+
 }

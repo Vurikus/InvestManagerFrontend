@@ -1,9 +1,15 @@
 export interface CurrencyInfo {
-  currency: Currency;
+  currency: CurrencyCode;
   abbreviation: Abbreviation;
 }
 
-export enum Currency {
+export interface Currency {
+  name: string;
+  code: string;
+  value: number;
+}
+
+export enum CurrencyCode {
   RUR = 'руб.',
   USD = 'дол.',
   EUR = 'евро'

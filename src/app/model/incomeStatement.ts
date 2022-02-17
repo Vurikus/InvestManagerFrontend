@@ -93,6 +93,9 @@ export class IncomeStatement extends Report{
     return IncomeStatement.getHeadersStatic();
   }
 
-  setCurrency(value: CurrencyInfo): void {
+  setCurrency(value: CurrencyInfo, factor: number): void {
+    // this.currencyInfo = value;
+    // const factor = currencyFactor(value);
+    // const
   }
 }

@@ -2,7 +2,7 @@ import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Report} from '../../../model/report';
 import {IncomeStatement} from '../../../model/incomeStatement';
 import {ReportHeaderName} from '../../../model/reportHeaderName';
-import {Abbreviation, Currency, CurrencyInfo} from '../../../model/currencyInfo';
+import {Abbreviation, CurrencyCode, CurrencyInfo} from '../../../model/currencyInfo';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ReportType} from '../../../model/reportType';
 import {BalanceSheet} from '../../../model/balanceSheet';
@@ -30,7 +30,7 @@ export class ReportListComponent implements OnInit, OnChanges {
 
   constructor(private reportService: ReportService) {
     this.currentReportType = ReportType.BALANCE_SHEET;
-    this.currentCurrency = {currency: Currency.RUR, abbreviation: Abbreviation.MLN};
+    this.currentCurrency = {currency: CurrencyCode.RUR, abbreviation: Abbreviation.MLN};
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -40,7 +40,7 @@ export class ReportListComponent implements OnInit, OnChanges {
         is.id = i;
         is.date = new Date(2134781985 + i * 10000000000);
         is.revenue = 890 + i * 100;
-        is.currencyInfo = {currency: Currency.RUR, abbreviation: Abbreviation.TS};
+        is.currencyInfo = {currency: CurrencyCode.RUR, abbreviation: Abbreviation.TS};
         is.costSales = 780 + i * 90;
         this.reportList.push(is);
       }
@@ -49,7 +49,7 @@ export class ReportListComponent implements OnInit, OnChanges {
         const is = new BalanceSheet();
         is.id = i;
         is.date = new Date(2134781985 + i * 10000000000);
-        is.currencyInfo = {currency: Currency.RUR, abbreviation: Abbreviation.TS};
+        is.currencyInfo = {currency: CurrencyCode.RUR, abbreviation: Abbreviation.TS};
         this.reportList.push(is);
       }
     }
@@ -92,7 +92,7 @@ export class ReportListComponent implements OnInit, OnChanges {
         is.id = i;
         is.date = new Date(2134781985 + i * 10000000000);
         is.revenue = 890 + i * 100;
-        is.currencyInfo = {currency: Currency.RUR, abbreviation: Abbreviation.TS};
+        is.currencyInfo = {currency: CurrencyCode.RUR, abbreviation: Abbreviation.TS};
         is.costSales = 780 + i * 90;
         reports.push(is);
       }
@@ -101,7 +101,7 @@ export class ReportListComponent implements OnInit, OnChanges {
         const is = new BalanceSheet();
         is.id = i;
         is.date = new Date(2134781985 + i * 10000000000);
-        is.currencyInfo = {currency: Currency.RUR, abbreviation: Abbreviation.TS};
+        is.currencyInfo = {currency: CurrencyCode.RUR, abbreviation: Abbreviation.TS};
         reports.push(is);
       }
     }
