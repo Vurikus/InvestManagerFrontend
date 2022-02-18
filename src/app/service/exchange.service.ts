@@ -11,7 +11,7 @@ export class ExchangeService {
 
   constructor(private http: HttpClient) {
     this.loadCurrencies();
-    this.currencies.push({name: 'Рубль', code: 'RUB', value: 1});
+    this.currencies.push({name: 'Рубль', code: 'RUR', value: 1});
   }
 
   public getCurrencyByCode(code: CurrencyCode): Currency {

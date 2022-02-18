@@ -18,7 +18,7 @@
       </label><br>
     </div>
     <div>Валюта
-      <label class="radio_container">RUB
+      <label class="radio_container">RUR
         <input name="currency" type="radio" [(ngModel)]="currentCurrency.currency" (change)="recalculate()"
                [checked]="currentCurrency.currency == 'руб.'" value="руб."/>
         <span class="checkmark"></span>
@@ -26,6 +26,33 @@
       <label class="radio_container">USD
         <input name="currency" type="radio" [(ngModel)]="currentCurrency.currency" (change)="recalculate()"
                [checked]="currentCurrency.currency == 'дол.'" value="дол."/>
+        <span class="checkmark"></span>
+      </label><br>
+      <label class="radio_container">EUR
+        <input name="currency" type="radio" [(ngModel)]="currentCurrency.currency" (change)="recalculate()"
+               [checked]="currentCurrency.currency == 'евро'" value="евро"/>
+        <span class="checkmark"></span>
+      </label><br>
+    </div>
+    <div>Объем
+      <label class="radio_container">млрд.
+        <input name="abbreviation" type="radio" [(ngModel)]="currentCurrency.abbreviation" (change)="recalculate()"
+               [checked]="currentCurrency.abbreviation == 'млрд.'" value="млрд."/>
+        <span class="checkmark"></span>
+      </label><br>
+      <label class="radio_container">млн.
+        <input name="abbreviation" type="radio" [(ngModel)]="currentCurrency.abbreviation" (change)="recalculate()"
+               [checked]="currentCurrency.abbreviation == 'млн.'" value="млн."/>
+        <span class="checkmark"></span>
+      </label><br>
+      <label class="radio_container">тыс.
+        <input name="abbreviation" type="radio" [(ngModel)]="currentCurrency.abbreviation" (change)="recalculate()"
+               [checked]="currentCurrency.abbreviation == 'т.'" value="т."/>
+        <span class="checkmark"></span>
+      </label><br>
+      <label class="radio_container">ед.
+        <input name="abbreviation" type="radio" [(ngModel)]="currentCurrency.abbreviation" (change)="recalculate()"
+               [checked]="currentCurrency.abbreviation == ''" value=""/>
         <span class="checkmark"></span>
       </label><br>
     </div>
