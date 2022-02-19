@@ -21,13 +21,8 @@ export class ReportService {
     return report;
   }
 
-  calcReportsAfterChangeCurrency(reports: Array<Report>, currency: CurrencyInfo): Array<Report> {
-    console.log('recalc');
-    console.log(this.currencyService.currencyFactor(currency) + ' - factor');
-    // for (let i = 0; i < reports.length; i++) {
-    //   reports[i]
-    // }
-    return reports;
+  recalcReportsAfterChangeCurrency(reports: Array<Report>, currency: CurrencyInfo): void {
+    reports.map(r => r.setCurrency(currency));
   }
 
   getReports(tickers: string[], reportType: ReportType): Observable<Report[]> {

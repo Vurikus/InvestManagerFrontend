@@ -18,21 +18,12 @@
       </label><br>
     </div>
     <div>Валюта
-      <label class="radio_container">RUR
+      <label class="radio_container" *ngFor="let currency of currencies">{{currency.name}}
         <input name="currency" type="radio" [(ngModel)]="currentCurrency.currency" (change)="recalculate()"
-               [checked]="currentCurrency.currency == 'руб.'" value="руб."/>
+               [checked]="currentCurrency.currency == currency" [value]="currency"/>
         <span class="checkmark"></span>
-      </label><br>
-      <label class="radio_container">USD
-        <input name="currency" type="radio" [(ngModel)]="currentCurrency.currency" (change)="recalculate()"
-               [checked]="currentCurrency.currency == 'дол.'" value="дол."/>
-        <span class="checkmark"></span>
-      </label><br>
-      <label class="radio_container">EUR
-        <input name="currency" type="radio" [(ngModel)]="currentCurrency.currency" (change)="recalculate()"
-               [checked]="currentCurrency.currency == 'евро'" value="евро"/>
-        <span class="checkmark"></span>
-      </label><br>
+        <br>
+      </label>
     </div>
     <div>Объем
       <label class="radio_container">млрд.

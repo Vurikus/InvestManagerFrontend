@@ -1,11 +1,12 @@
 import {CurrencyInfo} from './currencyInfo';
 import {Report} from './report';
 import {ReportHeaderName} from './reportHeaderName';
+import {CurrencyService} from '../service/currency.service';
 
 export class IncomeStatement extends Report{
-  id: number;
-  date: Date;
-  currencyInfo: CurrencyInfo;
+  // id: number;
+  // date: Date;
+  // private currencyInfo: CurrencyInfo;
   // CrossProfit
   revenue: number;
   costSales: number;
@@ -55,7 +56,7 @@ export class IncomeStatement extends Report{
     switch (headerName){
       case ReportHeaderName.id: return this.id;
       case ReportHeaderName.date: return this.date;
-      case ReportHeaderName.currencyInfo: return this.currencyInfo.currency;
+      case ReportHeaderName.currencyInfo: return this.currencyInfo.currency.name;
       case ReportHeaderName.revenue: return this.convertMoneyValueToDisplayString(this.revenue);
       case ReportHeaderName.costSales: return this.convertMoneyValueToDisplayString(this.costSales);
       case ReportHeaderName.crossProfit: return this.convertMoneyValueToDisplayString(this.crossProfit);
@@ -73,7 +74,7 @@ export class IncomeStatement extends Report{
       case ReportHeaderName.netProfit: return this.convertMoneyValueToDisplayString(this.netProfit);
       case ReportHeaderName.netProfitBeforeTax: return this.convertMoneyValueToDisplayString(this.netProfitBeforeTax);
       case ReportHeaderName.countStocks: return this.countStocks;
-      case ReportHeaderName.profitPerStock: return this.profitPerStock !== undefined ? `${this.profitPerStock} ${this.currencyInfo.currency}` : '-';
+      case ReportHeaderName.profitPerStock: return this.profitPerStock !== undefined ? `${this.profitPerStock} ${this.currencyInfo.currency.shortDisplayName}` : '-';
       default: return '';
     }
   }
@@ -93,9 +94,30 @@ export class IncomeStatement extends Report{
     return IncomeStatement.getHeadersStatic();
   }
 
-  setCurrency(value: CurrencyInfo, factor: number): void {
-    // this.currencyInfo = value;
-    // const factor = currencyFactor(value);
-    // const
+  setCurrency(currencyInfo: CurrencyInfo): void {
+    console.log('new ' + currencyInfo.currency.rate + ' old ' + this.currencyInfo.currency.rate);
+    console.log('new ' + currencyInfo.abbreviation + ' old ' + this.currencyInfo.abbreviation);
+    const factor = CurrencyService.currencyFactor(currencyInfo, this.currencyInfo);
+    this.currencyInfo = currencyInfo;
+    this.revenue = factor * this.revenue;
+    this.costSales = factor * this.costSales;
+    this.crossProfit = factor * this.crossProfit;
+    // OperatingProfit
+    this.sellingAndMarketingCost = factor * this.sellingAndMarketingCost;
+    this.administrativeExpenses = factor * this.administrativeExpenses;
+    this.otherIncome = factor * this.otherIncome;
+    this.otherLosses = factor * this.otherLosses;
+    this.operatingProfit = factor * this.operatingProfit;
+    // NetProfit
+    this.financeIncome = factor * this.financeIncome;
+    this.financeCosts = factor * this.financeCosts;
+    this.exchangeTransaction = factor * this.exchangeTransaction;
+    this.incomeTax = factor * this.incomeTax;
+    this.ownersProfit = factor * this.ownersProfit;
+    this.nonControlInterests = factor * this.nonControlInterests;
+    this.netProfit = factor * this.netProfit;
+    this.netProfitBeforeTax = factor * this.netProfitBeforeTax;
+    // Other
+    this.profitPerStock = factor * this.profitPerStock;
   }
 }

@@ -18,7 +18,7 @@ export class BalanceSheet extends Report{
     switch (headerName){
       case ReportHeaderName.id: return this.id;
       case ReportHeaderName.date: return this.date;
-      case ReportHeaderName.currencyInfo: return this.currencyInfo.currency;
+      case ReportHeaderName.currencyInfo: return '';// this.currencyInfo.currency.name;
       default: return '';
     }
   }
