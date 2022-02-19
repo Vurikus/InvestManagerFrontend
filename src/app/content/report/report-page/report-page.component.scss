@@ -1,1 +1,6 @@
+@import 'src/assets/scss/variables.scss';
 
+.scrolling {
+  @include scroll($pink);
+  overflow-y: scroll;
+}

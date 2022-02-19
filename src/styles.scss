@@ -68,6 +68,15 @@ hr {
   opacity: 0.8;
 }
 
+.radius-box {
+  margin: 10px;
+  border-radius: 6px;
+}
+
+.hidden{
+  display: none;
+}
+
 .badge-success {
   background-color: $green;
 }
@@ -1107,16 +1116,16 @@ form {
   left: 0;
   height: 15px;
   width: 15px;
-  background-color: $bg_dark;
+  background-color: $bg_middle;
   border-radius: 50%;
 }
 
 .radio_container:hover input ~ .checkmark {
-  background-color: $bg_dark;
+  background-color: $bg_middle;
 }
 
 .radio_container input:checked ~ .checkmark {
-  background-color: $bg_dark;
+  background-color: $bg_middle;
 }
 
 .radio_container .checkmark:after {
@@ -1135,7 +1144,7 @@ form {
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: $text_dark;
+  background: $cursor_pointer_border;
 }
 
 .radio_container.green .checkmark {

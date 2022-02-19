@@ -1,11 +1,32 @@
 @import 'src/assets/scss/variables.scss';
 
 .tableFixHead {
-  margin: 10px;
   width: 50%;
-  border-radius: 6px;
 }
 
 .total {
   background-color: $black;
+}
+
+.configurator {
+  padding: 8px;
+  background: $bg_darkest;
+  color: $text-middle;
+  justify-content: space-between;
+
+  .box {
+    display: table-cell;
+    text-align: left;
+  }
+}
+
+.toggle {
+  text-align: center;
+  transition: 1s;
+  margin: -5px;
+  img{
+    max-width: 21px;
+    opacity: 85%;
+    transition: 1s;
+  }
 }

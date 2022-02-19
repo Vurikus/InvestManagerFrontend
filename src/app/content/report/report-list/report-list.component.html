@@ -1,6 +1,15 @@
-<div>
-  <div>Конфигурация
-    <div>Отчетность:
+<div class="radius-box configurator">
+  <div class="toggle" (click)="toggleConfiguration()">
+    <ng-container *ngIf="configuratorOn; else off">
+      <img src="../../../../assets/icon/direction/down.png" alt="">
+    </ng-container>
+    <ng-template #off>
+      <img src="../../../../assets/icon/direction/up.png" alt="">
+    </ng-template>
+  </div>
+  <div [ngClass]="{'hidden': configuratorOn}">
+    <div class="box">
+      <div style="text-align: center">Отчетность</div>
       <label class="radio_container">Балансовый отчет
         <input type="radio" [(ngModel)]="currentReportType" (change)="changeReportType('balance-sheet')"
                [checked]="currentReportType == 'balance-sheet'" value="balance-sheet"/>
@@ -17,7 +26,8 @@
         <span class="checkmark"></span>
       </label><br>
     </div>
-    <div>Валюта
+    <div class="box">
+      <div style="text-align: center">Валюта</div>
       <label class="radio_container" *ngFor="let currency of currencies">{{currency.name}}
         <input name="currency" type="radio" [(ngModel)]="currentCurrency.currency" (change)="recalculate()"
                [checked]="currentCurrency.currency == currency" [value]="currency"/>
@@ -25,7 +35,8 @@
         <br>
       </label>
     </div>
-    <div>Объем
+    <div class="box">
+      <div style="text-align: center">Объем</div>
       <label class="radio_container">млрд.
         <input name="abbreviation" type="radio" [(ngModel)]="currentCurrency.abbreviation" (change)="recalculate()"
                [checked]="currentCurrency.abbreviation == 'млрд.'" value="млрд."/>
@@ -49,7 +60,7 @@
     </div>
   </div>
 </div>
-<div class="tableFixHead">
+<div class="radius-box tableFixHead">
   <table class="table">
     <thead>
     <tr>

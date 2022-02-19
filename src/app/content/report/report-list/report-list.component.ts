@@ -18,6 +18,7 @@ import {CurrencyService} from '../../../service/currency.service';
 })
 export class ReportListComponent implements OnInit, OnChanges {
 
+  configuratorOn = true;
   reportList: Array<Report> = [];
   headerName: ReportHeaderName[];
   reportForm: FormGroup;
@@ -126,6 +127,10 @@ export class ReportListComponent implements OnInit, OnChanges {
 
   isTotalRow(header: ReportHeaderName): boolean {
     return this.totalHeaderRow.includes(header);
+  }
+
+  toggleConfiguration(): void {
+    this.configuratorOn = ! this.configuratorOn;
   }
 }
 

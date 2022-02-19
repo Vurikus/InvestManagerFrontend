@@ -74,7 +74,7 @@ export class IncomeStatement extends Report{
       case ReportHeaderName.netProfit: return this.convertMoneyValueToDisplayString(this.netProfit);
       case ReportHeaderName.netProfitBeforeTax: return this.convertMoneyValueToDisplayString(this.netProfitBeforeTax);
       case ReportHeaderName.countStocks: return this.countStocks;
-      case ReportHeaderName.profitPerStock: return this.profitPerStock !== undefined ? `${this.profitPerStock} ${this.currencyInfo.currency.shortDisplayName}` : '-';
+      case ReportHeaderName.profitPerStock: return (this.profitPerStock !== undefined && !isNaN(this.profitPerStock)) ? `${this.profitPerStock} ${this.currencyInfo.currency.shortDisplayName}` : '-';
       default: return '';
     }
   }
