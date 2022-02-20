@@ -28,12 +28,11 @@
 }
 
 html {
-  height: 95%;
+  height: 100%;
+  @include scroll($cursor_pointer_border);
 }
 
 body {
-  height: 95%;
-  max-width: 95%;
   background-color: $bg_darkest;
   font-family: 'PT Sans', 'Segoe UI', sans-serif;
 }
@@ -362,15 +361,13 @@ app-breadcrumbs {
 }
 
 .mainbox {
-  position: absolute;
-  height: calc(100vh - 20px);
+  min-height: calc(100vh - 20px);
   left: 10px;
   right: 10px;
   top: 10px;
   bottom: 10px;
   border-radius: 6px;
   background-color: $bg_middle;
-  overflow: hidden;
   @include shadow();
 
   @media screen and (max-width: 768px) {

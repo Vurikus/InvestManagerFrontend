@@ -7,14 +7,12 @@ import { ReportPageComponent } from './content/report/report-page/report-page.co
 import { ReportService } from './service/report.service';
 import {HttpClientModule} from '@angular/common/http';
 import { CompanyPageComponent } from './content/report/company-page/company-page.component';
-import { HeaderComponent } from './header/header/header.component';
-import { MainPageComponent } from './main-page/main-page.component';
 import { MainMenuComponent } from './layout/main-menu/main-menu.component';
 import { InvestmentPageComponent } from './content/investment/investment-page/investment-page.component';
 import { StatisticPageComponent } from './content/statistic/statistic-page/statistic-page.component';
 import { MarketPageComponent } from './content/market/market-page/market-page.component';
 import { ReportHeaderComponent } from './content/report/report-header/report-header.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ReportListComponent } from './content/report/report-list/report-list.component';
 import { ReportGraphComponent } from './content/report/report-graph/report-graph.component';
 
@@ -23,8 +21,6 @@ import { ReportGraphComponent } from './content/report/report-graph/report-graph
     AppComponent,
     ReportPageComponent,
     CompanyPageComponent,
-    HeaderComponent,
-    MainPageComponent,
     MainMenuComponent,
     InvestmentPageComponent,
     StatisticPageComponent,
