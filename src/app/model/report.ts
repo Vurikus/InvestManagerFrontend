@@ -5,6 +5,23 @@ import {ExchangeService} from '../service/exchange.service';
 export abstract class Report {
   id: number;
   date: Date;
+
+  totalHeaderRow: Array<ReportHeaderName> = [
+    ReportHeaderName.crossProfit,
+    ReportHeaderName.netProfit,
+    ReportHeaderName.operatingProfit,
+    ReportHeaderName.nonCurrentAssets,
+    ReportHeaderName.nc_totalAssets,
+    ReportHeaderName.currentAssets,
+    ReportHeaderName.totalAssets,
+    ReportHeaderName.equity,
+    ReportHeaderName.e_totalEquity,
+    ReportHeaderName.nonCurrentLiabilities,
+    ReportHeaderName.ncl_totalNonCurLiabilities,
+    ReportHeaderName.currentLiabilities,
+    ReportHeaderName.cl_totalCurLiabilities,
+    ReportHeaderName.totalLiabilities
+  ];
   protected currencyInfo: CurrencyInfo = {currency: ExchangeService.defaultCurrency(), abbreviation: Abbreviation.TS};
   abstract getValueByHeaderName(headerName: string): number | string | Date;
   abstract getHeaders(): ReportHeaderName[];

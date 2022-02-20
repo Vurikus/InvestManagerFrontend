@@ -2,16 +2,19 @@ export enum ReportHeaderName {
   id = 'ID',
   date = 'Дата',
   currencyInfo = 'Валюта',
+
 // CrossProfit
   revenue = 'Выручка',
   costSales = 'Себестоимость',
   crossProfit = 'Валовая прибыль',
+
 // OperatingProfit
   sellingAndMarketingCost = 'Коммерческие расходы',
   administrativeExpenses = 'Управленческие расходы',
   otherIncome = 'Прочие доходы',
   otherLosses = 'Прочие расходы',
   operatingProfit = 'Прибыль от продаж',
+
 // NetProfit
   financeIncome = 'Финансовые доходы',
   financeCosts = 'Финансовые расходы',
@@ -21,7 +24,9 @@ export enum ReportHeaderName {
   nonControlInterests = 'Неконтролирующие доли участия',
   netProfit = 'Чистая прибыль',
   netProfitBeforeTax = 'Прибыль до налогообложения',
+
 // NonCurrentAssets
+  nonCurrentAssets = 'Внеоборотные активы',
   nc_fixedAssets = 'Основные средства',
   nc_investmentsAssociates = 'Инвестиции в ассоц. компании',
   nc_goodwill = 'Гудвилл',
@@ -31,16 +36,17 @@ export enum ReportHeaderName {
   nc_totalAssets = 'Итого внеоборотные активы',
 
 // CurrentAssets
+  currentAssets = 'Оборотные активы',
   c_inventories = 'Товарно-материальные запасы',
   c_otherAssets = 'Прочие активы',
   c_receivables = 'Дебиторская задолженность',
   c_currentIncomeTax = 'Налоговые активы',
   c_cash = 'Денежные средства и эквиваленты',
   c_totalAssets = 'Итого оборотные активы',
-
   totalAssets = 'Итого активы',
 
 // Equity
+  equity = 'Капитал',
   e_shareCapital = 'Акционерный капитал',
   e_additionalCapital = 'Эмиссионный доход, добавочный капитал',
   e_reserveCapital = 'Резервы',
@@ -50,26 +56,28 @@ export enum ReportHeaderName {
   e_totalEquity = 'Итого капитал',
 
 // NonCurrentLiabilities
+  nonCurrentLiabilities = 'Долгосрочные обязательства',
   ncl_borrowings = 'Кредиты и займы',
-  ncl_otherLeaseLiabilities = '',
-  ncl_tradePayables = '',
-  ncl_contractLiabilities = '',
+  ncl_otherLeaseLiabilities = 'Обязательства по аренде',
+  ncl_tradePayables = 'Торговая кредиторская задолженность',
+  ncl_contractLiabilities = 'Обязательства по договорам',
   ncl_deferredTaxLiabilities = 'Отложенные налоговые обязательства',
   ncl_totalNonCurLiabilities = 'Итого долгосрочные обязательства',
 
 // CurrentLiabilities
+  currentLiabilities = 'Краткосрочные обязательства',
   cl_borrowings = 'Кредиты и займы',
-  cl_otherLeaseLiabilities = '',
-  cl_tradePayables = '',
-  cl_contractLiabilities = '',
+  cl_otherLeaseLiabilities = 'Обязательства по аренде',
+  cl_tradePayables = 'Торговая кредиторская задолженность',
+  cl_contractLiabilities = 'Обязательства по договорам',
   cl_currentTaxLiabilities = 'Текущие налоговые обязательства',
   cl_totalCurLiabilities = 'Итого краткосрочные обязательства',
-
   totalLiabilities = 'Итого обязательства',
+
 // Other
   countStocks = 'Количество акций',
   profitPerStock = 'Прибыль (убыток) на акцию'
 }
 
-//https://englishlib.org/%D0%BC%D1%81%D1%84%D0%BE-%D0%B1%D1%83%D1%85%D0%B3%D0%B0%D0%BB%D1%82%D0%B5%D1%80%D1%81%D0%BA%D0%B8%D0%B9-%D0%B1%D0%B0%D0%BB%D0%B0%D0%BD%D1%81.html
-//https://englishlib.org/%D0%BC%D1%81%D1%84%D0%BE-%D0%BE%D1%82%D1%87%D0%B5%D1%82-%D0%BE-%D0%B4%D0%B2%D0%B8%D0%B6%D0%B5%D0%BD%D0%B8%D0%B8-%D0%B4%D0%B5%D0%BD%D0%B5%D0%B6%D0%BD%D1%8B%D1%85-%D1%81%D1%80%D0%B5%D0%B4%D1%81%D1%82.html
+// https://englishlib.org/%D0%BC%D1%81%D1%84%D0%BE-%D0%B1%D1%83%D1%85%D0%B3%D0%B0%D0%BB%D1%82%D0%B5%D1%80%D1%81%D0%BA%D0%B8%D0%B9-%D0%B1%D0%B0%D0%BB%D0%B0%D0%BD%D1%81.html
+// https://englishlib.org/%D0%BC%D1%81%D1%84%D0%BE-%D0%BE%D1%82%D1%87%D0%B5%D1%82-%D0%BE-%D0%B4%D0%B2%D0%B8%D0%B6%D0%B5%D0%BD%D0%B8%D0%B8-%D0%B4%D0%B5%D0%BD%D0%B5%D0%B6%D0%BD%D1%8B%D1%85-%D1%81%D1%80%D0%B5%D0%B4%D1%81%D1%82.html

@@ -92,8 +92,6 @@ export class IncomeStatement extends Report{
   }
 
   setCurrency(currencyInfo: CurrencyInfo): void {
-    console.log('new ' + currencyInfo.currency.rate + ' old ' + this.currencyInfo.currency.rate);
-    console.log('new ' + currencyInfo.abbreviation + ' old ' + this.currencyInfo.abbreviation);
     const factor = CurrencyService.currencyFactor(currencyInfo, this.currencyInfo);
     this.currencyInfo = currencyInfo;
     this.revenue = factor * this.revenue;

@@ -30,6 +30,17 @@ export class ReportListComponent implements OnInit, OnChanges {
     ReportHeaderName.crossProfit,
     ReportHeaderName.netProfit,
     ReportHeaderName.operatingProfit,
+    ReportHeaderName.nonCurrentAssets,
+    ReportHeaderName.nc_totalAssets,
+    ReportHeaderName.currentAssets,
+    ReportHeaderName.totalAssets,
+    ReportHeaderName.equity,
+    ReportHeaderName.e_totalEquity,
+    ReportHeaderName.nonCurrentLiabilities,
+    ReportHeaderName.ncl_totalNonCurLiabilities,
+    ReportHeaderName.currentLiabilities,
+    ReportHeaderName.cl_totalCurLiabilities,
+    ReportHeaderName.totalLiabilities
   ];
 
   constructor(private reportService: ReportService, private exchangeService: ExchangeService) {
@@ -63,7 +74,6 @@ export class ReportListComponent implements OnInit, OnChanges {
     this.currencies = this.exchangeService.allowedCurrencies();
     this.currentCurrency = {currency: this.currencies[0], abbreviation: Abbreviation.MLN};
     this.loadReport();
-    console.log('NG INIT');
   }
 
   createFormGroup(type: ReportType): void {
@@ -107,6 +117,7 @@ export class ReportListComponent implements OnInit, OnChanges {
         const is = new BalanceSheet();
         is.id = i;
         is.date = new Date(2134781985 + i * 10000000000);
+        is.nc_fixedAssets = 2309 * i;
         // is.setCurrency(this.currentCurrency);
         reports.push(is);
       }
