@@ -21,6 +21,51 @@ export enum ReportHeaderName {
   nonControlInterests = 'Неконтролирующие доли участия',
   netProfit = 'Чистая прибыль',
   netProfitBeforeTax = 'Прибыль до налогообложения',
+// NonCurrentAssets
+  nc_fixedAssets = 'Основные средства',
+  nc_investmentsAssociates = 'Инвестиции в ассоц. компании',
+  nc_goodwill = 'Гудвилл',
+  nc_intangibleAssets = 'Нематериальные активы',
+  nc_otherAssets = 'Прочие активы',
+  nc_receivables = 'Дебиторская задолженность',
+  nc_totalAssets = 'Итого внеоборотные активы',
+
+// CurrentAssets
+  c_inventories = 'Товарно-материальные запасы',
+  c_otherAssets = 'Прочие активы',
+  c_receivables = 'Дебиторская задолженность',
+  c_currentIncomeTax = 'Налоговые активы',
+  c_cash = 'Денежные средства и эквиваленты',
+  c_totalAssets = 'Итого оборотные активы',
+
+  totalAssets = 'Итого активы',
+
+// Equity
+  e_shareCapital = 'Акционерный капитал',
+  e_additionalCapital = 'Эмиссионный доход, добавочный капитал',
+  e_reserveCapital = 'Резервы',
+  e_retainedEarning = 'Нераспределенная прибыль',
+  e_totalOwners = 'Доход собственников',
+  e_nonControlInterests = 'Неконтролирующая доля',
+  e_totalEquity = 'Итого капитал',
+
+// NonCurrentLiabilities
+  ncl_borrowings = 'Кредиты и займы',
+  ncl_otherLeaseLiabilities = '',
+  ncl_tradePayables = '',
+  ncl_contractLiabilities = '',
+  ncl_deferredTaxLiabilities = 'Отложенные налоговые обязательства',
+  ncl_totalNonCurLiabilities = 'Итого долгосрочные обязательства',
+
+// CurrentLiabilities
+  cl_borrowings = 'Кредиты и займы',
+  cl_otherLeaseLiabilities = '',
+  cl_tradePayables = '',
+  cl_contractLiabilities = '',
+  cl_currentTaxLiabilities = 'Текущие налоговые обязательства',
+  cl_totalCurLiabilities = 'Итого краткосрочные обязательства',
+
+  totalLiabilities = 'Итого обязательства',
 // Other
   countStocks = 'Количество акций',
   profitPerStock = 'Прибыль (убыток) на акцию'

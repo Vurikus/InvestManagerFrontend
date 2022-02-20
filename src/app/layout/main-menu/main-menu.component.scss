@@ -2,10 +2,8 @@
 
 $diration: 0.1s;
 .starter-page {
-  margin: 15px;
-  height: 95%;
-  flex-direction: column;
-  justify-content: center;
+  position: relative;
+  top: calc(20vh - 20px);
 }
 .cart {
   margin: 10px 10px 10px 50%;

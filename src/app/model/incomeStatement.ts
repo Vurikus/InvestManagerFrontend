@@ -4,9 +4,6 @@ import {ReportHeaderName} from './reportHeaderName';
 import {CurrencyService} from '../service/currency.service';
 
 export class IncomeStatement extends Report{
-  // id: number;
-  // date: Date;
-  // private currencyInfo: CurrencyInfo;
   // CrossProfit
   revenue: number;
   costSales: number;
