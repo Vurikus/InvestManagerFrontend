@@ -26,22 +26,10 @@ export class ReportListComponent implements OnInit, OnChanges {
   currentCurrency: CurrencyInfo;
   companies: Array<Company> = [];
   currencies: Array<Currency> = [];
-  totalHeaderRow: Array<ReportHeaderName> = [
-    ReportHeaderName.crossProfit,
-    ReportHeaderName.netProfit,
-    ReportHeaderName.operatingProfit,
-    ReportHeaderName.nonCurrentAssets,
-    ReportHeaderName.nc_totalAssets,
-    ReportHeaderName.currentAssets,
-    ReportHeaderName.totalAssets,
-    ReportHeaderName.equity,
-    ReportHeaderName.e_totalEquity,
-    ReportHeaderName.nonCurrentLiabilities,
-    ReportHeaderName.ncl_totalNonCurLiabilities,
-    ReportHeaderName.currentLiabilities,
-    ReportHeaderName.cl_totalCurLiabilities,
-    ReportHeaderName.totalLiabilities
-  ];
+  abbreviations: Array<Abbreviation> = [];
+  reportTypes: Array<ReportType> = [];
+  totalHeaderRow: Array<ReportHeaderName>;
+  titleRow: Array<ReportHeaderName>;
 
   constructor(private reportService: ReportService, private exchangeService: ExchangeService) {
     this.currentReportType = ReportType.BALANCE_SHEET;
@@ -72,7 +60,11 @@ export class ReportListComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.currencies = this.exchangeService.allowedCurrencies();
-    this.currentCurrency = {currency: this.currencies[0], abbreviation: Abbreviation.MLN};
+    this.abbreviations = Object.values(Abbreviation);
+    this.reportTypes = Object.values(ReportType);
+    this.totalHeaderRow = ReportService.getTotalRows();
+    this.titleRow = ReportService.getTitleRows();
+    this.currentCurrency = {currency: this.currencies[0], abbreviation: Abbreviation.TS};
     this.loadReport();
   }
 
@@ -136,8 +128,16 @@ export class ReportListComponent implements OnInit, OnChanges {
     this.reportService.recalcReportsAfterChangeCurrency(this.reportList, CurrencyService.clone(this.currentCurrency));
   }
 
-  isTotalRow(header: ReportHeaderName): boolean {
-    return this.totalHeaderRow.includes(header);
+  specialStyle(header: ReportHeaderName): string {
+    if (this.totalHeaderRow.includes(header)) { return 'primary-column'; }
+    else if (this.titleRow.includes(header)) {
+      return 'title-row warning';
+    } else { return ''; }
+  }
+
+  primaryColumnStyle(header: ReportHeaderName): string {
+    if (this.titleRow.includes(header)) { return 'title-row'; }
+    else { return 'primary-column'; }
   }
 
   toggleConfiguration(): void {

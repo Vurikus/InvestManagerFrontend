@@ -1,7 +1,7 @@
 import {CurrencyInfo} from './currencyInfo';
 import {Report} from './report';
 import {ReportHeaderName} from './reportHeaderName';
-import {CurrencyService} from "../service/currency.service";
+import {CurrencyService} from '../service/currency.service';
 
 export class BalanceSheet extends Report {
   // NonCurrentAssets
@@ -158,6 +158,40 @@ export class BalanceSheet extends Report {
 
   setCurrency(value: CurrencyInfo): void {
     const factor = CurrencyService.currencyFactor(value, this.currencyInfo);
-
+    this.currencyInfo = value;
+    this.nc_fixedAssets = this.nc_fixedAssets * factor;
+    this.nc_investmentsAssociates = this.nc_investmentsAssociates * factor;
+    this.nc_goodwill = this.nc_goodwill * factor;
+    this.nc_intangibleAssets = this.nc_intangibleAssets * factor;
+    this.nc_otherAssets = this.nc_otherAssets * factor;
+    this.nc_receivables = this.nc_receivables * factor;
+    this.nc_totalAssets = this.nc_totalAssets * factor;
+    this.c_inventories = this.c_inventories * factor;
+    this.c_otherAssets = this.c_otherAssets * factor;
+    this.c_receivables = this.c_receivables * factor;
+    this.c_currentIncomeTax = this.c_currentIncomeTax * factor;
+    this.c_cash = this.c_cash * factor;
+    this.c_totalAssets = this.c_totalAssets * factor;
+    this.totalAssets = this.totalAssets * factor;
+    this.e_shareCapital = this.e_shareCapital * factor;
+    this.e_reserveCapital = this.e_reserveCapital * factor;
+    this.e_additionalCapital = this.e_additionalCapital * factor;
+    this.e_retainedEarning = this.e_retainedEarning * factor;
+    this.e_totalOwners = this.e_totalOwners * factor;
+    this.e_nonControlInterests = this.e_nonControlInterests * factor;
+    this.e_totalEquity = this.e_totalEquity * factor;
+    this.ncl_borrowings = this.ncl_borrowings * factor;
+    this.ncl_otherLeaseLiabilities = this.ncl_otherLeaseLiabilities * factor;
+    this.ncl_tradePayables = this.ncl_tradePayables * factor;
+    this.ncl_contractLiabilities = this.ncl_contractLiabilities * factor;
+    this.ncl_deferredTaxLiabilities = this.ncl_deferredTaxLiabilities * factor;
+    this.ncl_totalNonCurLiabilities = this.ncl_totalNonCurLiabilities * factor;
+    this.cl_borrowings = this.cl_borrowings * factor;
+    this.cl_otherLeaseLiabilities = this.cl_otherLeaseLiabilities * factor;
+    this.cl_tradePayables = this.cl_tradePayables * factor;
+    this.cl_contractLiabilities = this.cl_contractLiabilities * factor;
+    this.cl_currentTaxLiabilities = this.cl_currentTaxLiabilities * factor;
+    this.cl_totalCurLiabilities = this.cl_totalCurLiabilities * factor;
+    this.totalLiabilities = this.totalLiabilities * factor;
   }
 }

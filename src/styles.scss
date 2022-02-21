@@ -1823,9 +1823,14 @@ g {
       border-top: 1px solid $bg_light;
       min-width: 100px;
 
-      &.title-column {
+      &.primary-column {
         color: $text_light;
         background-color: $bg_dark;
+      }
+
+      &.title-row {
+        color: $text_light;
+        background-color: $bg_darkest;
       }
 
       &.primary {

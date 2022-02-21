@@ -10,21 +10,12 @@
   <div [ngClass]="{'hidden': configuratorOn}">
     <div class="box">
       <div style="text-align: center">Отчетность</div>
-      <label class="radio_container">Балансовый отчет
-        <input type="radio" [(ngModel)]="currentReportType" (change)="changeReportType('balance-sheet')"
-               [checked]="currentReportType == 'balance-sheet'" value="balance-sheet"/>
+      <label class="radio_container" *ngFor="let type of reportTypes">{{type}}
+        <input name="reportType" type="radio" [(ngModel)]="currentReportType" (change)="changeReportType(type)"
+               [checked]="currentReportType == type" [value]="type"/>
         <span class="checkmark"></span>
-      </label><br>
-      <label class="radio_container">Отчёт о финансовых результатах
-        <input type="radio" [(ngModel)]="currentReportType" (change)="changeReportType('income-statement')"
-               [checked]="currentReportType == 'income-statement'" [value]="'income-statement'"/>
-        <span class="checkmark"></span>
-      </label><br>
-      <label class="radio_container">Отчёт о движении денежных средств
-        <input type="radio" [(ngModel)]="currentReportType" (change)="changeReportType('cash-flow-statement')"
-               [checked]="currentReportType == 'cash-flow-statement'" [value]="'cash-flow-statement'"/>
-        <span class="checkmark"></span>
-      </label><br>
+        <br>
+      </label>
     </div>
     <div class="box">
       <div style="text-align: center">Валюта</div>
@@ -37,26 +28,12 @@
     </div>
     <div class="box">
       <div style="text-align: center">Объем</div>
-      <label class="radio_container">млрд.
+      <label class="radio_container" *ngFor="let abr of abbreviations">{{abr}}
         <input name="abbreviation" type="radio" [(ngModel)]="currentCurrency.abbreviation" (change)="recalculate()"
-               [checked]="currentCurrency.abbreviation == 'млрд.'" value="млрд."/>
+               [checked]="currentCurrency.abbreviation == abr" [value]="abr"/>
         <span class="checkmark"></span>
-      </label><br>
-      <label class="radio_container">млн.
-        <input name="abbreviation" type="radio" [(ngModel)]="currentCurrency.abbreviation" (change)="recalculate()"
-               [checked]="currentCurrency.abbreviation == 'млн.'" value="млн."/>
-        <span class="checkmark"></span>
-      </label><br>
-      <label class="radio_container">тыс.
-        <input name="abbreviation" type="radio" [(ngModel)]="currentCurrency.abbreviation" (change)="recalculate()"
-               [checked]="currentCurrency.abbreviation == 'т.'" value="т."/>
-        <span class="checkmark"></span>
-      </label><br>
-      <label class="radio_container">ед.
-        <input name="abbreviation" type="radio" [(ngModel)]="currentCurrency.abbreviation" (change)="recalculate()"
-               [checked]="currentCurrency.abbreviation == ''" value=""/>
-        <span class="checkmark"></span>
-      </label><br>
+        <br>
+      </label>
     </div>
   </div>
 </div>
@@ -72,8 +49,8 @@
     </thead>
     <tbody>
     <tr *ngFor="let h of headerName">
-      <td class="title-column">{{h}}</td>
-      <td [class.title-column]="isTotalRow(h)" *ngFor="let report of reportList; let l = index">
+      <td [ngClass]="primaryColumnStyle(h)">{{h}}</td>
+      <td [ngClass]="specialStyle(h)" *ngFor="let report of reportList; let l = index">
         <span>{{reportList[l].getValueByHeaderName(h)}}</span>
       </td>
     </tr>

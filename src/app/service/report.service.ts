@@ -5,8 +5,9 @@ import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {ReportType} from '../model/reportType';
 import {CurrencyInfo} from '../model/currencyInfo';
-import {ExchangeService} from "./exchange.service";
-import {CurrencyService} from "./currency.service";
+import {ExchangeService} from './exchange.service';
+import {CurrencyService} from './currency.service';
+import {ReportHeaderName} from '../model/reportHeaderName';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,28 @@ export class ReportService {
               private currencyService: CurrencyService) {
   }
 
-  calcReportAfterChangeCurrency(report: Report, currency: CurrencyInfo): Report {
-    return report;
+  public static getTotalRows(): Array<ReportHeaderName> {
+    return [
+      ReportHeaderName.crossProfit,
+      ReportHeaderName.netProfit,
+      ReportHeaderName.operatingProfit,
+      ReportHeaderName.nc_totalAssets,
+      ReportHeaderName.totalAssets,
+      ReportHeaderName.e_totalEquity,
+      ReportHeaderName.ncl_totalNonCurLiabilities,
+      ReportHeaderName.cl_totalCurLiabilities,
+      ReportHeaderName.totalLiabilities
+    ];
+  }
+
+  public static getTitleRows(): Array<ReportHeaderName> {
+    return [
+      ReportHeaderName.nonCurrentAssets,
+      ReportHeaderName.currentAssets,
+      ReportHeaderName.equity,
+      ReportHeaderName.nonCurrentLiabilities,
+      ReportHeaderName.currentLiabilities
+    ];
   }
 
   recalcReportsAfterChangeCurrency(reports: Array<Report>, currency: CurrencyInfo): void {
