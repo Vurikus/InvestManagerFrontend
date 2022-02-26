@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ReportService} from '../../../service/report.service';
 import {Report} from '../../../model/report';
 import {ReportType} from '../../../model/reportType';
+import {Company} from '../../../model/company';
 
 @Component({
   selector: 'app-report-page',
@@ -10,6 +11,9 @@ import {ReportType} from '../../../model/reportType';
 })
 export class ReportPageComponent implements OnInit {
 
+  currentCompany: Company;
+  @Output()
+  selectedCompany = new EventEmitter<Company>();
   rows: string[];
   reports: Report[];
   ticker: string;
@@ -25,6 +29,11 @@ export class ReportPageComponent implements OnInit {
       this.rows[i] = `${i}`;
     }
     this.constructRows();
+  }
+
+  selectCompany(company: Company): void{
+    this.selectedCompany.emit(company);
+    this.currentCompany = company;
   }
 
   constructRows(): void {

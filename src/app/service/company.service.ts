@@ -17,6 +17,7 @@ export class CompanyService {
   }
 
   getCompaniesBySearch(input: string): Observable<Company[]>{
+    console.log('http getCompaniesBySearch');
     return this.http.get<Company[]>(`${environment.apiUrl}/company?search=${input}`);
   }
 }
