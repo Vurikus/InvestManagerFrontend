@@ -1,9 +1,9 @@
 import {CurrencyInfo} from './currencyInfo';
-import {Report} from './report';
+import {IReport, Report} from './report';
 import {ReportHeaderName} from './reportHeaderName';
 import {CurrencyService} from '../service/currency.service';
 
-export class IncomeStatement extends Report{
+export interface IIncomeStatement extends IReport {
   // CrossProfit
   revenue: number;
   costSales: number;
@@ -26,6 +26,52 @@ export class IncomeStatement extends Report{
   // Other
   countStocks: number;
   profitPerStock: number;
+}
+
+export class IncomeStatement extends Report implements IIncomeStatement {
+  // CrossProfit
+  revenue: number;
+  costSales: number;
+  crossProfit: number;
+  // OperatingProfit
+  sellingAndMarketingCost: number;
+  administrativeExpenses: number;
+  otherIncome: number;
+  otherLosses: number;
+  operatingProfit: number;
+  // NetProfit
+  financeIncome: number;
+  financeCosts: number;
+  exchangeTransaction: number;
+  incomeTax: number;
+  ownersProfit: number;
+  nonControlInterests: number;
+  netProfit: number;
+  netProfitBeforeTax: number;
+  // Other
+  countStocks: number;
+  profitPerStock: number;
+
+  constructor(r: IIncomeStatement) {
+    super(r);
+    this.revenue = r.revenue;
+    this.costSales = r.costSales;
+    this.crossProfit = r.crossProfit;
+    this.sellingAndMarketingCost = r.sellingAndMarketingCost;
+    this.administrativeExpenses = r.administrativeExpenses;
+    this.otherIncome = r.otherIncome;
+    this.otherLosses = r.otherLosses;
+    this.operatingProfit = r.operatingProfit;
+    this.financeIncome = r.financeIncome;
+    this.financeCosts = r.financeCosts;
+    this.exchangeTransaction = r.exchangeTransaction;
+    this.incomeTax = r.incomeTax;
+    this.ownersProfit = r.ownersProfit;
+    this.nonControlInterests = r.nonControlInterests;
+    this.netProfit = r.netProfit;
+    this.netProfitBeforeTax = r.netProfitBeforeTax;
+    this.profitPerStock = r.profitPerStock;
+  }
 
   static getHeadersStatic(): ReportHeaderName[]{
     return [
@@ -71,7 +117,7 @@ export class IncomeStatement extends Report{
       case ReportHeaderName.netProfit: return this.convertMoneyValueToDisplayString(this.netProfit);
       case ReportHeaderName.netProfitBeforeTax: return this.convertMoneyValueToDisplayString(this.netProfitBeforeTax);
       case ReportHeaderName.countStocks: return this.countStocks;
-      case ReportHeaderName.profitPerStock: return (this.profitPerStock !== undefined && !isNaN(this.profitPerStock)) ? `${this.profitPerStock} ${this.currencyInfo.currency.shortDisplayName}` : '-';
+      case ReportHeaderName.profitPerStock: return (this.profitPerStock !== undefined && !isNaN(this.profitPerStock)) ? `${Math.round(this.profitPerStock * 100) / 100} ${this.currencyInfo.currency.shortDisplayName}` : '-';
       default: return '';
     }
   }
@@ -93,6 +139,7 @@ export class IncomeStatement extends Report{
 
   setCurrency(currencyInfo: CurrencyInfo): void {
     const factor = CurrencyService.currencyFactor(currencyInfo, this.currencyInfo);
+    this.profitPerStock = this.profitPerStock * (this.currencyInfo.currency.rate / currencyInfo.currency.rate);
     this.currencyInfo = currencyInfo;
     this.revenue = factor * this.revenue;
     this.costSales = factor * this.costSales;
@@ -113,6 +160,6 @@ export class IncomeStatement extends Report{
     this.netProfit = factor * this.netProfit;
     this.netProfitBeforeTax = factor * this.netProfitBeforeTax;
     // Other
-    this.profitPerStock = factor * this.profitPerStock;
+    // this.profitPerStock = factor * this.profitPerStock;
   }
 }

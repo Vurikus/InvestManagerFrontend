@@ -1,9 +1,9 @@
-import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {Report} from '../../../model/report';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {IReport, Report} from '../../../model/report';
 import {IncomeStatement} from '../../../model/incomeStatement';
 import {ReportHeaderName} from '../../../model/reportHeaderName';
 import {Abbreviation, Currency, CurrencyInfo} from '../../../model/currencyInfo';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {ReportType} from '../../../model/reportType';
 import {BalanceSheet} from '../../../model/balanceSheet';
 import {ReportService} from '../../../service/report.service';
@@ -11,14 +11,13 @@ import {Company} from '../../../model/company';
 import {ExchangeService} from '../../../service/exchange.service';
 import {CurrencyService} from '../../../service/currency.service';
 import {CompanyService} from '../../../service/company.service';
-import {Sector} from "../../../model/sector";
 
 @Component({
   selector: 'app-report-list',
   templateUrl: './report-list.component.html',
   styleUrls: ['./report-list.component.scss']
 })
-export class ReportListComponent implements OnInit, OnChanges {
+export class ReportListComponent implements OnInit {
 
   @Output()
   selectedCompany = new EventEmitter<Company>();
@@ -35,36 +34,11 @@ export class ReportListComponent implements OnInit, OnChanges {
   reportTypes: Array<ReportType> = [];
   totalHeaderRow: Array<ReportHeaderName>;
   titleRow: Array<ReportHeaderName>;
-  companyForm: FormGroup;
 
   constructor(private reportService: ReportService,
               private exchangeService: ExchangeService,
-              private companyService: CompanyService,
-              private fb: FormBuilder) {
+              private companyService: CompanyService) {
     this.currentReportType = ReportType.BALANCE_SHEET;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // if (this.currentReportType === ReportType.INCOME_STATEMENT) {
-    //   for (let i = 0; i < 3; i++) {
-    //     const is = new IncomeStatement();
-    //     is.id = i;
-    //     is.date = new Date(2134781985 + i * 10000000000);
-    //     is.revenue = 890 + i * 100;
-    //     is.currencyInfo = {currency: this.currencies[0], abbreviation: Abbreviation.TS};
-    //     is.costSales = 780 + i * 90;
-    //     this.reportList.push(is);
-    //   }
-    // } else {
-    //   for (let i = 0; i < 3; i++) {
-    //     const is = new BalanceSheet();
-    //     is.id = i;
-    //     is.date = new Date(2134781985 + i * 10000000000);
-    //     is.currencyInfo = {currency: this.currencies[0], abbreviation: Abbreviation.TS};
-    //     this.reportList.push(is);
-    //   }
-    // }
-    // this.headerName = this.reportList[0].getHeaders();
   }
 
   ngOnInit(): void {
@@ -74,10 +48,6 @@ export class ReportListComponent implements OnInit, OnChanges {
     this.totalHeaderRow = ReportService.getTotalRows();
     this.titleRow = ReportService.getTitleRows();
     this.currentCurrency = {currency: this.currencies[0], abbreviation: Abbreviation.TS};
-    // this.loadReport();
-    // for (let i = 1; i < 10; i++){
-    //   this.searchCompanies.push({id: i, ticker: i + 'ATT', organisationName: 'Att', country: 'USA', exchange: '', sector: Sector.COMMUNICATION, headquartersCountry: ''});
-    // }
   }
 
   createFormGroup(type: ReportType): void {
@@ -101,37 +71,43 @@ export class ReportListComponent implements OnInit, OnChanges {
     const tickers: string[] = this.selectedCompanies.map(c => {
       return c.ticker;
     });
-    this.reportService.getReports(tickers, this.currentReportType).subscribe((res: Report[]) => {
-      this.reportService.recalcReportsAfterChangeCurrency(res, CurrencyService.clone(this.currentCurrency));
-      this.reportList = res;
-      this.headerName = res[0].getHeaders();
-    });
-    const reports = [];
-    if (this.currentReportType === ReportType.INCOME_STATEMENT) {
-      for (let i = 0; i < 3; i++) {
-        const is = new IncomeStatement();
-        is.id = i;
-        is.date = new Date(2134781985 + i * 10000000000);
-        is.revenue = 890 + i * 100;
-        is.costSales = 780 + i * 90;
-        reports.push(is);
-      }
-    } else {
-      for (let i = 0; i < 3; i++) {
-        const is = new BalanceSheet();
-        is.id = i;
-        is.date = new Date(2134781985 + i * 10000000000);
-        is.nc_fixedAssets = 2309 * i;
-        // is.setCurrency(this.currentCurrency);
-        reports.push(is);
-      }
+    if (tickers.length > 0) {
+      this.reportService.getReports(tickers, this.currentReportType).subscribe((res: IReport[]) => {
+        if (res.length > 0) {
+          console.log(res);
+          const reports = ReportService.getReportObjectFromInterface(res, this.currentReportType);
+          this.reportService.recalcReportsAfterChangeCurrency(reports, CurrencyService.clone(this.currentCurrency));
+          this.reportList = reports;
+        }
+      });
     }
-    this.reportList = reports;
-    this.recalculate();
-    this.headerName = reports[0].getHeaders();
+    this.headerName = ReportService.getReportHeaderNamesByType(this.currentReportType);
+    // const reports = [];
+    // if (this.currentReportType === ReportType.INCOME_STATEMENT) {
+    //   for (let i = 0; i < 3; i++) {
+    //     const is: Report = new IncomeStatement();
+    //     is.id = i;
+    //     is.date = new Date(2134781985 + i * 10000000000);
+    //     // is.revenue = 890 + i * 100;
+    //     // is.costSales = 780 + i * 90;
+    //     reports.push(is);
+    //   }
+    // } else {
+    //   for (let i = 0; i < 3; i++) {
+    //     const is = new BalanceSheet();
+    //     is.id = i;
+    //     is.date = new Date(2134781985 + i * 10000000000);
+    //     is.nc_fixedAssets = 2309 * i;
+    //     // is.setCurrency(this.currentCurrency);
+    //     reports.push(is);
+    //   }
+    // }
+    // this.reportList = reports;
+    // this.recalculate();
+    // this.headerName = reports[0].getHeaders();
   }
 
-  selectCompany(company: Company): void{
+  selectCompany(company: Company): void {
     this.selectedCompany.emit(company);
     this.selectedCompanies = [];
     this.addCompany(company);
@@ -162,19 +138,25 @@ export class ReportListComponent implements OnInit, OnChanges {
   }
 
   specialStyle(header: ReportHeaderName): string {
-    if (this.totalHeaderRow.includes(header)) { return 'primary-column'; }
-    else if (this.titleRow.includes(header)) {
+    if (this.totalHeaderRow.includes(header)) {
+      return 'primary-column';
+    } else if (this.titleRow.includes(header)) {
       return 'title-row warning';
-    } else { return ''; }
+    } else {
+      return '';
+    }
   }
 
   primaryColumnStyle(header: ReportHeaderName): string {
-    if (this.titleRow.includes(header)) { return 'title-row'; }
-    else { return 'primary-column'; }
+    if (this.titleRow.includes(header)) {
+      return 'title-row';
+    } else {
+      return 'primary-column';
+    }
   }
 
   toggleConfiguration(): void {
-    this.configuratorOn = ! this.configuratorOn;
+    this.configuratorOn = !this.configuratorOn;
   }
 }
 

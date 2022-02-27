@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Report} from '../model/report';
+import {IReport, Report} from '../model/report';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {ReportType} from '../model/reportType';
 import {CurrencyInfo} from '../model/currencyInfo';
-import {ExchangeService} from './exchange.service';
 import {CurrencyService} from './currency.service';
 import {ReportHeaderName} from '../model/reportHeaderName';
+import {BalanceSheet, IBalanceSheet} from '../model/balanceSheet';
+import {IIncomeStatement, IncomeStatement} from '../model/incomeStatement';
 
 @Injectable({
   providedIn: 'root'
@@ -42,8 +43,29 @@ export class ReportService {
     ];
   }
 
+  public static getReportHeaderNamesByType(type: ReportType): Array<ReportHeaderName>{
+    switch (type){
+      case ReportType.BALANCE_SHEET: return BalanceSheet.getHeadersStatic();
+      case ReportType.INCOME_STATEMENT: return IncomeStatement.getHeadersStatic();
+    }
+  }
+
+  public static getReportObjectFromInterface(reports: IReport[], type: ReportType): Array<Report>{
+    switch (type){
+      case ReportType.BALANCE_SHEET: {
+        return reports.map((r: IBalanceSheet) => new BalanceSheet(r));
+      }
+      case ReportType.INCOME_STATEMENT: return reports.map((r: IIncomeStatement) => new IncomeStatement(r));
+    }
+  }
+
   recalcReportsAfterChangeCurrency(reports: Array<Report>, currency: CurrencyInfo): void {
-    reports.map(r => r.setCurrency(currency));
+    console.log(reports);
+    console.log(currency);
+    reports.map(r => {
+      console.log(r);
+      r.setCurrency(currency);
+    });
   }
 
   getReports(tickers: string[], reportType: ReportType): Observable<Report[]> {

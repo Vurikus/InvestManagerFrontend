@@ -1,0 +1,21 @@
+{
+  "date": "2022-01-30",
+ "revenue" : 190,
+ "costSales" : 190,
+ "crossProfit" : 190,
+ "sellingAndMarketingCost" : 190,
+ "administrativeExpenses" : 190,
+ "otherIncome" : 190,
+ "otherLosses" : 190,
+ "operatingProfit" : 190,
+ "financeIncome" : 190,
+ "financeCosts" : 190,
+ "exchangeTransaction" : 190,
+ "incomeTax" : 190,
+ "ownersProfit" : 190,
+ "nonControlInterests" : 190,
+ "netProfit" : 190,
+ "netProfitBeforeTax" : 190,
+ "countStocks" : 190,
+ "profitPerStock" : 190
+}
