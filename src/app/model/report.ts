@@ -1,20 +1,23 @@
 import {ReportHeaderName} from './reportHeaderName';
 import {ExchangeService} from '../service/exchange.service';
 import {Abbreviation, CurrencyInfo} from './currencyInfo';
+import {ReportType} from "./reportType";
 
 export interface IReport {
   id: number;
   date: string | Date;
+  type: ReportType;
 }
 
 export abstract class Report implements IReport{
 
-  protected constructor(r: IReport) {
-    this.id = r.id;
-    this.date = new Date(r.date);
+  protected constructor(r?: IReport) {
+    this.id = r?.id ?? null;
+    this.date = new Date(r?.date);
   }
   id: number;
   date: Date;
+  type: ReportType;
 
   protected currencyInfo: CurrencyInfo = {currency: ExchangeService.defaultCurrency(), abbreviation: Abbreviation.TS};
 

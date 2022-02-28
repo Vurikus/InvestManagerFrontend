@@ -2,6 +2,7 @@ import {CurrencyInfo} from './currencyInfo';
 import {IReport, Report} from './report';
 import {ReportHeaderName} from './reportHeaderName';
 import {CurrencyService} from '../service/currency.service';
+import {ReportType} from "./reportType";
 
 export interface IIncomeStatement extends IReport {
   // CrossProfit
@@ -52,8 +53,9 @@ export class IncomeStatement extends Report implements IIncomeStatement {
   countStocks: number;
   profitPerStock: number;
 
-  constructor(r: IIncomeStatement) {
+  constructor(r?: IIncomeStatement) {
     super(r);
+    this.type = ReportType.INCOME_STATEMENT;
     this.revenue = r.revenue;
     this.costSales = r.costSales;
     this.crossProfit = r.crossProfit;

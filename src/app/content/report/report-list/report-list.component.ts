@@ -22,11 +22,12 @@ export class ReportListComponent implements OnInit {
   @Output()
   selectedCompany = new EventEmitter<Company>();
   configuratorOn = false;
-  editReport = false;
+  isEditReport = false;
   reportList: Array<Report> = [];
   headerName: ReportHeaderName[];
   reportForm: FormGroup;
   currentReportType: ReportType;
+  currentReport: Report;
   currentCurrency: CurrencyInfo;
   selectedCompanies: Array<Company> = [];
   searchCompanies: Array<Company> = [];
@@ -135,6 +136,11 @@ export class ReportListComponent implements OnInit {
 
   toggleConfiguration(): void {
     this.configuratorOn = !this.configuratorOn;
+  }
+
+  editReport(report: Report): void {
+    this.currentReport = report;
+    this.isEditReport = true;
   }
 }
 

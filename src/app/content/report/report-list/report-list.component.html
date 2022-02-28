@@ -41,12 +41,12 @@
     </div>
     <div class="box">
       <div style="text-align: center">
-        <button type="button" class="btn btn-outline-primary" (click)="editReport = !editReport">Добавить отчет</button>
+        <button type="button" class="btn btn-outline-primary" (click)="isEditReport = !isEditReport">Добавить отчет</button>
       </div>
     </div>
   </div>
 </div>
-<ng-container *ngIf="!editReport; else showEditReport">
+<ng-container *ngIf="!isEditReport; else showEditReport">
   <div class="radius-box tableFixHead" *ngIf="selectedCompanies.length > 0">
     <table class="table">
       <thead>
@@ -64,11 +64,17 @@
           <span>{{reportList[l].getValueByHeaderName(h)}}</span>
         </td>
       </tr>
+      <tr>
+        <td class="primary-column"></td>
+        <td class="primary-column" *ngFor="let report of reportList; let l = index">
+          <button (click)="editReport(report)">Редактировать</button>
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>
 </ng-container>
 <ng-template #showEditReport>
-  <app-report-form [type]="currentReportType"></app-report-form>
+  <app-report-form [type]="currentReportType" [currentReport]="currentReport"></app-report-form>
 </ng-template>
 

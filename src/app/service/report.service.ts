@@ -72,4 +72,12 @@ export class ReportService {
     const parameters = {ticker: tickers};
     return this.http.get<Report[]>(`${environment.apiUrl}/report/${reportType}`, {params: parameters});
   }
+
+  sendReport(report: Report): void{
+    if (report.id) {
+      this.http.put<Report>(`${environment.apiUrl}/report/${report.type}`, report);
+    } else {
+      this.http.post<Report>(`${environment.apiUrl}/report/${report.type}`, report);
+    }
+  }
 }

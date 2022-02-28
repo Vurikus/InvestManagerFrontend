@@ -2,6 +2,7 @@ import {CurrencyInfo} from './currencyInfo';
 import {IReport, Report} from './report';
 import {ReportHeaderName} from './reportHeaderName';
 import {CurrencyService} from '../service/currency.service';
+import {ReportType} from "./reportType";
 
 export interface IBalanceSheet extends IReport {
   // NonCurrentAssets
@@ -86,42 +87,43 @@ export class BalanceSheet extends Report implements IBalanceSheet {
   cl_totalCurLiabilities: number;
   totalLiabilities: number;
 
-  constructor(r: IBalanceSheet) {
+  constructor(r?: IBalanceSheet) {
     super(r);
-    this.nc_fixedAssets = r.nc_fixedAssets;
-    this.nc_investmentsAssociates = r.nc_investmentsAssociates;
-    this.nc_goodwill = r.nc_goodwill;
-    this.nc_intangibleAssets = r.nc_intangibleAssets;
-    this.nc_otherAssets = r.nc_otherAssets;
-    this.nc_receivables = r.nc_receivables;
-    this.nc_totalAssets = r.nc_totalAssets;
-    this.c_inventories = r.c_inventories;
-    this.c_otherAssets = r.c_otherAssets;
-    this.c_receivables = r.c_receivables;
-    this.c_currentIncomeTax = r.c_currentIncomeTax;
-    this.c_cash = r.c_cash;
-    this.c_totalAssets = r.c_totalAssets;
-    this.totalAssets = r.totalAssets;
-    this.e_shareCapital = r.e_shareCapital;
-    this.e_reserveCapital = r.e_reserveCapital;
-    this.e_additionalCapital = r.e_additionalCapital;
-    this.e_retainedEarning = r.e_retainedEarning;
-    this.e_totalOwners = r.e_totalOwners;
-    this.e_nonControlInterests = r.e_nonControlInterests;
-    this.e_totalEquity = r.e_totalEquity;
-    this.ncl_borrowings = r.ncl_borrowings;
-    this.ncl_otherLeaseLiabilities = r.ncl_otherLeaseLiabilities;
-    this.ncl_tradePayables = r.ncl_tradePayables;
-    this.ncl_contractLiabilities = r.ncl_contractLiabilities;
-    this.ncl_deferredTaxLiabilities = r.ncl_deferredTaxLiabilities;
-    this.ncl_totalNonCurLiabilities = r.ncl_totalNonCurLiabilities;
-    this.cl_borrowings = r.cl_borrowings;
-    this.cl_otherLeaseLiabilities = r.cl_otherLeaseLiabilities;
-    this.cl_tradePayables = r.cl_tradePayables;
-    this.cl_contractLiabilities = r.cl_contractLiabilities;
-    this.cl_currentTaxLiabilities = r.cl_currentTaxLiabilities;
-    this.cl_totalCurLiabilities = r.cl_totalCurLiabilities;
-    this.totalLiabilities = r.totalLiabilities;
+    this.type = ReportType.BALANCE_SHEET;
+    this.nc_fixedAssets = r?.nc_fixedAssets ?? 0;
+    this.nc_investmentsAssociates = r?.nc_investmentsAssociates ?? 0;
+    this.nc_goodwill = r?.nc_goodwill ?? 0;
+    this.nc_intangibleAssets = r?.nc_intangibleAssets ?? 0;
+    this.nc_otherAssets = r?.nc_otherAssets ?? 0;
+    this.nc_receivables = r?.nc_receivables ?? 0;
+    this.nc_totalAssets = r?.nc_totalAssets ?? 0;
+    this.c_inventories = r?.c_inventories ?? 0;
+    this.c_otherAssets = r?.c_otherAssets ?? 0;
+    this.c_receivables = r?.c_receivables ?? 0;
+    this.c_currentIncomeTax = r?.c_currentIncomeTax ?? 0;
+    this.c_cash = r?.c_cash ?? 0;
+    this.c_totalAssets = r?.c_totalAssets ?? 0;
+    this.totalAssets = r?.totalAssets ?? 0;
+    this.e_shareCapital = r?.e_shareCapital ?? 0;
+    this.e_reserveCapital = r?.e_reserveCapital ?? 0;
+    this.e_additionalCapital = r?.e_additionalCapital ?? 0;
+    this.e_retainedEarning = r?.e_retainedEarning ?? 0;
+    this.e_totalOwners = r?.e_totalOwners ?? 0;
+    this.e_nonControlInterests = r?.e_nonControlInterests ?? 0;
+    this.e_totalEquity = r?.e_totalEquity ?? 0;
+    this.ncl_borrowings = r?.ncl_borrowings ?? 0;
+    this.ncl_otherLeaseLiabilities = r?.ncl_otherLeaseLiabilities ?? 0;
+    this.ncl_tradePayables = r?.ncl_tradePayables ?? 0;
+    this.ncl_contractLiabilities = r?.ncl_contractLiabilities ?? 0;
+    this.ncl_deferredTaxLiabilities = r?.ncl_deferredTaxLiabilities ?? 0;
+    this.ncl_totalNonCurLiabilities = r?.ncl_totalNonCurLiabilities ?? 0;
+    this.cl_borrowings = r?.cl_borrowings ?? 0;
+    this.cl_otherLeaseLiabilities = r?.cl_otherLeaseLiabilities ?? 0;
+    this.cl_tradePayables = r?.cl_tradePayables ?? 0;
+    this.cl_contractLiabilities = r?.cl_contractLiabilities ?? 0;
+    this.cl_currentTaxLiabilities = r?.cl_currentTaxLiabilities ?? 0;
+    this.cl_totalCurLiabilities = r?.cl_totalCurLiabilities ?? 0;
+    this.totalLiabilities = r?.totalLiabilities ?? 0;
   }
 
   static getHeadersStatic(): ReportHeaderName[] {
