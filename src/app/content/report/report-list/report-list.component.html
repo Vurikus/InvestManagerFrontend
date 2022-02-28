@@ -39,26 +39,36 @@
       <div style="text-align: center">Компании</div>
       <app-search-line (selectCompany)="selectCompany($event)"></app-search-line>
     </div>
+    <div class="box">
+      <div style="text-align: center">
+        <button type="button" class="btn btn-outline-primary" (click)="editReport = !editReport">Добавить отчет</button>
+      </div>
+    </div>
   </div>
 </div>
-<div class="radius-box tableFixHead" *ngIf="selectedCompanies.length > 0">
-  <table class="table">
-    <thead>
-    <tr>
-      <th></th>
-      <th *ngFor="let report of reportList">
-        {{report.date | date:'MM.yy' }}
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let h of headerName">
-      <td [ngClass]="primaryColumnStyle(h)">{{h}}</td>
-      <td [ngClass]="specialStyle(h)" *ngFor="let report of reportList; let l = index">
-        <span>{{reportList[l].getValueByHeaderName(h)}}</span>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+<ng-container *ngIf="!editReport; else showEditReport">
+  <div class="radius-box tableFixHead" *ngIf="selectedCompanies.length > 0">
+    <table class="table">
+      <thead>
+      <tr>
+        <th></th>
+        <th *ngFor="let report of reportList">
+          {{report.date | date:'MM.yy' }}
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let h of headerName">
+        <td [ngClass]="primaryColumnStyle(h)">{{h}}</td>
+        <td [ngClass]="specialStyle(h)" *ngFor="let report of reportList; let l = index">
+          <span>{{reportList[l].getValueByHeaderName(h)}}</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-container>
+<ng-template #showEditReport>
+  <app-report-form [type]="currentReportType"></app-report-form>
+</ng-template>
 

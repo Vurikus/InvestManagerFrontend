@@ -22,6 +22,7 @@ export class ReportListComponent implements OnInit {
   @Output()
   selectedCompany = new EventEmitter<Company>();
   configuratorOn = false;
+  editReport = false;
   reportList: Array<Report> = [];
   headerName: ReportHeaderName[];
   reportForm: FormGroup;
@@ -82,29 +83,6 @@ export class ReportListComponent implements OnInit {
       });
     }
     this.headerName = ReportService.getReportHeaderNamesByType(this.currentReportType);
-    // const reports = [];
-    // if (this.currentReportType === ReportType.INCOME_STATEMENT) {
-    //   for (let i = 0; i < 3; i++) {
-    //     const is: Report = new IncomeStatement();
-    //     is.id = i;
-    //     is.date = new Date(2134781985 + i * 10000000000);
-    //     // is.revenue = 890 + i * 100;
-    //     // is.costSales = 780 + i * 90;
-    //     reports.push(is);
-    //   }
-    // } else {
-    //   for (let i = 0; i < 3; i++) {
-    //     const is = new BalanceSheet();
-    //     is.id = i;
-    //     is.date = new Date(2134781985 + i * 10000000000);
-    //     is.nc_fixedAssets = 2309 * i;
-    //     // is.setCurrency(this.currentCurrency);
-    //     reports.push(is);
-    //   }
-    // }
-    // this.reportList = reports;
-    // this.recalculate();
-    // this.headerName = reports[0].getHeaders();
   }
 
   selectCompany(company: Company): void {

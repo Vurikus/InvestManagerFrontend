@@ -8,15 +8,23 @@ export interface IReport {
 }
 
 export abstract class Report implements IReport{
-  id: number;
-  date: Date;
 
   protected constructor(r: IReport) {
     this.id = r.id;
     this.date = new Date(r.date);
   }
+  id: number;
+  date: Date;
 
   protected currencyInfo: CurrencyInfo = {currency: ExchangeService.defaultCurrency(), abbreviation: Abbreviation.TS};
+
+  protected static getHeadersStatic(): ReportHeaderName[] {
+    return [
+      ReportHeaderName.id,
+      ReportHeaderName.date,
+      ReportHeaderName.currencyInfo
+    ];
+  }
 
   abstract getValueByHeaderName(headerName: string): number | string | Date;
 
