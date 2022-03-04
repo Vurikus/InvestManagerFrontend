@@ -6,6 +6,7 @@ import {IncomeStatement} from '../../../model/incomeStatement';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Report} from '../../../model/report';
 import {ReportService} from '../../../service/report.service';
+import {CurrencyInfo} from "../../../model/currencyInfo";
 
 @Component({
   selector: 'app-report-form',
@@ -19,6 +20,8 @@ export class ReportFormComponent implements OnChanges {
   headers: ReportHeaderName[];
   @Input()
   currentReport: Report;
+  @Input()
+  currentCurrency: CurrencyInfo;
 
   constructor(private reportService: ReportService) {
   }
@@ -31,29 +34,51 @@ export class ReportFormComponent implements OnChanges {
   createFormGroup(): void {
     if (this.type === ReportType.BALANCE_SHEET) {
       this.headers = BalanceSheet.getHeadersStatic();
-      if (!this.currentReport) {
-        this.currentReport = new BalanceSheet();
-      }
+      // if (!this.currentReport || this.currentReport.type !== this.type) {
+      //   this.currentReport = new BalanceSheet();
+      // }
     } else if (this.type === ReportType.INCOME_STATEMENT) {
-      this.headers = IncomeStatement.getHeadersStatic();
-      if (!this.currentReport) {
-        this.currentReport = new IncomeStatement();
-      }
+      this.headers = [
+        ReportHeaderName.revenue,
+        ReportHeaderName.costSales,
+        ReportHeaderName.sellingAndMarketingCost,
+        ReportHeaderName.administrativeExpenses,
+        ReportHeaderName.otherIncome,
+        ReportHeaderName.otherLosses,
+        ReportHeaderName.financeIncome,
+        ReportHeaderName.financeCosts,
+        ReportHeaderName.exchangeTransaction,
+        ReportHeaderName.incomeTax,
+        ReportHeaderName.nonControlInterests,
+        ReportHeaderName.countStocks
+      ];
+      // IncomeStatement.getHeadersStatic();
+      // if (!this.currentReport || this.currentReport.type !== this.type) {
+      //   this.currentReport = new IncomeStatement();
+      // }
     } else {
       throw new Error(`Illegal report type: ${this.type}`);
     }
-    const group = {['Дата']: new FormControl('')};
+    this.currentReport.setCurrency(this.currentCurrency);
+    const group = {['Дата']: new FormControl(null)};
     this.headers.forEach(rhn => {
-      console.log(this.currentReport.getValueByHeaderName(rhn));
-      group[rhn] = new FormControl(this.currentReport.getValueByHeaderName(rhn));
+      group[rhn] = new FormControl(0);
+      // group[rhn] = new FormControl(this.currentReport.getValueByHeaderName(rhn));
     });
     this.reportForm = new FormGroup(group);
   }
 
   saveReport(): void {
-    this.headers.forEach(h => {
-      this.reportForm.get(h);
-    });
+    for (const controlsKey in this.reportForm.controls) {
+      console.log(controlsKey + ' ' + this.reportForm.get(controlsKey).value);
+      const value = this.reportForm.get(controlsKey).value;
+      this.currentReport.setValueByHeaderName(controlsKey, value);
+    }
+    // this.headers.forEach(h => {
+    //   console.log(h + ' ' + this.reportForm.get(h).value);
+    //   this.reportForm.get(h);
+    // });
+    console.log(this.currentReport);
     this.reportService.sendReport(this.currentReport);
   }
 }

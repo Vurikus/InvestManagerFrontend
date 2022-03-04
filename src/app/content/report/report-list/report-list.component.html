@@ -28,7 +28,7 @@
     </div>
     <div class="box">
       <div style="text-align: center">Объем</div>
-      <label class="radio_container" *ngFor="let abr of abbreviations">{{abr}}
+      <label class="radio_container" *ngFor="let abr of abbreviations">{{abr.code === 'ONE' ? 'ед.' : abr.shortDisplayName}}
         <input name="abbreviation" type="radio" [(ngModel)]="currentCurrency.abbreviation" (change)="recalculate()"
                [checked]="currentCurrency.abbreviation == abr" [value]="abr"/>
         <span class="checkmark"></span>
@@ -39,11 +39,11 @@
       <div style="text-align: center">Компании</div>
       <app-search-line (selectCompany)="selectCompany($event)"></app-search-line>
     </div>
-    <div class="box">
-      <div style="text-align: center">
-        <button type="button" class="btn btn-outline-primary" (click)="isEditReport = !isEditReport">Добавить отчет</button>
-      </div>
-    </div>
+<!--    <div class="box">-->
+<!--      <div style="text-align: center">-->
+<!--        <button type="button" class="btn btn-outline-primary" (click)="isEditReport = !isEditReport">Добавить отчет</button>-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </div>
 <ng-container *ngIf="!isEditReport; else showEditReport">
@@ -55,6 +55,7 @@
         <th *ngFor="let report of reportList">
           {{report.date | date:'MM.yy' }}
         </th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -69,12 +70,15 @@
         <td class="primary-column" *ngFor="let report of reportList; let l = index">
           <button (click)="editReport(report)">Редактировать</button>
         </td>
+        <td>
+          <button type="button" class="btn btn-outline-primary" (click)="createReport()">+</button>
+        </td>
       </tr>
       </tbody>
     </table>
   </div>
 </ng-container>
 <ng-template #showEditReport>
-  <app-report-form [type]="currentReportType" [currentReport]="currentReport"></app-report-form>
+  <app-report-form [type]="currentReportType" [currentReport]="currentReport" [currentCurrency]="currentCurrency"></app-report-form>
 </ng-template>
 

@@ -3,6 +3,7 @@ import {IReport, Report} from './report';
 import {ReportHeaderName} from './reportHeaderName';
 import {CurrencyService} from '../service/currency.service';
 import {ReportType} from "./reportType";
+import {Company} from "./company";
 
 export interface IBalanceSheet extends IReport {
   // NonCurrentAssets
@@ -87,8 +88,8 @@ export class BalanceSheet extends Report implements IBalanceSheet {
   cl_totalCurLiabilities: number;
   totalLiabilities: number;
 
-  constructor(r?: IBalanceSheet) {
-    super(r);
+  constructor(c?: Company, r?: IBalanceSheet) {
+    super(c, r);
     this.type = ReportType.BALANCE_SHEET;
     this.nc_fixedAssets = r?.nc_fixedAssets ?? 0;
     this.nc_investmentsAssociates = r?.nc_investmentsAssociates ?? 0;
@@ -220,17 +221,43 @@ export class BalanceSheet extends Report implements IBalanceSheet {
 
   setValueByHeaderName(headerName: string, value: any): void {
     switch (headerName) {
-      case ReportHeaderName.id:
-        this.id = value;
-        break;
-      case ReportHeaderName.date:
-        this.date = value;
-        break;
-      case ReportHeaderName.currencyInfo:
-        this.currencyInfo = value;
-        break;
-      default:
-        throw new Error(`Report header '${headerName}' not found`);
+      case ReportHeaderName.id: this.id = value; break;
+      case ReportHeaderName.date: this.date = value; break;
+      case ReportHeaderName.currencyInfo: this.currencyInfo = value; break;
+      case ReportHeaderName.nc_fixedAssets: this.nc_fixedAssets = value; break;
+      case ReportHeaderName.nc_investmentsAssociates: this.nc_investmentsAssociates = value; break;
+      case ReportHeaderName.nc_goodwill: this.nc_goodwill = value; break;
+      case ReportHeaderName.nc_intangibleAssets: this.nc_intangibleAssets = value; break;
+      case ReportHeaderName.nc_otherAssets: this.nc_otherAssets = value; break;
+      case ReportHeaderName.nc_receivables: this.nc_receivables = value; break;
+      case ReportHeaderName.nc_totalAssets: this.nc_totalAssets = value; break;
+      case ReportHeaderName.c_inventories: this.c_inventories = value; break;
+      case ReportHeaderName.c_receivables: this.c_receivables = value; break;
+      case ReportHeaderName.c_cash: this.c_cash = value; break;
+      case ReportHeaderName.c_currentIncomeTax: this.c_currentIncomeTax = value; break;
+      case ReportHeaderName.c_otherAssets: this.c_otherAssets = value; break;
+      case ReportHeaderName.c_totalAssets: this.c_totalAssets = value; break;
+      case ReportHeaderName.totalAssets: this.totalAssets = value; break;
+      case ReportHeaderName.e_shareCapital: this.e_shareCapital = value; break;
+      case ReportHeaderName.e_reserveCapital: this.e_reserveCapital = value; break;
+      case ReportHeaderName.e_additionalCapital: this.e_additionalCapital = value; break;
+      case ReportHeaderName.e_retainedEarning: this.e_retainedEarning = value; break;
+      case ReportHeaderName.e_totalOwners: this.e_totalOwners = value; break;
+      case ReportHeaderName.e_nonControlInterests: this.e_nonControlInterests = value; break;
+      case ReportHeaderName.e_totalEquity: this.e_totalEquity = value; break;
+      case ReportHeaderName.ncl_borrowings: this.ncl_borrowings = value; break;
+      case ReportHeaderName.ncl_tradePayables: this.ncl_tradePayables = value; break;
+      case ReportHeaderName.ncl_contractLiabilities: this.ncl_contractLiabilities = value; break;
+      case ReportHeaderName.ncl_deferredTaxLiabilities: this.ncl_deferredTaxLiabilities = value; break;
+      case ReportHeaderName.ncl_otherLeaseLiabilities: this.ncl_otherLeaseLiabilities = value; break;
+      case ReportHeaderName.ncl_totalNonCurLiabilities: this.ncl_totalNonCurLiabilities = value; break;
+      case ReportHeaderName.cl_borrowings: this.cl_borrowings = value; break;
+      case ReportHeaderName.cl_tradePayables: this.cl_tradePayables = value; break;
+      case ReportHeaderName.cl_contractLiabilities: this.cl_contractLiabilities = value; break;
+      case ReportHeaderName.cl_currentTaxLiabilities: this.cl_currentTaxLiabilities = value; break;
+      case ReportHeaderName.cl_otherLeaseLiabilities: this.cl_otherLeaseLiabilities = value; break;
+      case ReportHeaderName.cl_totalCurLiabilities: this.cl_totalCurLiabilities = value; break;
+      case ReportHeaderName.totalLiabilities: this.totalLiabilities = value; break;
     }
   }
 

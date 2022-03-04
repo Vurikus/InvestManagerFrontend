@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {IReport, Report} from '../../../model/report';
 import {IncomeStatement} from '../../../model/incomeStatement';
 import {ReportHeaderName} from '../../../model/reportHeaderName';
-import {Abbreviation, Currency, CurrencyInfo} from '../../../model/currencyInfo';
+import {Abbreviation1, Currency, CurrencyInfo} from '../../../model/currencyInfo';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ReportType} from '../../../model/reportType';
 import {BalanceSheet} from '../../../model/balanceSheet';
@@ -31,9 +31,9 @@ export class ReportListComponent implements OnInit {
   currentCurrency: CurrencyInfo;
   selectedCompanies: Array<Company> = [];
   searchCompanies: Array<Company> = [];
-  currencies: Array<Currency> = [];
-  abbreviations: Array<Abbreviation> = [];
-  reportTypes: Array<ReportType> = [];
+  currencies: ReadonlyArray<Currency> = [];
+  abbreviations: ReadonlyArray<Abbreviation1> = [];
+  reportTypes: ReadonlyArray<ReportType> = [];
   totalHeaderRow: Array<ReportHeaderName>;
   titleRow: Array<ReportHeaderName>;
 
@@ -45,11 +45,11 @@ export class ReportListComponent implements OnInit {
 
   ngOnInit(): void {
     this.currencies = this.exchangeService.allowedCurrencies();
-    this.abbreviations = Object.values(Abbreviation);
+    this.abbreviations = this.exchangeService.getAbbreviations();
     this.reportTypes = Object.values(ReportType);
     this.totalHeaderRow = ReportService.getTotalRows();
     this.titleRow = ReportService.getTitleRows();
-    this.currentCurrency = {currency: this.currencies[0], abbreviation: Abbreviation.TS};
+    this.currentCurrency = {currency: this.currencies[0], abbreviation: this.abbreviations[1]};
   }
 
   createFormGroup(type: ReportType): void {
@@ -138,8 +138,14 @@ export class ReportListComponent implements OnInit {
     this.configuratorOn = !this.configuratorOn;
   }
 
+  createReport(): void {
+    this.currentReport = ReportService.createEmptyReport(this.currentReportType, this.selectedCompanies[0]);
+    this.isEditReport = true;
+  }
+
   editReport(report: Report): void {
     this.currentReport = report;
+    this.currentReport.company = this.selectedCompanies[0];
     this.isEditReport = true;
   }
 }

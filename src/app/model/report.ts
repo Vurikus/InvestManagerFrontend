@@ -1,25 +1,31 @@
 import {ReportHeaderName} from './reportHeaderName';
 import {ExchangeService} from '../service/exchange.service';
-import {Abbreviation, CurrencyInfo} from './currencyInfo';
-import {ReportType} from "./reportType";
+import {CurrencyInfo} from './currencyInfo';
+import {ReportType} from './reportType';
+import {Company} from './company';
 
 export interface IReport {
   id: number;
   date: string | Date;
   type: ReportType;
+  company: Company;
+  currencyInfo: CurrencyInfo;
 }
 
 export abstract class Report implements IReport{
 
-  protected constructor(r?: IReport) {
+  protected constructor(c: Company, r?: IReport) {
     this.id = r?.id ?? null;
     this.date = new Date(r?.date);
+    this.company = c;
+    if (r && r.currencyInfo) { this.currencyInfo = r.currencyInfo; }
+    else { this.currencyInfo = {currency: ExchangeService.defaultCurrency(), abbreviation: ExchangeService.defaultAbbreviation()}; }
   }
   id: number;
   date: Date;
   type: ReportType;
-
-  protected currencyInfo: CurrencyInfo = {currency: ExchangeService.defaultCurrency(), abbreviation: Abbreviation.TS};
+  company: Company;
+  currencyInfo: CurrencyInfo;
 
   protected static getHeadersStatic(): ReportHeaderName[] {
     return [
@@ -41,7 +47,7 @@ export abstract class Report implements IReport{
     if (value === undefined || isNaN(value) || value === null) {
       return '-';
     }
-    return value >= 0 ? `${Math.round(value * 100) / 100} ${this.currencyInfo.abbreviation} ${this.currencyInfo.currency.shortDisplayName}` :
-      `(${Math.round(- value * 100) / 100}) ${this.currencyInfo.abbreviation} ${this.currencyInfo.currency.shortDisplayName}`;
+    return value >= 0 ? `${Math.round(value * 100) / 100} ${this.currencyInfo.abbreviation.shortDisplayName} ${this.currencyInfo.currency.shortDisplayName}` :
+      `(${Math.round(- value * 100) / 100}) ${this.currencyInfo.abbreviation.shortDisplayName} ${this.currencyInfo.currency.shortDisplayName}`;
   }
 }

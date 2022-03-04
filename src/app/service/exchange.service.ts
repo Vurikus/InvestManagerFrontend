@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Currency} from '../model/currencyInfo';
+import {Abbreviation1, Currency} from '../model/currencyInfo';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -10,12 +10,18 @@ export class ExchangeService {
 
   constructor(private http: HttpClient) {
     this.loadCurrencies();
+    this.loadAbbreviation();
     this.currencies.push(ExchangeService.defaultCurrency());
   }
   private currencies: Array<Currency> = [];
+  private abbreviations: Array<Abbreviation1> = [];
 
   public static defaultCurrency(): Currency{
     return {name: 'Рубль', code: 'RUR', rate: 1, shortDisplayName: 'руб.'};
+  }
+
+  public static defaultAbbreviation(): Abbreviation1{
+    return {shortDisplayName: '', code: 'ONE', value: 1};
   }
 
   public getCurrencyByCode(code: string): Currency {
@@ -26,8 +32,21 @@ export class ExchangeService {
     return this.currencies.find((currency: Currency) => currency.code === code);
   }
 
-  public allowedCurrencies(): Array<Currency>{
+  public getAbbreviationByCode(code: string): Abbreviation1 {
+    const abbreviation = this.abbreviations.find((abr: Abbreviation1) => abr.code === code);
+    if (abbreviation) {
+      return abbreviation;
+    } else {
+      throw new Error(`Abbreviation by '${code}' not found`);
+    }
+  }
+
+  public allowedCurrencies(): ReadonlyArray<Currency>{
     return this.currencies;
+  }
+
+  public getAbbreviations(): ReadonlyArray<Abbreviation1> {
+    return this.abbreviations;
   }
 
   private loadCurrencies(): void {
@@ -36,6 +55,13 @@ export class ExchangeService {
       this.currencies.push({name: valutes.USD.Name, code: valutes.USD.CharCode, rate: valutes.USD.Value, shortDisplayName: 'дол.'});
       this.currencies.push({name: valutes.EUR.Name, code: valutes.EUR.CharCode, rate: valutes.EUR.Value, shortDisplayName: 'евро'});
     });
+  }
+
+  private loadAbbreviation(): void {
+    this.abbreviations.push({shortDisplayName: 'млрд.', code: 'BLN', value: 1_000_000_000});
+    this.abbreviations.push({shortDisplayName: 'млн.', code: 'MLN', value: 1_000_000});
+    this.abbreviations.push({shortDisplayName: 'т.', code: 'TSD', value: 1_000});
+    this.abbreviations.push({shortDisplayName: '', code: 'ONE', value: 1});
   }
 }
 

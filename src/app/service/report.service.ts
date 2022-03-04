@@ -9,6 +9,7 @@ import {CurrencyService} from './currency.service';
 import {ReportHeaderName} from '../model/reportHeaderName';
 import {BalanceSheet, IBalanceSheet} from '../model/balanceSheet';
 import {IIncomeStatement, IncomeStatement} from '../model/incomeStatement';
+import {Company} from '../model/company';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,14 @@ export class ReportService {
 
   constructor(private http: HttpClient,
               private currencyService: CurrencyService) {
+  }
+
+  public static createEmptyReport(type: ReportType, company: Company): Report {
+    if (type === ReportType.BALANCE_SHEET) {
+      return new BalanceSheet(company);
+    } else if (type === ReportType.INCOME_STATEMENT) {
+      return new IncomeStatement(company);
+    }
   }
 
   public static getTotalRows(): Array<ReportHeaderName> {
@@ -43,19 +52,22 @@ export class ReportService {
     ];
   }
 
-  public static getReportHeaderNamesByType(type: ReportType): Array<ReportHeaderName>{
-    switch (type){
-      case ReportType.BALANCE_SHEET: return BalanceSheet.getHeadersStatic();
-      case ReportType.INCOME_STATEMENT: return IncomeStatement.getHeadersStatic();
+  public static getReportHeaderNamesByType(type: ReportType): Array<ReportHeaderName> {
+    switch (type) {
+      case ReportType.BALANCE_SHEET:
+        return BalanceSheet.getHeadersStatic();
+      case ReportType.INCOME_STATEMENT:
+        return IncomeStatement.getHeadersStatic();
     }
   }
 
-  public static getReportObjectFromInterface(reports: IReport[], type: ReportType): Array<Report>{
-    switch (type){
+  public static getReportObjectFromInterface(reports: IReport[], type: ReportType): Array<Report> {
+    switch (type) {
       case ReportType.BALANCE_SHEET: {
-        return reports.map((r: IBalanceSheet) => new BalanceSheet(r));
+        return reports.map((r: IBalanceSheet) => new BalanceSheet(r.company, r));
       }
-      case ReportType.INCOME_STATEMENT: return reports.map((r: IIncomeStatement) => new IncomeStatement(r));
+      case ReportType.INCOME_STATEMENT:
+        return reports.map((r: IIncomeStatement) => new IncomeStatement(r.company, r));
     }
   }
 
@@ -73,11 +85,16 @@ export class ReportService {
     return this.http.get<Report[]>(`${environment.apiUrl}/report/${reportType}`, {params: parameters});
   }
 
-  sendReport(report: Report): void{
+  sendReport(report: Report): void {
+    const url = `${environment.apiUrl}/report/${report.company.ticker}/${report.type}`;
     if (report.id) {
-      this.http.put<Report>(`${environment.apiUrl}/report/${report.type}`, report);
+      this.http.put<Report>(url, report).subscribe((res: any) => {
+        console.log(res);
+      });
     } else {
-      this.http.post<Report>(`${environment.apiUrl}/report/${report.type}`, report);
+      this.http.post<Report>(url, report).subscribe((res: any) => {
+        console.log(res);
+      });
     }
   }
 }

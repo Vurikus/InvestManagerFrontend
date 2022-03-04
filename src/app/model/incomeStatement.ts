@@ -3,6 +3,7 @@ import {IReport, Report} from './report';
 import {ReportHeaderName} from './reportHeaderName';
 import {CurrencyService} from '../service/currency.service';
 import {ReportType} from "./reportType";
+import {Company} from "./company";
 
 export interface IIncomeStatement extends IReport {
   // CrossProfit
@@ -53,26 +54,26 @@ export class IncomeStatement extends Report implements IIncomeStatement {
   countStocks: number;
   profitPerStock: number;
 
-  constructor(r?: IIncomeStatement) {
-    super(r);
+  constructor(c?: Company, r?: IIncomeStatement) {
+    super(c, r);
     this.type = ReportType.INCOME_STATEMENT;
-    this.revenue = r.revenue;
-    this.costSales = r.costSales;
-    this.crossProfit = r.crossProfit;
-    this.sellingAndMarketingCost = r.sellingAndMarketingCost;
-    this.administrativeExpenses = r.administrativeExpenses;
-    this.otherIncome = r.otherIncome;
-    this.otherLosses = r.otherLosses;
-    this.operatingProfit = r.operatingProfit;
-    this.financeIncome = r.financeIncome;
-    this.financeCosts = r.financeCosts;
-    this.exchangeTransaction = r.exchangeTransaction;
-    this.incomeTax = r.incomeTax;
-    this.ownersProfit = r.ownersProfit;
-    this.nonControlInterests = r.nonControlInterests;
-    this.netProfit = r.netProfit;
-    this.netProfitBeforeTax = r.netProfitBeforeTax;
-    this.profitPerStock = r.profitPerStock;
+    this.revenue = r?.revenue ?? 0;
+    this.costSales = r?.costSales ?? 0;
+    this.crossProfit = r?.crossProfit ?? 0;
+    this.sellingAndMarketingCost = r?.sellingAndMarketingCost ?? 0;
+    this.administrativeExpenses = r?.administrativeExpenses ?? 0;
+    this.otherIncome = r?.otherIncome ?? 0;
+    this.otherLosses = r?.otherLosses ?? 0;
+    this.operatingProfit = r?.operatingProfit ?? 0;
+    this.financeIncome = r?.financeIncome ?? 0;
+    this.financeCosts = r?.financeCosts ?? 0;
+    this.exchangeTransaction = r?.exchangeTransaction ?? 0;
+    this.incomeTax = r?.incomeTax ?? 0;
+    this.ownersProfit = r?.ownersProfit ?? 0;
+    this.nonControlInterests = r?.nonControlInterests ?? 0;
+    this.netProfit = r?.netProfit ?? 0;
+    this.netProfitBeforeTax = r?.netProfitBeforeTax ?? 0;
+    this.profitPerStock = r?.profitPerStock ?? 0;
   }
 
   static getHeadersStatic(): ReportHeaderName[]{
@@ -131,7 +132,21 @@ export class IncomeStatement extends Report implements IIncomeStatement {
       case ReportHeaderName.currencyInfo: this.currencyInfo = value; break;
       case ReportHeaderName.revenue: this.revenue = value; break;
       case ReportHeaderName.costSales: this.costSales = value; break;
-      default: throw new Error(`Report header '${headerName}' not found`);
+      case ReportHeaderName.crossProfit: this.crossProfit = value; break;
+      case ReportHeaderName.sellingAndMarketingCost: this.sellingAndMarketingCost = value; break;
+      case ReportHeaderName.administrativeExpenses: this.administrativeExpenses = value; break;
+      case ReportHeaderName.otherIncome: this.otherIncome = value; break;
+      case ReportHeaderName.otherLosses: this.otherLosses = value; break;
+      case ReportHeaderName.operatingProfit: this.operatingProfit = value; break;
+      case ReportHeaderName.financeIncome: this.financeIncome = value; break;
+      case ReportHeaderName.financeCosts: this.financeCosts = value; break;
+      case ReportHeaderName.exchangeTransaction: this.exchangeTransaction = value; break;
+      case ReportHeaderName.incomeTax: this.incomeTax = value; break;
+      case ReportHeaderName.ownersProfit: this.ownersProfit = value; break;
+      case ReportHeaderName.nonControlInterests: this.nonControlInterests = value; break;
+      case ReportHeaderName.netProfit: this.netProfit = value; break;
+      case ReportHeaderName.netProfitBeforeTax: this.netProfitBeforeTax = value; break;
+      case ReportHeaderName.countStocks: this.countStocks = value; break;
     }
   }
 

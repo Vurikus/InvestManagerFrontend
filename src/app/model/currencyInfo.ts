@@ -1,6 +1,6 @@
 export interface CurrencyInfo {
   currency: Currency;
-  abbreviation: Abbreviation;
+  abbreviation: Abbreviation1;
 }
 
 export interface Currency {
@@ -10,15 +10,21 @@ export interface Currency {
   rate: number;
 }
 
+export interface Abbreviation1 {
+  code: string;
+  shortDisplayName: string;
+  value: number;
+}
+
 // export enum CurrencyCode {
 //   RUR = 'руб.',
 //   USD = 'дол.',
 //   EUR = 'евро'
 // }
 
-export enum Abbreviation {
-  BLN = 'млрд.',
-  MLN = 'млн.',
-  TS = 'т.',
-  ONE = ''
-}
+// export enum Abbreviation {
+//   BLN = 'млрд.',
+//   MLN = 'млн.',
+//   TSD = 'т.',
+//   ONE = ''
+// }

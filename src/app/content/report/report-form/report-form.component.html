@@ -1,9 +1,11 @@
 <p>report-form works!</p>
 <ng-container>
   <form [formGroup]="reportForm" (ngSubmit)="saveReport()">
-    <label>Дата</label><input type="date" [required]="true" formControlName="Дата"/><br/>
+    <label>Дата</label>
+    <input type="date" formControlName="Дата"/><br/>
     <ng-container *ngFor="let h of headers">
-      <label>{{h}}</label><input type=text [formControlName]="h"/><br/>
+      <label>{{h}}</label><input type=text formControlName="{{h}}"/><br/>
     </ng-container>
+    <input type="submit" [disabled]="reportForm.invalid" class="btn btn-default" value="Сохранить" />
   </form>
 </ng-container>
