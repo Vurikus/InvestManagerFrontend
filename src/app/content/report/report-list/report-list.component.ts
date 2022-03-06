@@ -47,8 +47,8 @@ export class ReportListComponent implements OnInit {
     this.currencies = this.exchangeService.allowedCurrencies();
     this.abbreviations = this.exchangeService.getAbbreviations();
     this.reportTypes = Object.values(ReportType);
-    this.totalHeaderRow = ReportService.getTotalRows();
-    this.titleRow = ReportService.getTitleRows();
+    // this.totalHeaderRow = ReportService.getTotalRows();
+    // this.titleRow = ReportService.getTitleRows();
     this.currentCurrency = {currency: this.currencies[0], abbreviation: this.abbreviations[1]};
   }
 
@@ -70,20 +70,20 @@ export class ReportListComponent implements OnInit {
   }
 
   loadReport(): void {
-    const tickers: string[] = this.selectedCompanies.map(c => {
-      return c.ticker;
-    });
-    if (tickers.length > 0) {
-      this.reportService.getReports(tickers, this.currentReportType).subscribe((res: IReport[]) => {
-        if (res.length > 0) {
-          console.log(res);
-          const reports = ReportService.getReportObjectFromInterface(res, this.currentReportType);
-          this.reportService.recalcReportsAfterChangeCurrency(reports, CurrencyService.clone(this.currentCurrency));
-          this.reportList = reports;
-        }
-      });
-    }
-    this.headerName = ReportService.getReportHeaderNamesByType(this.currentReportType);
+    // const tickers: string[] = this.selectedCompanies.map(c => {
+    //   return c.ticker;
+    // });
+    // if (tickers.length > 0) {
+    //   this.reportService.getReports(tickers, this.currentReportType).subscribe((res: IReport[]) => {
+    //     if (res.length > 0) {
+    //       console.log(res);
+    //       const reports = ReportService.getReportObjectFromInterface(res, this.currentReportType);
+    //       this.reportService.recalcReportsAfterChangeCurrency(reports, CurrencyService.clone(this.currentCurrency));
+    //       this.reportList = reports;
+    //     }
+    //   });
+    // }
+    // this.headerName = ReportService.getReportHeaderNamesByType(this.currentReportType);
   }
 
   selectCompany(company: Company): void {
@@ -113,7 +113,7 @@ export class ReportListComponent implements OnInit {
   }
 
   recalculate(): void {
-    this.reportService.recalcReportsAfterChangeCurrency(this.reportList, CurrencyService.clone(this.currentCurrency));
+    // this.reportService.recalcReportsAfterChangeCurrency(this.reportList, CurrencyService.clone(this.currentCurrency));
   }
 
   specialStyle(header: ReportHeaderName): string {
@@ -139,7 +139,7 @@ export class ReportListComponent implements OnInit {
   }
 
   createReport(): void {
-    this.currentReport = ReportService.createEmptyReport(this.currentReportType, this.selectedCompanies[0]);
+    // this.currentReport = ReportService.createEmptyReport(this.currentReportType, this.selectedCompanies[0]);
     this.isEditReport = true;
   }
 

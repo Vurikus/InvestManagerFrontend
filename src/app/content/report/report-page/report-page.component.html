@@ -1,5 +1,6 @@
 <div class="scrolling">
   <app-report-header [currentCompany]="currentCompany"></app-report-header>
-  <app-report-list (selectedCompany)="selectCompany($event)"></app-report-list>
+<!--  <app-report-list (selectedCompany)="selectCompany($event)"></app-report-list>-->
+  <app-report-table (selectedCompany)="selectCompany($event)"></app-report-table>
   <app-report-graph></app-report-graph>
 </div>

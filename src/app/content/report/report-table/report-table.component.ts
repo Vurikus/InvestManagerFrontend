@@ -24,7 +24,8 @@ export class ReportTableComponent implements OnInit {
   configuratorOn = false;
   isEditReport = false;
 
-  reports: Array<IReport> = [];
+  // reports: Array<IReport> = [];
+  reports: Array<any> = [];
   currentReport: IReport;
   currentReportType: ReportType;
   currentCurrency: CurrencyInfo;
@@ -53,14 +54,60 @@ export class ReportTableComponent implements OnInit {
     if (tickers.length > 0) {
       this.reportService.getReports(tickers, this.currentReportType).subscribe((res: IReport[]) => {
         if (res.length > 0) {
-          console.log(res);
-          const reports = ReportService.getReportObjectFromInterface(res, this.currentReportType);
-          this.reportService.recalcReportsAfterChangeCurrency(reports, CurrencyService.clone(this.currentCurrency));
-          this.reportList = reports;
+          res.forEach(r => r.type = this.currentReportType);
+          this.reports = this.reportService.recalculate(res, this.currentCurrency);
         }
       });
     }
-    this.headerName = ReportService.getReportHeaderNamesByType(this.currentReportType);
   }
 
+  selectCompany(company: Company): void {
+    this.selectedCompany.emit(company);
+    this.currentCompanies = [];
+    this.addCompany(company);
+    this.loadReport();
+  }
+
+  addCompany(company: Company): void {
+    this.currentCompanies.push(company);
+  }
+
+  findCompaniesByTickerOrName(name: string): void {
+    this.companyService.getCompaniesBySearch(name).subscribe(res => {
+      this.searchCompanies = res;
+    });
+  }
+
+  removeCompany(companyId: number): void {
+    this.currentCompanies = this.currentCompanies.filter(company => company.id !== companyId);
+  }
+
+  changeReportType(type: string): void {
+    this.currentReportType = type as ReportType;
+    this.loadReport();
+  }
+
+  recalculate(): void {
+    if (this.reports.length > 0) {
+      console.log(this.reports);
+      console.log(this.currentCurrency);
+      this.reports = this.reportService.recalculate(this.reports, this.currentCurrency);
+      console.log(this.reports);
+    }
+  }
+
+  toggleConfiguration(): void {
+    this.configuratorOn = !this.configuratorOn;
+  }
+
+  createReport(): void {
+    this.currentReport = this.reportService.createEmptyReport(this.currentReportType, this.currentCompanies[0], this.currentCurrency);
+    this.isEditReport = true;
+  }
+
+  editReport(report: Report): void {
+    this.currentReport = report;
+    this.currentReport.company = this.currentCompanies[0];
+    this.isEditReport = true;
+  }
 }

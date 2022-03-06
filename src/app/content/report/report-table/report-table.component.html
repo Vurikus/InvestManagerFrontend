@@ -1,1 +1,367 @@
-<p>report-table works!</p>
+<div class="radius-box configurator">
+  <div class="toggle" (click)="toggleConfiguration()">
+    <ng-container *ngIf="configuratorOn; else off">
+      <img src="../../../../assets/icon/direction/down.png" alt="">
+    </ng-container>
+    <ng-template #off>
+      <img src="../../../../assets/icon/direction/up.png" alt="">
+    </ng-template>
+  </div>
+  <div [ngClass]="{'hidden': configuratorOn}">
+    <div class="box">
+      <div style="text-align: center">Отчетность</div>
+      <label class="radio_container" *ngFor="let type of reportTypes">{{type}}
+        <input name="reportType" type="radio" [(ngModel)]="currentReportType" (change)="changeReportType(type)"
+               [checked]="currentReportType == type" [value]="type"/>
+        <span class="checkmark"></span>
+        <br>
+      </label>
+    </div>
+    <div class="box">
+      <div style="text-align: center">Валюта</div>
+      <label class="radio_container" *ngFor="let currency of currencies">{{currency.name}}
+        <input name="currency" type="radio" [(ngModel)]="currentCurrency.currency" (change)="recalculate()"
+               [checked]="currentCurrency.currency == currency" [value]="currency"/>
+        <span class="checkmark"></span>
+        <br>
+      </label>
+    </div>
+    <div class="box">
+      <div style="text-align: center">Объем</div>
+      <label class="radio_container"
+             *ngFor="let abr of abbreviations">{{abr.code === 'ONE' ? 'ед.' : abr.shortDisplayName}}
+        <input name="abbreviation" type="radio" [(ngModel)]="currentCurrency.abbreviation" (change)="recalculate()"
+               [checked]="currentCurrency.abbreviation == abr" [value]="abr"/>
+        <span class="checkmark"></span>
+        <br>
+      </label>
+    </div>
+    <div class="box">
+      <div style="text-align: center">Компании</div>
+      <app-search-line (selectCompany)="selectCompany($event)"></app-search-line>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="!isEditReport; else showEditReport">
+  <div class="radius-box tableFixHead" *ngIf="currentCompanies.length > 0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th *ngFor="let report of reports">
+            {{report.date | date:'MM.yy' }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container [ngSwitch]="currentReportType">
+          <ng-container *ngSwitchCase="'income-statement'">
+            <tr>
+              <td class="primary-column">Выручка</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.revenue | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="primary-column">Себестоимость</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.costSales | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="title-row">Валовая прибыль</td>
+              <td class="title-row" *ngFor="let report of reports">
+                <span>{{report.crossProfit | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="primary-column">Коммерческие расходы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.sellingAndMarketingCost | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="primary-column">Управленческие расходы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.administrativeExpenses | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="primary-column">Прочие доходы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.otherIncome | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="primary-column">Прочие расходы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.otherLosses | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="title-row">Прибыль от продаж</td>
+              <td class="title-row" *ngFor="let report of reports">
+                <span>{{report.operatingProfit | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="primary-column">Финансовые доходы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.financeIncome | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="primary-column">Финансовые расходы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.financeCosts | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="primary-column">Обменные валютные операции</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.exchangeTransaction | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="primary-column">Налог на прибыль</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.incomeTax | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="primary-column">Прибыль собственников</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.ownersProfit | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="primary-column">Неконтролирующие доли участия</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.nonControlInterests | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="primary-column">Прибыль до налогообложения</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.netProfitBeforeTax | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="title-row">Чистая прибыль</td>
+              <td class="title-row" *ngFor="let report of reports">
+                <span>{{report.netProfit | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="primary-column">Прибыль (убыток) на акцию</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.profitPerStock | negative}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container *ngSwitchCase="'balance-sheet'">
+            <tr>
+              <td class="title-row">Внеоборотные активы</td>
+              <td class="title-row" *ngFor="let report of reports"></td>
+            </tr><tr>
+              <td class="primary-column">Основные средства</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.nc_fixedAssets | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Инвестиции в ассоц. компании</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.nc_investmentsAssociates | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Гудвилл</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.nc_goodwill | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Нематериальные активы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.nc_intangibleAssets | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Прочие активы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.nc_otherAssets | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Дебиторская задолженность</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.nc_receivables | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Итого внеоборотные активы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.nc_totalAssets | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="title-row">Оборотные активы</td>
+              <td class="title-row" *ngFor="let report of reports"></td>
+            </tr><tr>
+              <td class="primary-column">Товарно-материальные запасы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.c_inventories | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Прочие активы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.c_otherAssets | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Дебиторская задолженность</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.c_receivables | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Налоговые активы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.c_currentIncomeTax | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Денежные средства и эквиваленты</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.c_cash | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Итого оборотные активы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.c_totalAssets | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Итого активы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.totalAssets | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="title-row">Капитал</td>
+              <td class="title-row" *ngFor="let report of reports"></td>
+            </tr><tr>
+              <td class="primary-column">Акционерный капитал</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.e_shareCapital | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Эмиссионный доход, добавочный капитал</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.e_additionalCapital | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Резервы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.e_reserveCapital | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Нераспределенная прибыль</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.e_retainedEarning | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Доход собственников</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.e_totalOwners | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Неконтролирующая доля</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.e_nonControlInterests | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Итого капитал</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.e_totalEquity | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="title-row">Долгосрочные обязательства</td>
+              <td class="title-row" *ngFor="let report of reports"></td>
+            </tr><tr>
+              <td class="primary-column">Кредиты и займы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.ncl_borrowings | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Обязательства по аренде</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.ncl_otherLeaseLiabilities | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Торговая кредиторская задолженность</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.ncl_tradePayables | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Обязательства по договорам</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.ncl_contractLiabilities | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Отложенные налоговые обязательства</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.ncl_deferredTaxLiabilities | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Итого долгосрочные обязательства</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.ncl_totalNonCurLiabilities | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="title-row">Краткосрочные обязательства</td>
+              <td class="title-row" *ngFor="let report of reports"></td>
+            </tr><tr>
+              <td class="primary-column">Кредиты и займы</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.cl_borrowings | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Обязательства по аренде</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.cl_otherLeaseLiabilities | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Торговая кредиторская задолженность</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.cl_tradePayables | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Обязательства по договорам</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.cl_contractLiabilities | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Текущие налоговые обязательства</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.cl_currentTaxLiabilities | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Итого краткосрочные обязательства</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.cl_totalCurLiabilities | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr><tr>
+              <td class="primary-column">Итого обязательства</td>
+              <td *ngFor="let report of reports">
+                <span>{{report.totalLiabilities | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              </td>
+            </tr>
+          </ng-container>
+          <!--            BUTTONS           -->
+          <tr>
+            <td class="primary-column">
+              <button type="button" class="btn btn-outline-primary" (click)="createReport()">+</button>
+            </td>
+            <td class="primary-column" *ngFor="let report of reports; let l = index">
+              <button type="button" class="btn btn-outline-primary" (click)="editReport(report)">Редактировать</button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</ng-container>
+<ng-template #showEditReport>
+  <!--  <app-report-form [type]="currentReportType" [currentReport]="currentReport" [currentCurrency]="currentCurrency" (onSave)="isEditReport = false"></app-report-form>-->
+</ng-template>

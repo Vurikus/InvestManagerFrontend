@@ -22,8 +22,8 @@ export enum ReportHeaderName {
   incomeTax = 'Налог на прибыль',
   ownersProfit = 'Прибыль собственников',
   nonControlInterests = 'Неконтролирующие доли участия',
-  netProfit = 'Чистая прибыль',
   netProfitBeforeTax = 'Прибыль до налогообложения',
+  netProfit = 'Чистая прибыль',
 
 // NonCurrentAssets
   nonCurrentAssets = 'Внеоборотные активы',

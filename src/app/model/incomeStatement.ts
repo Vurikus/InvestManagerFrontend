@@ -48,8 +48,8 @@ export class IncomeStatement extends Report implements IIncomeStatement {
   incomeTax: number;
   ownersProfit: number;
   nonControlInterests: number;
-  netProfit: number;
   netProfitBeforeTax: number;
+  netProfit: number;
   // Other
   countStocks: number;
   profitPerStock: number;

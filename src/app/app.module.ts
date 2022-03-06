@@ -19,6 +19,7 @@ import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
 import { CompanySearchLineComponent } from './content/common/search-line/company-search-line.component';
 import { ReportFormComponent } from './content/report/report-form/report-form.component';
 import { ReportTableComponent } from './content/report/report-table/report-table.component';
+import { NegativeReportCurrencyPipe } from './content/common/negative-report-currency.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ReportTableComponent } from './content/report/report-table/report-table
     ReportGraphComponent,
     CompanySearchLineComponent,
     ReportFormComponent,
-    ReportTableComponent
+    ReportTableComponent,
+    NegativeReportCurrencyPipe
   ],
   imports: [
     BrowserModule,
