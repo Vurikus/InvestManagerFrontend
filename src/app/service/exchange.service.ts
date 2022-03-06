@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Abbreviation1, Currency} from '../model/currencyInfo';
+import {Abbreviation, Currency} from '../model/currencyInfo';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -14,13 +14,13 @@ export class ExchangeService {
     this.currencies.push(ExchangeService.defaultCurrency());
   }
   private currencies: Array<Currency> = [];
-  private abbreviations: Array<Abbreviation1> = [];
+  private abbreviations: Array<Abbreviation> = [];
 
   public static defaultCurrency(): Currency{
     return {name: 'Рубль', code: 'RUR', rate: 1, shortDisplayName: 'руб.'};
   }
 
-  public static defaultAbbreviation(): Abbreviation1{
+  public static defaultAbbreviation(): Abbreviation{
     return {shortDisplayName: '', code: 'ONE', value: 1};
   }
 
@@ -32,8 +32,8 @@ export class ExchangeService {
     return this.currencies.find((currency: Currency) => currency.code === code);
   }
 
-  public getAbbreviationByCode(code: string): Abbreviation1 {
-    const abbreviation = this.abbreviations.find((abr: Abbreviation1) => abr.code === code);
+  public getAbbreviationByCode(code: string): Abbreviation {
+    const abbreviation = this.abbreviations.find((abr: Abbreviation) => abr.code === code);
     if (abbreviation) {
       return abbreviation;
     } else {
@@ -45,7 +45,7 @@ export class ExchangeService {
     return this.currencies;
   }
 
-  public getAbbreviations(): ReadonlyArray<Abbreviation1> {
+  public getAbbreviations(): ReadonlyArray<Abbreviation> {
     return this.abbreviations;
   }
 

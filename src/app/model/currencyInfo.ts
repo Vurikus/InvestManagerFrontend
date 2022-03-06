@@ -1,6 +1,6 @@
 export interface CurrencyInfo {
   currency: Currency;
-  abbreviation: Abbreviation1;
+  abbreviation: Abbreviation;
 }
 
 export interface Currency {
@@ -10,7 +10,7 @@ export interface Currency {
   rate: number;
 }
 
-export interface Abbreviation1 {
+export interface Abbreviation {
   code: string;
   shortDisplayName: string;
   value: number;

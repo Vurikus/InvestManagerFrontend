@@ -39,11 +39,6 @@
       <div style="text-align: center">Компании</div>
       <app-search-line (selectCompany)="selectCompany($event)"></app-search-line>
     </div>
-<!--    <div class="box">-->
-<!--      <div style="text-align: center">-->
-<!--        <button type="button" class="btn btn-outline-primary" (click)="isEditReport = !isEditReport">Добавить отчет</button>-->
-<!--      </div>-->
-<!--    </div>-->
   </div>
 </div>
 <ng-container *ngIf="!isEditReport; else showEditReport">
@@ -55,23 +50,19 @@
         <th *ngFor="let report of reportList">
           {{report.date | date:'MM.yy' }}
         </th>
-        <th></th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let h of headerName">
+      <tr *ngFor="let h of headerName; let ih = index">
         <td [ngClass]="primaryColumnStyle(h)">{{h}}</td>
         <td [ngClass]="specialStyle(h)" *ngFor="let report of reportList; let l = index">
           <span>{{reportList[l].getValueByHeaderName(h)}}</span>
         </td>
       </tr>
       <tr>
-        <td class="primary-column"></td>
+        <td class="primary-column"><button type="button" class="btn btn-outline-primary" (click)="createReport()">+</button></td>
         <td class="primary-column" *ngFor="let report of reportList; let l = index">
           <button (click)="editReport(report)">Редактировать</button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-outline-primary" (click)="createReport()">+</button>
         </td>
       </tr>
       </tbody>
@@ -79,6 +70,6 @@
   </div>
 </ng-container>
 <ng-template #showEditReport>
-  <app-report-form [type]="currentReportType" [currentReport]="currentReport" [currentCurrency]="currentCurrency"></app-report-form>
+  <app-report-form [type]="currentReportType" [currentReport]="currentReport" [currentCurrency]="currentCurrency" (onSave)="isEditReport = false"></app-report-form>
 </ng-template>
 

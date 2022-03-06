@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {IReport, Report} from '../../../model/report';
 import {IncomeStatement} from '../../../model/incomeStatement';
 import {ReportHeaderName} from '../../../model/reportHeaderName';
-import {Abbreviation1, Currency, CurrencyInfo} from '../../../model/currencyInfo';
+import {Abbreviation, Currency, CurrencyInfo} from '../../../model/currencyInfo';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ReportType} from '../../../model/reportType';
 import {BalanceSheet} from '../../../model/balanceSheet';
@@ -32,7 +32,7 @@ export class ReportListComponent implements OnInit {
   selectedCompanies: Array<Company> = [];
   searchCompanies: Array<Company> = [];
   currencies: ReadonlyArray<Currency> = [];
-  abbreviations: ReadonlyArray<Abbreviation1> = [];
+  abbreviations: ReadonlyArray<Abbreviation> = [];
   reportTypes: ReadonlyArray<ReportType> = [];
   totalHeaderRow: Array<ReportHeaderName>;
   titleRow: Array<ReportHeaderName>;

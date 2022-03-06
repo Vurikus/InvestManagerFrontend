@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {ReportType} from '../../../model/reportType';
 import {ReportHeaderName} from '../../../model/reportHeaderName';
 import {BalanceSheet} from '../../../model/balanceSheet';
@@ -22,6 +22,8 @@ export class ReportFormComponent implements OnChanges {
   currentReport: Report;
   @Input()
   currentCurrency: CurrencyInfo;
+  @Output()
+  onSave = new EventEmitter<boolean>();
 
   constructor(private reportService: ReportService) {
   }
@@ -60,9 +62,9 @@ export class ReportFormComponent implements OnChanges {
       throw new Error(`Illegal report type: ${this.type}`);
     }
     this.currentReport.setCurrency(this.currentCurrency);
-    const group = {['Дата']: new FormControl(null)};
+    const group = {['Дата']: new FormControl(this.currentReport.getValueByHeaderName('Дата'))};
     this.headers.forEach(rhn => {
-      group[rhn] = new FormControl(0);
+      group[rhn] = new FormControl(null);
       // group[rhn] = new FormControl(this.currentReport.getValueByHeaderName(rhn));
     });
     this.reportForm = new FormGroup(group);
@@ -70,15 +72,11 @@ export class ReportFormComponent implements OnChanges {
 
   saveReport(): void {
     for (const controlsKey in this.reportForm.controls) {
-      console.log(controlsKey + ' ' + this.reportForm.get(controlsKey).value);
       const value = this.reportForm.get(controlsKey).value;
       this.currentReport.setValueByHeaderName(controlsKey, value);
     }
-    // this.headers.forEach(h => {
-    //   console.log(h + ' ' + this.reportForm.get(h).value);
-    //   this.reportForm.get(h);
-    // });
     console.log(this.currentReport);
     this.reportService.sendReport(this.currentReport);
+    this.onSave.emit(true);
   }
 }

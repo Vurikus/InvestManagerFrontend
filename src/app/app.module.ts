@@ -18,6 +18,7 @@ import {ReportGraphComponent} from './content/report/report-graph/report-graph.c
 import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
 import { CompanySearchLineComponent } from './content/common/search-line/company-search-line.component';
 import { ReportFormComponent } from './content/report/report-form/report-form.component';
+import { ReportTableComponent } from './content/report/report-table/report-table.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ReportFormComponent } from './content/report/report-form/report-form.co
     ReportListComponent,
     ReportGraphComponent,
     CompanySearchLineComponent,
-    ReportFormComponent
+    ReportFormComponent,
+    ReportTableComponent
   ],
   imports: [
     BrowserModule,
