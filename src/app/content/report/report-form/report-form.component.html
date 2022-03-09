@@ -1,11 +1,193 @@
-<p>report-form works!</p>
-<ng-container>
-  <form [formGroup]="reportForm" (ngSubmit)="saveReport()">
-    <label>Дата</label>
-    <input type="date" formControlName="Дата"/><br/>
-    <ng-container *ngFor="let h of headers">
-      <label>{{h}}</label><input type=number formControlName="{{h}}"/><br/>
+<div class="radius-box tableFixHead" [ngSwitch]="type">
+  <table class="table">
+    <tbody>
+    <ng-container *ngSwitchCase="'income-statement'">
+      <tr>
+        <td>Выручка</td>
+        <td><input type=number name="revenue" [ngModel]="currentReport.revenue | negative: false" (ngModelChange)="currentReport.revenue=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
+      <tr>
+        <td>Себестоимость</td>
+        <td><input type=number name="costSales" [ngModel]="currentReport.costSales | negative: false" (ngModelChange)="currentReport.costSales=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
+      <tr>
+        <td>Валовая прибыль</td>
+        <td><input type=number name="crossProfit" disabled [ngModel]="currentReport.revenue + currentReport.costSales | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
+      <tr>
+        <td>Коммерческие расходы</td>
+        <td><input type=number name="revenue" [ngModel]="currentReport.sellingAndMarketingCost | negative: false" (ngModelChange)="currentReport.sellingAndMarketingCost=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
+      <tr>
+        <td>Управленческие расходы</td>
+        <td><input type=number name="revenue" [ngModel]="currentReport.administrativeExpenses | negative: false" (ngModelChange)="currentReport.administrativeExpenses=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
+      <tr>
+        <td>Прочие доходы</td>
+        <td><input type=number name="revenue" [ngModel]="currentReport.otherIncome | negative: false" (ngModelChange)="currentReport.otherIncome=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
+      <tr>
+        <td>Прочие расходы</td>
+        <td><input type=number name="revenue" [ngModel]="currentReport.otherLosses | negative: false" (ngModelChange)="currentReport.otherLosses=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
+      <tr>
+        <td>Прибыль от продаж</td>
+        <td><input type=number name="operatingProfit" disabled [ngModel]="currentReport.revenue + currentReport.costSales + currentReport.sellingAndMarketingCost + currentReport.administrativeExpenses + currentReport.otherIncome + currentReport.otherLosses | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
+      <tr>
+        <td>Финансовые доходы</td>
+        <td><input type=number name="revenue" [ngModel]="currentReport.financeIncome | negative: false" (ngModelChange)="currentReport.financeIncome=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
+      <tr>
+        <td>Финансовые расходы</td>
+        <td><input type=number name="revenue" [ngModel]="currentReport.financeCosts | negative: false" (ngModelChange)="currentReport.financeCosts=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
+      <tr>
+        <td>Обменные валютные операции</td>
+        <td><input type=number name="revenue" [ngModel]="currentReport.exchangeTransaction | negative: false" (ngModelChange)="currentReport.exchangeTransaction=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
+      <tr>
+        <td>Налог на прибыль</td>
+        <td><input type=number name="revenue" [ngModel]="currentReport.incomeTax | negative: false" (ngModelChange)="currentReport.incomeTax=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
+      <tr>
+        <td>Прибыль собственников</td>
+        <td><input type=number name="revenue" [ngModel]="currentReport.ownersProfit | negative: false" (ngModelChange)="currentReport.ownersProfit=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
+      <tr>
+        <td>Неконтролирующие доли участия</td>
+        <td><input type=number name="revenue" [ngModel]="currentReport.nonControlInterests | negative: false" (ngModelChange)="currentReport.nonControlInterests=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td></tr>
+      <tr>
+        <td>Чистая прибыль</td>
+        <td><input type=number name="netProfit" disabled [ngModel]="currentReport.revenue + currentReport.costSales + currentReport.sellingAndMarketingCost + currentReport.administrativeExpenses + currentReport.otherIncome + currentReport.otherLosses + currentReport.otherLosses + currentReport.financeIncome + currentReport.financeCosts + currentReport.exchangeTransaction + currentReport.incomeTax + currentReport.ownersProfit + currentReport.nonControlInterests | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
     </ng-container>
-    <input type="submit" [disabled]="reportForm.invalid" class="btn btn-default" value="Сохранить" />
-  </form>
-</ng-container>
+    <ng-container *ngSwitchCase="'balance-sheet'">
+      <tr>
+        <td class="title-row">Внеоборотные активы</td>
+        <td class="title-row"></td>
+      </tr><tr>
+        <td>Основные средства</td>
+        <td><input type=number name="nc_fixedAssets" [ngModel]="currentReport.nc_fixedAssets | negative: false" (ngModelChange)="currentReport.nc_fixedAssets=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Инвестиции в ассоц. компании</td>
+        <td><input type=number name="nc_investmentsAssociates" [ngModel]="currentReport.nc_investmentsAssociates | negative: false" (ngModelChange)="currentReport.nc_investmentsAssociates=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Гудвилл</td>
+        <td><input type=number name="nc_goodwill" [ngModel]="currentReport.nc_goodwill | negative: false" (ngModelChange)="currentReport.nc_goodwill=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Нематериальные активы</td>
+        <td><input type=number name="nc_intangibleAssets" [ngModel]="currentReport.nc_intangibleAssets | negative: false" (ngModelChange)="currentReport.nc_intangibleAssets=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Прочие активы</td>
+        <td><input type=number name="nc_otherAssets" [ngModel]="currentReport.nc_otherAssets | negative: false" (ngModelChange)="currentReport.nc_otherAssets=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Дебиторская задолженность</td>
+        <td><input type=number name="nc_receivables" [ngModel]="currentReport.nc_receivables | negative: false" (ngModelChange)="currentReport.nc_receivables=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Итого внеоборотные активы</td>
+        <td><input disabled type=number name="nc_totalAssets" [ngModel]="currentReport.nc_fixedAssets + currentReport.nc_investmentsAssociates + currentReport.nc_goodwill + currentReport.nc_intangibleAssets + currentReport.nc_otherAssets + currentReport.nc_receivables | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td class="title-row">Оборотные активы</td>
+        <td class="title-row"></td>
+      </tr><tr>
+        <td>Товарно-материальные запасы</td>
+        <td><input type=number name="c_inventories" [ngModel]="currentReport.c_inventories | negative: false" (ngModelChange)="currentReport.c_inventories=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Прочие активы</td>
+        <td><input type=number name="c_otherAssets" [ngModel]="currentReport.c_otherAssets | negative: false" (ngModelChange)="currentReport.c_otherAssets=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Дебиторская задолженность</td>
+        <td><input type=number name="c_receivables" [ngModel]="currentReport.c_receivables | negative: false" (ngModelChange)="currentReport.c_receivables=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Налоговые активы</td>
+        <td><input type=number name="c_currentIncomeTax" [ngModel]="currentReport.c_currentIncomeTax | negative: false" (ngModelChange)="currentReport.c_currentIncomeTax=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Денежные средства и эквиваленты</td>
+        <td><input type=number name="c_cash" [ngModel]="currentReport.c_cash | negative: false" (ngModelChange)="currentReport.c_cash=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Итого оборотные активы</td>
+        <td><input disabled type=number name="c_totalAssets" [ngModel]="currentReport.c_inventories + currentReport.c_otherAssets + currentReport.c_receivables + currentReport.c_currentIncomeTax + currentReport.c_cash | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Итого активы</td>
+<!--        <td><input disabled type=number name="nc_totalAssets" [ngModel]="currentReport.c_inventories + currentReport.c_otherAssets + currentReport.c_receivables + currentReport.c_currentIncomeTax + currentReport.c_cash | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>-->
+        <td>
+<!--          <span>{{report.totalAssets | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>-->
+        </td>
+      </tr><tr>
+        <td class="title-row">Капитал</td>
+        <td class="title-row"></td>
+      </tr><tr>
+        <td>Акционерный капитал</td>
+        <td><input type=number name="e_shareCapital" [ngModel]="currentReport.e_shareCapital | negative: false" (ngModelChange)="currentReport.e_shareCapital=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Эмиссионный доход, добавочный капитал</td>
+        <td><input type=number name="e_additionalCapital" [ngModel]="currentReport.e_additionalCapital | negative: false" (ngModelChange)="currentReport.e_additionalCapital=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Резервы</td>
+        <td><input type=number name="e_reserveCapital" [ngModel]="currentReport.e_reserveCapital | negative: false" (ngModelChange)="currentReport.e_reserveCapital=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Нераспределенная прибыль</td>
+        <td><input type=number name="e_retainedEarning" [ngModel]="currentReport.e_retainedEarning | negative: false" (ngModelChange)="currentReport.e_retainedEarning=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Доход собственников</td>
+        <td><input type=number name="e_totalOwners" [ngModel]="currentReport.e_totalOwners | negative: false" (ngModelChange)="currentReport.e_totalOwners=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Неконтролирующая доля</td>
+        <td><input type=number name="e_nonControlInterests" [ngModel]="currentReport.e_nonControlInterests | negative: false" (ngModelChange)="currentReport.e_nonControlInterests=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Итого капитал</td>
+        <td><input disabled type=number name="e_totalEquity" [ngModel]="currentReport.e_shareCapital + currentReport.e_additionalCapital + currentReport.e_reserveCapital + currentReport.e_retainedEarning + currentReport.e_totalOwners + currentReport.e_nonControlInterests | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td class="title-row">Долгосрочные обязательства</td>
+        <td class="title-row"></td>
+      </tr><tr>
+        <td>Кредиты и займы</td>
+        <td><input type=number name="ncl_borrowings" [ngModel]="currentReport.ncl_borrowings | negative: false" (ngModelChange)="currentReport.ncl_borrowings=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Обязательства по аренде</td>
+        <td><input type=number name="ncl_otherLeaseLiabilities" [ngModel]="currentReport.ncl_otherLeaseLiabilities | negative: false" (ngModelChange)="currentReport.ncl_otherLeaseLiabilities=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Торговая кредиторская задолженность</td>
+        <td><input type=number name="ncl_tradePayables" [ngModel]="currentReport.ncl_tradePayables | negative: false" (ngModelChange)="currentReport.ncl_tradePayables=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Обязательства по договорам</td>
+        <td><input type=number name="ncl_contractLiabilities" [ngModel]="currentReport.ncl_contractLiabilities | negative: false" (ngModelChange)="currentReport.ncl_contractLiabilities=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Отложенные налоговые обязательства</td>
+        <td><input type=number name="ncl_deferredTaxLiabilities" [ngModel]="currentReport.ncl_deferredTaxLiabilities | negative: false" (ngModelChange)="currentReport.ncl_deferredTaxLiabilities=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Итого долгосрочные обязательства</td>
+        <td><input disabled type=number name="ncl_totalNonCurLiabilities" [ngModel]="currentReport.ncl_borrowings + currentReport.ncl_otherLeaseLiabilities + currentReport.ncl_tradePayables + currentReport.ncl_contractLiabilities + currentReport.ncl_deferredTaxLiabilities | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td class="title-row">Краткосрочные обязательства</td>
+        <td class="title-row"></td>
+      </tr><tr>
+        <td>Кредиты и займы</td>
+        <td><input type=number name="cl_borrowings" [ngModel]="currentReport.cl_borrowings | negative: false" (ngModelChange)="currentReport.cl_borrowings=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Обязательства по аренде</td>
+        <td><input type=number name="cl_otherLeaseLiabilities" [ngModel]="currentReport.cl_otherLeaseLiabilities | negative: false" (ngModelChange)="currentReport.cl_otherLeaseLiabilities=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Торговая кредиторская задолженность</td>
+        <td><input type=number name="cl_tradePayables" [ngModel]="currentReport.cl_tradePayables | negative: false" (ngModelChange)="currentReport.cl_tradePayables=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Обязательства по договорам</td>
+        <td><input type=number name="cl_contractLiabilities" [ngModel]="currentReport.cl_contractLiabilities | negative: false" (ngModelChange)="currentReport.cl_contractLiabilities=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Текущие налоговые обязательства</td>
+        <td><input type=number name="cl_currentTaxLiabilities" [ngModel]="currentReport.cl_currentTaxLiabilities | negative: false" (ngModelChange)="currentReport.cl_currentTaxLiabilities=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Итого краткосрочные обязательства</td>
+        <td><input disabled type=number name="cl_totalCurLiabilities" [ngModel]="currentReport.cl_borrowings + currentReport.cl_otherLeaseLiabilities + currentReport.cl_tradePayables + currentReport.cl_contractLiabilities + currentReport.cl_currentTaxLiabilities | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr><tr>
+        <td>Итого обязательства</td>
+<!--        <td><input disabled type=number name="cl_totalCurLiabilities" [ngModel]="currentReport.cl_borrowings + currentReport.cl_otherLeaseLiabilities + currentReport.cl_tradePayables + currentReport.cl_contractLiabilities + currentReport.cl_currentTaxLiabilities | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>-->
+        <td>
+<!--          <span>{{report.totalLiabilities | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>-->
+        </td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+</div>
