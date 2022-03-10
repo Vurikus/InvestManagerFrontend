@@ -20,7 +20,7 @@
     <div class="box">
       <div style="text-align: center">Валюта</div>
       <label class="radio_container" *ngFor="let currency of currencies">{{currency.name}}
-        <input name="currency" type="radio" [(ngModel)]="currentCurrency.currency" (change)="recalculate()"
+        <input name="currency" type="radio" [(ngModel)]="currentCurrency.currency" (change)="changeCurrencyInfo()"
                [checked]="currentCurrency.currency == currency" [value]="currency"/>
         <span class="checkmark"></span>
         <br>
@@ -30,7 +30,7 @@
       <div style="text-align: center">Объем</div>
       <label class="radio_container"
              *ngFor="let abr of abbreviations">{{abr.code === 'ONE' ? 'ед.' : abr.shortDisplayName}}
-        <input name="abbreviation" type="radio" [(ngModel)]="currentCurrency.abbreviation" (change)="recalculate()"
+        <input name="abbreviation" type="radio" [(ngModel)]="currentCurrency.abbreviation" (change)="changeCurrencyInfo()"
                [checked]="currentCurrency.abbreviation == abr" [value]="abr"/>
         <span class="checkmark"></span>
         <br>

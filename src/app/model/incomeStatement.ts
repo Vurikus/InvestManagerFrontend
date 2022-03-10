@@ -157,7 +157,7 @@ export class IncomeStatement extends Report implements IIncomeStatement {
   setCurrency(currencyInfo: CurrencyInfo): void {
     const factor = CurrencyService.currencyFactor(currencyInfo, this.currencyInfo);
     this.profitPerStock = this.profitPerStock * (this.currencyInfo.currency.rate / currencyInfo.currency.rate);
-    this.currencyInfo = currencyInfo;
+    this.currencyInfo = CurrencyService.clone(currencyInfo);
     this.revenue = factor * this.revenue;
     this.costSales = factor * this.costSales;
     this.crossProfit = factor * this.crossProfit;

@@ -2,8 +2,8 @@ import {CurrencyInfo} from './currencyInfo';
 import {IReport, Report} from './report';
 import {ReportHeaderName} from './reportHeaderName';
 import {CurrencyService} from '../service/currency.service';
-import {ReportType} from "./reportType";
-import {Company} from "./company";
+import {ReportType} from './reportType';
+import {Company} from './company';
 
 export interface IBalanceSheet extends IReport {
   // NonCurrentAssets
@@ -48,45 +48,6 @@ export interface IBalanceSheet extends IReport {
 }
 
 export class BalanceSheet extends Report implements IBalanceSheet {
-  // NonCurrentAssets
-  nc_fixedAssets: number;
-  nc_investmentsAssociates: number;
-  nc_goodwill: number;
-  nc_intangibleAssets: number;
-  nc_otherAssets: number;
-  nc_receivables: number;
-  nc_totalAssets: number;
-  // CurrentAssets
-  c_inventories: number;
-  c_otherAssets: number;
-  c_receivables: number;
-  c_currentIncomeTax: number;
-  c_cash: number;
-  c_totalAssets: number;
-  totalAssets: number;
-  // Equity
-  e_shareCapital: number;
-  e_reserveCapital: number;
-  e_additionalCapital: number;
-  e_retainedEarning: number;
-  e_totalOwners: number;
-  e_nonControlInterests: number;
-  e_totalEquity: number;
-  // NonCurrentLiabilities
-  ncl_borrowings: number;
-  ncl_otherLeaseLiabilities: number;
-  ncl_tradePayables: number;
-  ncl_contractLiabilities: number;
-  ncl_deferredTaxLiabilities: number;
-  ncl_totalNonCurLiabilities: number;
-  // CurrentLiabilities
-  cl_borrowings: number;
-  cl_otherLeaseLiabilities: number;
-  cl_tradePayables: number;
-  cl_contractLiabilities: number;
-  cl_currentTaxLiabilities: number;
-  cl_totalCurLiabilities: number;
-  totalLiabilities: number;
 
   constructor(c?: Company, r?: IBalanceSheet) {
     super(c, r);
@@ -126,6 +87,45 @@ export class BalanceSheet extends Report implements IBalanceSheet {
     this.cl_totalCurLiabilities = r?.cl_totalCurLiabilities ?? 0;
     this.totalLiabilities = r?.totalLiabilities ?? 0;
   }
+  // NonCurrentAssets
+  nc_fixedAssets: number;
+  nc_investmentsAssociates: number;
+  nc_goodwill: number;
+  nc_intangibleAssets: number;
+  nc_otherAssets: number;
+  nc_receivables: number;
+  nc_totalAssets: number;
+  // CurrentAssets
+  c_inventories: number;
+  c_otherAssets: number;
+  c_receivables: number;
+  c_currentIncomeTax: number;
+  c_cash: number;
+  c_totalAssets: number;
+  totalAssets: number;
+  // Equity
+  e_shareCapital: number;
+  e_reserveCapital: number;
+  e_additionalCapital: number;
+  e_retainedEarning: number;
+  e_totalOwners: number;
+  e_nonControlInterests: number;
+  e_totalEquity: number;
+  // NonCurrentLiabilities
+  ncl_borrowings: number;
+  ncl_otherLeaseLiabilities: number;
+  ncl_tradePayables: number;
+  ncl_contractLiabilities: number;
+  ncl_deferredTaxLiabilities: number;
+  ncl_totalNonCurLiabilities: number;
+  // CurrentLiabilities
+  cl_borrowings: number;
+  cl_otherLeaseLiabilities: number;
+  cl_tradePayables: number;
+  cl_contractLiabilities: number;
+  cl_currentTaxLiabilities: number;
+  cl_totalCurLiabilities: number;
+  totalLiabilities: number;
 
   static getHeadersStatic(): ReportHeaderName[] {
     return [
@@ -169,6 +169,10 @@ export class BalanceSheet extends Report implements IBalanceSheet {
       ReportHeaderName.cl_totalCurLiabilities,
       ReportHeaderName.totalLiabilities
     ];
+  }
+
+  calculateTotal(): void {
+    this.totalAssets = this.nc_fixedAssets + this.nc_investmentsAssociates + this.nc_goodwill + this.nc_intangibleAssets + this.nc_otherAssets + this.nc_receivables;
   }
 
   getValueByHeaderName(headerName: ReportHeaderName): number | string | Date {
@@ -267,7 +271,7 @@ export class BalanceSheet extends Report implements IBalanceSheet {
 
   setCurrency(value: CurrencyInfo): void {
     const factor = CurrencyService.currencyFactor(value, this.currencyInfo);
-    this.currencyInfo = value;
+    this.currencyInfo = CurrencyService.clone(value);
     this.nc_fixedAssets = this.nc_fixedAssets * factor;
     this.nc_investmentsAssociates = this.nc_investmentsAssociates * factor;
     this.nc_goodwill = this.nc_goodwill * factor;

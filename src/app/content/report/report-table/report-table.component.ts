@@ -1,14 +1,13 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Company} from "../../../model/company";
-import {IReport, Report} from "../../../model/report";
-import {ReportHeaderName} from "../../../model/reportHeaderName";
-import {FormGroup} from "@angular/forms";
-import {ReportType} from "../../../model/reportType";
-import {Abbreviation, Currency, CurrencyInfo} from "../../../model/currencyInfo";
-import {ReportService} from "../../../service/report.service";
-import {ExchangeService} from "../../../service/exchange.service";
-import {CompanyService} from "../../../service/company.service";
-import {CurrencyService} from "../../../service/currency.service";
+import {Company} from '../../../model/company';
+import {IReport, Report} from '../../../model/report';
+import {ReportType} from '../../../model/reportType';
+import {Abbreviation, Currency, CurrencyInfo} from '../../../model/currencyInfo';
+import {ReportService} from '../../../service/report.service';
+import {ExchangeService} from '../../../service/exchange.service';
+import {CompanyService} from '../../../service/company.service';
+import {BalanceSheet, IBalanceSheet} from '../../../model/balanceSheet';
+import {IIncomeStatement, IncomeStatement} from "../../../model/incomeStatement";
 
 @Component({
   selector: 'app-report-table',
@@ -24,9 +23,8 @@ export class ReportTableComponent implements OnInit {
   configuratorOn = false;
   isEditReport = false;
 
-  // reports: Array<IReport> = [];
   reports: Array<any> = [];
-  currentReport: IReport;
+  currentReport: Report;
   currentReportType: ReportType;
   currentCurrency: CurrencyInfo;
 
@@ -48,14 +46,21 @@ export class ReportTableComponent implements OnInit {
   }
 
   loadReport(): void {
+    this.reports = [];
     const tickers: string[] = this.currentCompanies.map(c => {
       return c.ticker;
     });
     if (tickers.length > 0) {
       this.reportService.getReports(tickers, this.currentReportType).subscribe((res: IReport[]) => {
         if (res.length > 0) {
-          res.forEach(r => r.type = this.currentReportType);
-          this.reports = this.reportService.recalculate(res, this.currentCurrency);
+          this.reports = res.map(r => {
+            r.type = this.currentReportType;
+            let report;
+            if (r.type === ReportType.BALANCE_SHEET) { report = new BalanceSheet(r.company, r as IBalanceSheet); }
+            else if (r.type === ReportType.INCOME_STATEMENT) { report = new IncomeStatement(r.company, r as IIncomeStatement); }
+            report.setCurrency(this.currentCurrency);
+            return report;
+          });
         }
       });
     }
@@ -84,16 +89,8 @@ export class ReportTableComponent implements OnInit {
 
   changeReportType(type: string): void {
     this.currentReportType = type as ReportType;
+    this.currentReport = this.reportService.createEmptyReport(this.currentReportType, this.currentCompanies[0], this.currentCurrency);
     this.loadReport();
-  }
-
-  recalculate(): void {
-    if (this.reports.length > 0) {
-      console.log(this.reports);
-      console.log(this.currentCurrency);
-      this.reports = this.reportService.recalculate(this.reports, this.currentCurrency);
-      console.log(this.reports);
-    }
   }
 
   toggleConfiguration(): void {
@@ -109,5 +106,12 @@ export class ReportTableComponent implements OnInit {
     this.currentReport = report;
     this.currentReport.company = this.currentCompanies[0];
     this.isEditReport = true;
+  }
+
+  changeCurrencyInfo(): void {
+    this.currentReport.setCurrency(this.currentCurrency);
+    if (this.reports.length > 0) {
+      this.reports.forEach(r => r.setCurrency(this.currentCurrency));
+    }
   }
 }
