@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  apiUrl: 'http://localhost:28081',
-  wsUrl: 'http://localhost:28081',
+  apiUrl: 'http://localhost:28082',
+  wsUrl: 'http://localhost:28082',
   cbrApi: 'https://www.cbr-xml-daily.ru/daily_json.js',
   production: false
 };

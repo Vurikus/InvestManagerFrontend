@@ -1,6 +1,10 @@
 <div class="radius-box tableFixHead" [ngSwitch]="type">
   <table class="table">
     <tbody>
+    <tr>
+      <td>Дата</td>
+      <td><input required type=date name="date" [ngModel]="currentReport.date" (ngModelChange)="currentReport.date=$event"/></td>
+    </tr>
     <ng-container *ngSwitchCase="'income-statement'">
       <tr>
         <td>Выручка</td>
