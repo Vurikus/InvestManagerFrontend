@@ -35,6 +35,8 @@ export abstract class Report implements IReport{
     ];
   }
 
+  abstract calculateTotal(): void;
+
   abstract getValueByHeaderName(headerName: string): number | string | Date;
 
   abstract getHeaders(): ReportHeaderName[];

@@ -154,6 +154,15 @@ export class IncomeStatement extends Report implements IIncomeStatement {
     return IncomeStatement.getHeadersStatic();
   }
 
+  calculateTotal(): void {
+    this.crossProfit = this.revenue + this.costSales;
+    this.operatingProfit = this.crossProfit + (this.administrativeExpenses + this.otherIncome + this.otherLosses + this.sellingAndMarketingCost);
+    this.netProfitBeforeTax = this.operatingProfit + (this.financeIncome + this.financeCosts + this.exchangeTransaction);
+    this.netProfit = this.netProfitBeforeTax + this.incomeTax;
+    this.ownersProfit = this.netProfit + this.nonControlInterests;
+    this.profitPerStock = this.ownersProfit * this.currencyInfo.abbreviation.value / this.countStocks;
+  }
+
   setCurrency(currencyInfo: CurrencyInfo): void {
     const factor = CurrencyService.currencyFactor(currencyInfo, this.currencyInfo);
     this.profitPerStock = this.profitPerStock * (this.currencyInfo.currency.rate / currencyInfo.currency.rate);
@@ -176,7 +185,5 @@ export class IncomeStatement extends Report implements IIncomeStatement {
     this.nonControlInterests = factor * this.nonControlInterests;
     this.netProfit = factor * this.netProfit;
     this.netProfitBeforeTax = factor * this.netProfitBeforeTax;
-    // Other
-    // this.profitPerStock = factor * this.profitPerStock;
   }
 }

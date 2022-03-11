@@ -110,10 +110,7 @@
         <td><input disabled type=number name="c_totalAssets" [ngModel]="currentReport.c_inventories + currentReport.c_otherAssets + currentReport.c_receivables + currentReport.c_currentIncomeTax + currentReport.c_cash | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr><tr>
         <td>Итого активы</td>
-<!--        <td><input disabled type=number name="nc_totalAssets" [ngModel]="currentReport.c_inventories + currentReport.c_otherAssets + currentReport.c_receivables + currentReport.c_currentIncomeTax + currentReport.c_cash | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>-->
-        <td>
-<!--          <span>{{report.totalAssets | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>-->
-        </td>
+        <td><input disabled type=number name="totalAssets" [ngModel]="currentReport.nc_fixedAssets + currentReport.nc_investmentsAssociates + currentReport.nc_goodwill + currentReport.nc_intangibleAssets + currentReport.nc_otherAssets + currentReport.nc_receivables + currentReport.c_inventories + currentReport.c_otherAssets + currentReport.c_receivables + currentReport.c_currentIncomeTax + currentReport.c_cash | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr><tr>
         <td class="title-row">Капитал</td>
         <td class="title-row"></td>
@@ -131,13 +128,13 @@
         <td><input type=number name="e_retainedEarning" [ngModel]="currentReport.e_retainedEarning | negative: false" (ngModelChange)="currentReport.e_retainedEarning=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr><tr>
         <td>Доход собственников</td>
-        <td><input type=number name="e_totalOwners" [ngModel]="currentReport.e_totalOwners | negative: false" (ngModelChange)="currentReport.e_totalOwners=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+        <td><input disabled type=number name="e_totalOwners" [ngModel]="currentReport.e_shareCapital + currentReport.e_additionalCapital + currentReport.e_reserveCapital + currentReport.e_retainedEarning | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr><tr>
         <td>Неконтролирующая доля</td>
         <td><input type=number name="e_nonControlInterests" [ngModel]="currentReport.e_nonControlInterests | negative: false" (ngModelChange)="currentReport.e_nonControlInterests=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr><tr>
         <td>Итого капитал</td>
-        <td><input disabled type=number name="e_totalEquity" [ngModel]="currentReport.e_shareCapital + currentReport.e_additionalCapital + currentReport.e_reserveCapital + currentReport.e_retainedEarning + currentReport.e_totalOwners + currentReport.e_nonControlInterests | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+        <td><input disabled type=number name="e_totalEquity" [ngModel]="currentReport.e_shareCapital + currentReport.e_additionalCapital + currentReport.e_reserveCapital + currentReport.e_retainedEarning + currentReport.e_nonControlInterests | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr><tr>
         <td class="title-row">Долгосрочные обязательства</td>
         <td class="title-row"></td>
@@ -158,7 +155,7 @@
         <td><input type=number name="ncl_deferredTaxLiabilities" [ngModel]="currentReport.ncl_deferredTaxLiabilities | negative: false" (ngModelChange)="currentReport.ncl_deferredTaxLiabilities=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr><tr>
         <td>Итого долгосрочные обязательства</td>
-        <td><input disabled type=number name="ncl_totalNonCurLiabilities" [ngModel]="currentReport.ncl_borrowings + currentReport.ncl_otherLeaseLiabilities + currentReport.ncl_tradePayables + currentReport.ncl_contractLiabilities + currentReport.ncl_deferredTaxLiabilities | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+        <td><input disabled type=number name="ncl_totalNonCurLiabilities" [ngModel]="currentReport.ncl_borrowings + currentReport.ncl_otherLeaseLiabilities + currentReport.ncl_tradePayables + currentReport.ncl_contractLiabilities + currentReport.ncl_deferredTaxLiabilities | negative: false" (ngModelChange)="currentReport.ncl_totalNonCurLiabilities=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr><tr>
         <td class="title-row">Краткосрочные обязательства</td>
         <td class="title-row"></td>
@@ -182,10 +179,7 @@
         <td><input disabled type=number name="cl_totalCurLiabilities" [ngModel]="currentReport.cl_borrowings + currentReport.cl_otherLeaseLiabilities + currentReport.cl_tradePayables + currentReport.cl_contractLiabilities + currentReport.cl_currentTaxLiabilities | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr><tr>
         <td>Итого обязательства</td>
-<!--        <td><input disabled type=number name="cl_totalCurLiabilities" [ngModel]="currentReport.cl_borrowings + currentReport.cl_otherLeaseLiabilities + currentReport.cl_tradePayables + currentReport.cl_contractLiabilities + currentReport.cl_currentTaxLiabilities | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>-->
-        <td>
-<!--          <span>{{report.totalLiabilities | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>-->
-        </td>
+        <td><input disabled type=number name="totalLiabilities" [ngModel]="currentReport.ncl_borrowings + currentReport.ncl_otherLeaseLiabilities + currentReport.ncl_tradePayables + currentReport.ncl_contractLiabilities + currentReport.ncl_deferredTaxLiabilities + currentReport.cl_borrowings + currentReport.cl_otherLeaseLiabilities + currentReport.cl_tradePayables + currentReport.cl_contractLiabilities + currentReport.cl_currentTaxLiabilities | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr>
     </ng-container>
     </tbody>

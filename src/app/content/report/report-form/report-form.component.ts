@@ -4,6 +4,7 @@ import {ReportHeaderName} from '../../../model/reportHeaderName';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ReportService} from '../../../service/report.service';
 import {CurrencyInfo} from '../../../model/currencyInfo';
+import {Report} from '../../../model/report';
 
 @Component({
   selector: 'app-report-form',
@@ -29,7 +30,9 @@ export class ReportFormComponent implements OnChanges {
   }
 
   saveReport(): void {
-    this.reportService.sendReport(this.currentReport);
+    const report = this.currentReport as Report;
+    report.calculateTotal();
+    this.reportService.sendReport(report);
     this.onSave.emit(true);
   }
 }

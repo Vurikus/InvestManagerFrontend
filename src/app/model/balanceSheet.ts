@@ -172,7 +172,13 @@ export class BalanceSheet extends Report implements IBalanceSheet {
   }
 
   calculateTotal(): void {
-    this.totalAssets = this.nc_fixedAssets + this.nc_investmentsAssociates + this.nc_goodwill + this.nc_intangibleAssets + this.nc_otherAssets + this.nc_receivables;
+    this.nc_totalAssets = this.nc_fixedAssets + this.nc_investmentsAssociates + this.nc_goodwill + this.nc_intangibleAssets + this.nc_otherAssets + this.nc_receivables;
+    this.c_totalAssets + this.c_otherAssets + this.c_receivables + this.c_currentIncomeTax + this.c_cash;
+    this.totalAssets = this.c_totalAssets + this.nc_totalAssets;
+    this.e_totalEquity = this.e_shareCapital + this.e_additionalCapital + this.e_reserveCapital + this.e_retainedEarning + this.e_nonControlInterests;
+    this.ncl_totalNonCurLiabilities = this.ncl_borrowings + this.ncl_otherLeaseLiabilities + this.ncl_tradePayables + this.ncl_contractLiabilities + this.ncl_deferredTaxLiabilities;
+    this.cl_totalCurLiabilities = this.cl_borrowings + this.cl_otherLeaseLiabilities + this.cl_tradePayables + this.cl_contractLiabilities + this.cl_currentTaxLiabilities;
+    this.totalLiabilities = this.ncl_totalNonCurLiabilities + this.cl_totalCurLiabilities;
   }
 
   getValueByHeaderName(headerName: ReportHeaderName): number | string | Date {
