@@ -20,19 +20,19 @@
       </tr>
       <tr>
         <td>Коммерческие расходы</td>
-        <td><input type=number name="revenue" [ngModel]="currentReport.sellingAndMarketingCost | negative: false" (ngModelChange)="currentReport.sellingAndMarketingCost=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+        <td><input type=number name="sellingAndMarketingCost" [ngModel]="currentReport.sellingAndMarketingCost | negative: false" (ngModelChange)="currentReport.sellingAndMarketingCost=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr>
       <tr>
         <td>Управленческие расходы</td>
-        <td><input type=number name="revenue" [ngModel]="currentReport.administrativeExpenses | negative: false" (ngModelChange)="currentReport.administrativeExpenses=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+        <td><input type=number name="administrativeExpenses" [ngModel]="currentReport.administrativeExpenses | negative: false" (ngModelChange)="currentReport.administrativeExpenses=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr>
       <tr>
         <td>Прочие доходы</td>
-        <td><input type=number name="revenue" [ngModel]="currentReport.otherIncome | negative: false" (ngModelChange)="currentReport.otherIncome=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+        <td><input type=number name="otherIncome" [ngModel]="currentReport.otherIncome | negative: false" (ngModelChange)="currentReport.otherIncome=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr>
       <tr>
         <td>Прочие расходы</td>
-        <td><input type=number name="revenue" [ngModel]="currentReport.otherLosses | negative: false" (ngModelChange)="currentReport.otherLosses=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+        <td><input type=number name="otherLosses" [ngModel]="currentReport.otherLosses | negative: false" (ngModelChange)="currentReport.otherLosses=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr>
       <tr>
         <td>Прибыль от продаж</td>
@@ -40,30 +40,34 @@
       </tr>
       <tr>
         <td>Финансовые доходы</td>
-        <td><input type=number name="revenue" [ngModel]="currentReport.financeIncome | negative: false" (ngModelChange)="currentReport.financeIncome=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+        <td><input type=number name="financeIncome" [ngModel]="currentReport.financeIncome | negative: false" (ngModelChange)="currentReport.financeIncome=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr>
       <tr>
         <td>Финансовые расходы</td>
-        <td><input type=number name="revenue" [ngModel]="currentReport.financeCosts | negative: false" (ngModelChange)="currentReport.financeCosts=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+        <td><input type=number name="financeCosts" [ngModel]="currentReport.financeCosts | negative: false" (ngModelChange)="currentReport.financeCosts=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr>
       <tr>
         <td>Обменные валютные операции</td>
-        <td><input type=number name="revenue" [ngModel]="currentReport.exchangeTransaction | negative: false" (ngModelChange)="currentReport.exchangeTransaction=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+        <td><input type=number name="exchangeTransaction" [ngModel]="currentReport.exchangeTransaction | negative: false" (ngModelChange)="currentReport.exchangeTransaction=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr>
       <tr>
         <td>Налог на прибыль</td>
-        <td><input type=number name="revenue" [ngModel]="currentReport.incomeTax | negative: false" (ngModelChange)="currentReport.incomeTax=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+        <td><input type=number name="incomeTax" [ngModel]="currentReport.incomeTax | negative: false" (ngModelChange)="currentReport.incomeTax=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr>
       <tr>
         <td>Прибыль собственников</td>
-        <td><input type=number name="revenue" [ngModel]="currentReport.ownersProfit | negative: false" (ngModelChange)="currentReport.ownersProfit=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+        <td><input disabled type=number name="ownersProfit" [ngModel]="currentReport.revenue + currentReport.costSales + currentReport.sellingAndMarketingCost + currentReport.administrativeExpenses + currentReport.otherIncome + currentReport.otherLosses + currentReport.otherLosses + currentReport.financeIncome + currentReport.financeCosts + currentReport.exchangeTransaction + currentReport.incomeTax + currentReport.nonControlInterests  | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
       </tr>
       <tr>
         <td>Неконтролирующие доли участия</td>
-        <td><input type=number name="revenue" [ngModel]="currentReport.nonControlInterests | negative: false" (ngModelChange)="currentReport.nonControlInterests=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td></tr>
+        <td><input type=number name="nonControlInterests" [ngModel]="currentReport.nonControlInterests | negative: false" (ngModelChange)="currentReport.nonControlInterests=$event"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td></tr>
       <tr>
         <td>Чистая прибыль</td>
-        <td><input type=number name="netProfit" disabled [ngModel]="currentReport.revenue + currentReport.costSales + currentReport.sellingAndMarketingCost + currentReport.administrativeExpenses + currentReport.otherIncome + currentReport.otherLosses + currentReport.otherLosses + currentReport.financeIncome + currentReport.financeCosts + currentReport.exchangeTransaction + currentReport.incomeTax + currentReport.ownersProfit + currentReport.nonControlInterests | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+        <td><input type=number name="netProfit" disabled [ngModel]="currentReport.revenue + currentReport.costSales + currentReport.sellingAndMarketingCost + currentReport.administrativeExpenses + currentReport.otherIncome + currentReport.otherLosses + currentReport.otherLosses + currentReport.financeIncome + currentReport.financeCosts + currentReport.exchangeTransaction + currentReport.incomeTax | negative: false"/>{{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</td>
+      </tr>
+      <tr>
+        <td>Количество акций</td>
+        <td><input type=number name="countStocks" min="0" step="1" [ngModel]="currentReport.countStocks"/>шт.</td>
       </tr>
     </ng-container>
     <ng-container *ngSwitchCase="'balance-sheet'">

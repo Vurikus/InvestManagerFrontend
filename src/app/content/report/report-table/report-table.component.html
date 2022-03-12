@@ -28,13 +28,17 @@
     </div>
     <div class="box">
       <div style="text-align: center">Объем</div>
-      <label class="radio_container"
-             *ngFor="let abr of abbreviations">{{abr.code === 'ONE' ? 'ед.' : abr.shortDisplayName}}
+      <label class="radio_container" *ngFor="let abr of abbreviations">{{abr.code === 'ONE' ? 'ед.' : abr.shortDisplayName}}
         <input name="abbreviation" type="radio" [(ngModel)]="currentCurrency.abbreviation" (change)="changeCurrencyInfo()"
                [checked]="currentCurrency.abbreviation == abr" [value]="abr"/>
         <span class="checkmark"></span>
         <br>
       </label>
+    </div>
+    <div class="box">
+      <div style="text-align: center">Интервал</div>
+        <input class="custom_input" name="intervalDate" type="date" [(ngModel)]="currentIntervalDate.startText" (change)="loadReport()"/><br>
+        <input class="custom_input" name="intervalDate" type="date" [(ngModel)]="currentIntervalDate.endText" (change)="loadReport()"/>
     </div>
     <div class="box">
       <div style="text-align: center">Компании</div>

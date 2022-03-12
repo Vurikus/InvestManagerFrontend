@@ -10,6 +10,7 @@ import {CurrencyService} from './currency.service';
 import {IIncomeStatement, IncomeStatement} from '../model/incomeStatement';
 import {Company} from '../model/company';
 import {BalanceSheet} from "../model/balanceSheet";
+import {IntervalDate} from "../model/intervalDate";
 
 @Injectable({
   providedIn: 'root'
@@ -37,8 +38,8 @@ export class ReportService {
     }
   }
 
-  getReports(tickers: string[], reportType: ReportType): Observable<Report[]> {
-    const parameters = {ticker: tickers};
+  getReports(tickers: string[], reportType: ReportType, intervalDate?: IntervalDate): Observable<Report[]> {
+    const parameters = intervalDate ? {ticker: tickers, interval: intervalDate.covertToQueryString()} : {ticker: tickers};
     return this.http.get<Report[]>(`${environment.apiUrl}/report/${reportType}`, {params: parameters});
   }
 

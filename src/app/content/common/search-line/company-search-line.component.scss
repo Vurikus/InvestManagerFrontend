@@ -1,4 +1,5 @@
 @import "src/assets/scss/variables";
+@import "src/styles";
 
 .search-block {
   align-items: center;
@@ -11,20 +12,12 @@
 }
 
 .search-box {
-  margin: 6px 12px 0 12px;
+  @extend .custom_input;
   width: 250px;
-  align-items: center;
-  border-radius: 6px 6px 6px 6px;
-  background-color: $white;
-  border-color: $grey;
-  border-style: solid;
-  border-width: 1px;
-  padding: 6px;
 }
 
 .search-line-input {
   @extend .search-box;
-  width: 250px;
   color: $text_dark;
   &:hover{
     background-color: $cursor_pointer_bg_hover;
@@ -32,7 +25,6 @@
     transition: 0.3s;
   }
 }
-
 
 .search-list {
   @extend .search-box;
@@ -53,40 +45,3 @@
     }
   }
 }
-
-
-//.search-input {
-//  @extend .search-box;
-//  &:hover{
-//    background-color: $cursor_pointer_bg_hover;
-//    border-color: $cursor_pointer_border;
-//    transition: 0.5s;
-//  }
-//}
-//
-//.search-list {
-//  @extend .search-box;
-//  @include scroll($pink);
-//  overflow-y: scroll;
-//  visibility: hidden;
-//  //display: none;
-//  z-index: 999;
-//  padding: 6px 0;
-//  width: 262px;
-//  outline: none;
-//  cursor: pointer;
-//  text-decoration: none;
-//  position: absolute;
-//  max-height: 200px;
-//  .row {
-//    margin: 0;
-//    &:hover{
-//      background-color: $cursor_pointer_bg_hover;
-//    }
-//  }
-//}
-//
-//.search-input:hover .search-list {
-//  visibility: visible;
-//}
-

@@ -8,6 +8,7 @@ import {ExchangeService} from '../../../service/exchange.service';
 import {CompanyService} from '../../../service/company.service';
 import {BalanceSheet, IBalanceSheet} from '../../../model/balanceSheet';
 import {IIncomeStatement, IncomeStatement} from "../../../model/incomeStatement";
+import {IntervalDate} from "../../../model/intervalDate";
 
 @Component({
   selector: 'app-report-table',
@@ -27,6 +28,7 @@ export class ReportTableComponent implements OnInit {
   currentReport: Report;
   currentReportType: ReportType;
   currentCurrency: CurrencyInfo;
+  currentIntervalDate: IntervalDate;
 
   currencies: ReadonlyArray<Currency> = [];
   abbreviations: ReadonlyArray<Abbreviation> = [];
@@ -43,6 +45,7 @@ export class ReportTableComponent implements OnInit {
     this.abbreviations = this.exchangeService.getAbbreviations();
     this.reportTypes = Object.values(ReportType);
     this.currentCurrency = {currency: this.currencies[0], abbreviation: this.abbreviations[1]};
+    this.currentIntervalDate = IntervalDate.newInstance();
   }
 
   loadReport(): void {
@@ -51,7 +54,7 @@ export class ReportTableComponent implements OnInit {
       return c.ticker;
     });
     if (tickers.length > 0) {
-      this.reportService.getReports(tickers, this.currentReportType).subscribe((res: IReport[]) => {
+      this.reportService.getReports(tickers, this.currentReportType, this.currentIntervalDate).subscribe((res: IReport[]) => {
         if (res.length > 0) {
           this.reports = res.map(r => {
             r.type = this.currentReportType;
@@ -109,7 +112,6 @@ export class ReportTableComponent implements OnInit {
   }
 
   changeCurrencyInfo(): void {
-    this.currentReport.setCurrency(this.currentCurrency);
     if (this.reports.length > 0) {
       this.reports.forEach(r => r.setCurrency(this.currentCurrency));
     }

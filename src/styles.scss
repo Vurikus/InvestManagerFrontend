@@ -986,6 +986,28 @@ form {
 }
 
 /*************************
+	    Custom input
+*************************/
+
+.custom_input {
+  margin: 6px 12px 0 12px;
+  align-items: center;
+  border-radius: 6px 6px 6px 6px;
+  background-color: $white;
+  border-color: $grey;
+  border-style: solid;
+  border-width: 1px;
+  padding: 4px;
+  color: $text_dark;
+  font-family: inherit;
+  &:hover{
+    background-color: $cursor_pointer_bg_hover;
+    border-color: $cursor_pointer_border;
+    transition: 0.3s;
+  }
+}
+
+/*************************
 	Custom check & radio
 *************************/
 .check_container {
