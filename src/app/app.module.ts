@@ -13,13 +13,13 @@ import {StatisticPageComponent} from './content/statistic/statistic-page/statist
 import {MarketPageComponent} from './content/market/market-page/market-page.component';
 import {ReportHeaderComponent} from './content/report/report-header/report-header.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ReportListComponent} from './content/report/report-list/report-list.component';
 import {ReportGraphComponent} from './content/report/report-graph/report-graph.component';
-import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
 import { CompanySearchLineComponent } from './content/common/search-line/company-search-line.component';
 import { ReportFormComponent } from './content/report/report-form/report-form.component';
 import { ReportTableComponent } from './content/report/report-table/report-table.component';
 import { NegativeReportCurrencyPipe } from './content/common/negative-report-currency.pipe';
+import { HeaderComponent } from './content/common/header/header.component';
+import { DialogPositionComponent } from './content/investment/dialog-position/dialog-position.component';
 
 @NgModule({
   declarations: [
@@ -31,19 +31,19 @@ import { NegativeReportCurrencyPipe } from './content/common/negative-report-cur
     StatisticPageComponent,
     MarketPageComponent,
     ReportHeaderComponent,
-    ReportListComponent,
     ReportGraphComponent,
     CompanySearchLineComponent,
     ReportFormComponent,
     ReportTableComponent,
-    NegativeReportCurrencyPipe
+    NegativeReportCurrencyPipe,
+    HeaderComponent,
+    DialogPositionComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    NgMultiSelectDropDownModule.forRoot(),
     ReactiveFormsModule
   ],
   providers: [ReportService],

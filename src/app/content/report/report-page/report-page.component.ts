@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ReportService} from '../../../service/report.service';
-import {Report} from '../../../model/report';
-import {ReportType} from '../../../model/reportType';
-import {Company} from '../../../model/company';
+import {Report} from '../../../model/report/report';
+import {ReportType} from '../../../model/report/reportType';
+import {ICompany} from '../../../model/ICompany';
 
 @Component({
   selector: 'app-report-page',
@@ -11,9 +11,9 @@ import {Company} from '../../../model/company';
 })
 export class ReportPageComponent implements OnInit {
 
-  currentCompany: Company;
+  currentCompany: ICompany;
   @Output()
-  selectedCompany = new EventEmitter<Company>();
+  selectedCompany = new EventEmitter<ICompany>();
   rows: string[];
   reports: Report[];
   ticker: string;
@@ -31,7 +31,7 @@ export class ReportPageComponent implements OnInit {
     this.constructRows();
   }
 
-  selectCompany(company: Company): void{
+  selectCompany(company: ICompany): void{
     this.selectedCompany.emit(company);
     this.currentCompany = company;
   }

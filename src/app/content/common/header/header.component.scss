@@ -1,0 +1,58 @@
+@import "src/assets/scss/variables";
+
+header{
+  height: 55px;
+  background-color: $bg_darkest;
+  border-radius: 6px 6px 6px 6px;
+  display: flex;
+  align-content: center;
+  margin: 10px;
+  .logo{
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    margin: 0 15px;
+    img{
+      max-width: 45px;
+      opacity: 65%;
+      transition: 1s;
+    }
+  }
+
+  .search-input{
+    width: 20%;
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    border-radius: 6px 6px 6px 6px;
+    background-color: $white;
+    border-color: $grey;
+    border-style: solid;
+    border-width: 1px;
+    padding: 6px;
+    transition: 0.7s;
+    &:hover{
+      background-color: $cursor_pointer_bg_hover;
+      border-color: $cursor_pointer_border;
+      transition: 0.7s;
+    }
+  }
+  .search-button{
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+
+  }
+
+  .title{
+    margin: 8px 50px;
+    left: 37%;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 0.2ch;
+    color: $text_lightest;
+  }
+}

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {CompanyService} from '../../../service/company.service';
-import {Company} from '../../../model/company';
+import {ICompany} from '../../../model/ICompany';
 import {Sector} from '../../../model/sector';
 
 @Component({
@@ -11,11 +11,11 @@ import {Sector} from '../../../model/sector';
 export class CompanySearchLineComponent implements OnInit {
 
   @Output()
-  selectCompany = new EventEmitter<Company>();
+  selectCompany = new EventEmitter<ICompany>();
   inputSearch: string;
-  currentCompany: Company;
-  showedCompanies: Array<Company> = [];
-  allCompanies: Array<Company> = [];
+  currentCompany: ICompany;
+  showedCompanies: Array<ICompany> = [];
+  allCompanies: Array<ICompany> = [];
 
   constructor(private companyService: CompanyService) {
   }
@@ -24,7 +24,7 @@ export class CompanySearchLineComponent implements OnInit {
     this.showedCompanies = this.allCompanies;
   }
 
-  select(company: Company): void {
+  select(company: ICompany): void {
     this.currentCompany = company;
     this.inputSearch = company.organisationName;
     this.selectCompany.emit(company);

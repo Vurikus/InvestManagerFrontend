@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CompanyService} from '../../../service/company.service';
-import {Company} from '../../../model/company';
+import {ICompany} from '../../../model/ICompany';
 
 @Component({
   selector: 'app-report-header',
@@ -10,10 +10,10 @@ import {Company} from '../../../model/company';
 export class ReportHeaderComponent implements OnInit {
 
   @Input()
-  currentCompany: Company;
+  currentCompany: ICompany;
   searchPanelOn: boolean;
   inputSearch: string;
-  companies: Company[];
+  companies: ICompany[];
 
   constructor(private companyService: CompanyService) { }
 

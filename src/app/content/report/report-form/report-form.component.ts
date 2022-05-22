@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
-import {ReportType} from '../../../model/reportType';
-import {ReportHeaderName} from '../../../model/reportHeaderName';
+import {ReportType} from '../../../model/report/reportType';
+import {ReportHeaderName} from '../../../model/report/reportHeaderName';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ReportService} from '../../../service/report.service';
 import {CurrencyInfo} from '../../../model/currencyInfo';
-import {Report} from '../../../model/report';
+import {Report} from '../../../model/report/report';
 
 @Component({
   selector: 'app-report-form',

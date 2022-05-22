@@ -1,6 +1,6 @@
 import {Sector} from './sector';
 
-export interface Company{
+export interface ICompany {
   id: number;
   country: string;
   organisationName: string;

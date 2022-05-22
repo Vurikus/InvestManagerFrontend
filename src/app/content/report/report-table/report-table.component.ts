@@ -1,13 +1,13 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Company} from '../../../model/company';
-import {IReport, Report} from '../../../model/report';
-import {ReportType} from '../../../model/reportType';
+import {ICompany} from '../../../model/ICompany';
+import {IReport, Report} from '../../../model/report/report';
+import {ReportType} from '../../../model/report/reportType';
 import {Abbreviation, Currency, CurrencyInfo} from '../../../model/currencyInfo';
 import {ReportService} from '../../../service/report.service';
 import {ExchangeService} from '../../../service/exchange.service';
 import {CompanyService} from '../../../service/company.service';
-import {BalanceSheet, IBalanceSheet} from '../../../model/balanceSheet';
-import {IIncomeStatement, IncomeStatement} from "../../../model/incomeStatement";
+import {BalanceSheet, IBalanceSheet} from '../../../model/report/balanceSheet';
+import {IIncomeStatement, IncomeStatement} from "../../../model/report/incomeStatement";
 import {IntervalDate} from "../../../model/intervalDate";
 
 @Component({
@@ -18,9 +18,9 @@ import {IntervalDate} from "../../../model/intervalDate";
 export class ReportTableComponent implements OnInit {
 
   @Output()
-  selectedCompany = new EventEmitter<Company>();
-  currentCompanies: Array<Company> = [];
-  searchCompanies: Array<Company> = [];
+  selectedCompany = new EventEmitter<ICompany>();
+  currentCompanies: Array<ICompany> = [];
+  searchCompanies: Array<ICompany> = [];
   configuratorOn = false;
   isEditReport = false;
 
@@ -69,14 +69,14 @@ export class ReportTableComponent implements OnInit {
     }
   }
 
-  selectCompany(company: Company): void {
+  selectCompany(company: ICompany): void {
     this.selectedCompany.emit(company);
     this.currentCompanies = [];
     this.addCompany(company);
     this.loadReport();
   }
 
-  addCompany(company: Company): void {
+  addCompany(company: ICompany): void {
     this.currentCompanies.push(company);
   }
 

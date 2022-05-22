@@ -1,20 +1,20 @@
 import {ReportHeaderName} from './reportHeaderName';
-import {ExchangeService} from '../service/exchange.service';
-import {CurrencyInfo} from './currencyInfo';
+import {ExchangeService} from '../../service/exchange.service';
+import {CurrencyInfo} from '../currencyInfo';
 import {ReportType} from './reportType';
-import {Company} from './company';
+import {ICompany} from '../ICompany';
 
 export interface IReport {
   id: number;
   date: string | Date;
   type: ReportType;
-  company: Company;
+  company: ICompany;
   currencyInfo: CurrencyInfo;
 }
 
 export abstract class Report implements IReport{
 
-  protected constructor(c: Company, r?: IReport) {
+  protected constructor(c: ICompany, r?: IReport) {
     this.id = r?.id ?? null;
     this.date = new Date(r?.date);
     this.company = c;
@@ -24,7 +24,7 @@ export abstract class Report implements IReport{
   id: number;
   date: Date;
   type: ReportType;
-  company: Company;
+  company: ICompany;
   currencyInfo: CurrencyInfo;
 
   protected static getHeadersStatic(): ReportHeaderName[] {

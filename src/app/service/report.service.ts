@@ -1,15 +1,15 @@
 /* tslint:disable */
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {IReport, Report} from '../model/report';
+import {IReport, Report} from '../model/report/report';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
-import {ReportType} from '../model/reportType';
+import {ReportType} from '../model/report/reportType';
 import {CurrencyInfo} from '../model/currencyInfo';
 import {CurrencyService} from './currency.service';
-import {IIncomeStatement, IncomeStatement} from '../model/incomeStatement';
-import {Company} from '../model/company';
-import {BalanceSheet} from "../model/balanceSheet";
+import {IIncomeStatement, IncomeStatement} from '../model/report/incomeStatement';
+import {ICompany} from '../model/ICompany';
+import {BalanceSheet} from "../model/report/balanceSheet";
 import {IntervalDate} from "../model/intervalDate";
 
 @Injectable({
@@ -26,7 +26,7 @@ export class ReportService {
     this.currentCurrency = c;
   }
 
-  public createEmptyReport(type: ReportType, c: Company, currency: CurrencyInfo): Report {
+  public createEmptyReport(type: ReportType, c: ICompany, currency: CurrencyInfo): Report {
     if (type === ReportType.BALANCE_SHEET) {
       let balanceSheet = new BalanceSheet(c);
       balanceSheet.setCurrency(currency);

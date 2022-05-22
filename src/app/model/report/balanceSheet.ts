@@ -1,9 +1,9 @@
-import {CurrencyInfo} from './currencyInfo';
+import {CurrencyInfo} from '../currencyInfo';
 import {IReport, Report} from './report';
 import {ReportHeaderName} from './reportHeaderName';
-import {CurrencyService} from '../service/currency.service';
+import {CurrencyService} from '../../service/currency.service';
 import {ReportType} from './reportType';
-import {Company} from './company';
+import {ICompany} from '../ICompany';
 
 export interface IBalanceSheet extends IReport {
   // NonCurrentAssets
@@ -49,7 +49,7 @@ export interface IBalanceSheet extends IReport {
 
 export class BalanceSheet extends Report implements IBalanceSheet {
 
-  constructor(c?: Company, r?: IBalanceSheet) {
+  constructor(c?: ICompany, r?: IBalanceSheet) {
     super(c, r);
     this.type = ReportType.BALANCE_SHEET;
     this.nc_fixedAssets = r?.nc_fixedAssets ?? 0;

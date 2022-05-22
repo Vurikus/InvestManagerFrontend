@@ -54,7 +54,7 @@
         <tr>
           <th></th>
           <th *ngFor="let report of reports">
-            {{report.date | date:'MM.yy' }}
+            {{report.date | date:'MM-yyyy' }}
           </th>
         </tr>
       </thead>
@@ -63,8 +63,8 @@
           <ng-container *ngSwitchCase="'income-statement'">
             <tr>
               <td class="primary-column">Выручка</td>
-              <td *ngFor="let report of reports">
-                <span>{{report.revenue | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
+              <td *ngFor="let report of reports; let i = index">
+                <span>{{ i > 0 ? reports[i].revenue : '' }} {{report.revenue | negative}} {{currentCurrency.abbreviation.shortDisplayName}} {{currentCurrency.currency.shortDisplayName}}</span>
               </td>
             </tr>
             <tr>

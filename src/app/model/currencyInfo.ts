@@ -15,16 +15,3 @@ export interface Abbreviation {
   shortDisplayName: string;
   value: number;
 }
-
-// export enum CurrencyCode {
-//   RUR = 'руб.',
-//   USD = 'дол.',
-//   EUR = 'евро'
-// }
-
-// export enum Abbreviation {
-//   BLN = 'млрд.',
-//   MLN = 'млн.',
-//   TSD = 'т.',
-//   ONE = ''
-// }

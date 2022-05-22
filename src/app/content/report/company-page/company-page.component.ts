@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CompanyService} from "../../../service/company.service";
-import {Company} from '../../../model/company';
+import {ICompany} from '../../../model/ICompany';
 import {Sector} from "../../../model/sector";
 
 @Component({
@@ -10,8 +10,8 @@ import {Sector} from "../../../model/sector";
 })
 export class CompanyPageComponent implements OnInit {
 
-  companies: Company[];
-  currentCompany: Company;
+  companies: ICompany[];
+  currentCompany: ICompany;
 
   constructor(private companyService: CompanyService) { }
 
