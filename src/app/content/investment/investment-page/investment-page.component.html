@@ -1,6 +1,5 @@
 <div class="scrolling">
   <app-header [title]="title"></app-header>
-
   <div class="radius-box tableFixHead">
     <table class="table">
       <thead>
@@ -9,6 +8,7 @@
         <th>Дата открытия</th>
         <th>Цена в портфеле</th>
         <th>Объем</th>
+        <th>Обновить позицию</th>
       </tr>
       </thead>
       <tbody>
@@ -23,10 +23,14 @@
               <td>{{position.openDate | date:'dd-MM-yyyy' }}</td>
               <td>{{position.price}}</td>
               <td>{{position.volume}}</td>
+              <td><button (click)="changeVisibleDialog()">Обновить</button></td>
             </tr>
           </ng-container>
         </ng-container>
       </tbody>
     </table>
+    <div *ngIf="dialogService.isVisibleDialog()">
+      <app-dialog-position></app-dialog-position>
+    </div>
   </div>
 </div>

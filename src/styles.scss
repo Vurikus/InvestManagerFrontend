@@ -1403,7 +1403,7 @@ timepicker {
 			modal
 **********************************/
 .modal-dialog {
-  max-width: 1250px;
+  max-width: 750px;
   margin: 1.75rem auto;
   width: 96%;
 }
@@ -1431,9 +1431,6 @@ timepicker {
 }
 .modal-backdrop {
   background-color: #060e29;
-}
-
-.modal-backdrop {
   z-index: 99999;
 }
 

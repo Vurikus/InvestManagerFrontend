@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {DealService} from "../../../service/deal.service";
 import {IPosition, Position} from "../../../model/deal/position";
-import {InstrumentType, SecurityType} from "../../../model/instrument";
+import {SecurityDisplayType, SecurityType} from "../../../model/security";
 import {SecurityService} from "../../../service/security.service";
+import {DialogService} from "../../../service/dialog.service";
 
 @Component({
   selector: 'app-investment-page',
@@ -15,7 +16,8 @@ export class InvestmentPageComponent implements OnInit {
   positions: Map<SecurityType, Array<Position>>;
 
   constructor(private dealService: DealService,
-              public securityService: SecurityService) { }
+              public securityService: SecurityService,
+              public dialogService: DialogService) { }
 
   ngOnInit(): void {
     this.positions = this.dealService.getPositions();
@@ -24,5 +26,9 @@ export class InvestmentPageComponent implements OnInit {
 
   positionsByType(type: string | SecurityType): Array<Position>{
     return this.positions.get(type as SecurityType);
+  }
+
+  changeVisibleDialog(): void{
+    this.dialogService.changeVisible();
   }
 }

@@ -4,7 +4,7 @@ import {IPosition, Position} from "../model/deal/position";
 import {environment} from "../../environments/environment";
 import {IPositionEvent} from "../model/deal/positionEvent";
 import {stringify} from "@angular/compiler/src/util";
-import {InstrumentType, SecurityType} from "../model/instrument";
+import {SecurityDisplayType, SecurityType} from "../model/security";
 import {SecurityService} from "./security.service";
 
 @Injectable({

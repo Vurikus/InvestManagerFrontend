@@ -1,4 +1,5 @@
-export interface Instrument {
+export interface Security
+{
   id: number;
   exchange: string;
   ticker: string;
@@ -7,7 +8,8 @@ export interface Instrument {
   sector: string;
 }
 
-export interface InstrumentType {
+export interface SecurityDisplayType {
+  type: SecurityType;
   name: string;
   displayName: string;
 }

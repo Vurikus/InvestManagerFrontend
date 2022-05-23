@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Position} from "../model/deal/position";
-import {InstrumentType, SecurityType} from "../model/instrument";
+import {SecurityDisplayType, SecurityType} from "../model/security";
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +15,12 @@ export class SecurityService {
     return map;
   }
 
-  public getSecurityTypes(): InstrumentType[]{
+  public getSecurityTypes(): SecurityDisplayType[]{
     return [
-      {name: 'STOCK', displayName: 'Акция'},
-      {name: 'BOND', displayName: 'Облигация'},
-      {name: 'ETF', displayName: 'Фонд'},
-      {name: 'CURRENCY', displayName: 'Валюта'}
+      {name: 'STOCK', displayName: 'Акция', type: SecurityType.STOCK},
+      {name: 'BOND', displayName: 'Облигация', type: SecurityType.BOND},
+      {name: 'ETF', displayName: 'Фонд', type: SecurityType.ETF},
+      {name: 'CURRENCY', displayName: 'Валюта', type: SecurityType.CURRENCY}
     ];
   }
 }

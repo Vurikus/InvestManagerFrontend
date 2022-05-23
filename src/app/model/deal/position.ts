@@ -1,10 +1,10 @@
 import {ICompany} from "../ICompany";
-import {Instrument} from "../instrument";
+import {Security} from "../security";
 import {IPositionEvent} from "./positionEvent";
 
 export interface IPosition {
   id: number;
-  security: Instrument;
+  security: Security;
   company: ICompany;
   openDate: Date;
   closeDate: Date;
@@ -17,7 +17,7 @@ export interface IPosition {
 
 export class Position implements IPosition{
   id: number;
-  security: Instrument;
+  security: Security;
   company: ICompany;
   openDate: Date;
   closeDate: Date;
@@ -42,7 +42,7 @@ export class Position implements IPosition{
     }
   }
 
-  public setSecurity(s: Instrument): void{
+  public setSecurity(s: Security): void{
     this.security = s;
   }
 
