@@ -4,34 +4,38 @@ import {IPosition, Position} from "../model/deal/position";
 import {environment} from "../../environments/environment";
 import {IPositionEvent} from "../model/deal/positionEvent";
 import {stringify} from "@angular/compiler/src/util";
-import {SecurityDisplayType, SecurityType} from "../model/security";
+import {Security, SecurityDisplayType, SecurityType} from "../model/ISecurity";
 import {SecurityService} from "./security.service";
+import {CurrencyService} from "./currency.service";
+import {ExchangeService} from "./exchange.service";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DealService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private exchangeService: ExchangeService) { }
 
-  public addEvent(position: Position, event?: IPositionEvent): Position{
+  public addEvent(position: Position, event?: IPositionEvent): Observable<IPosition>{
     if (position.id){
-      this.http.post<Position>(`${environment.apiUrl}/position/${position.id}/event`, event).subscribe(res => position = res);
+      console.log('with id');
+      return this.http.post<IPosition>(`${environment.apiUrl}/position/${position.id}/event`, event);
     } else {
-      this.http.post<Position>(`${environment.apiUrl}/position`, position).subscribe(res => position = res);
+      console.log('without id');
+      return this.http.post<IPosition>(`${environment.apiUrl}/position`, position);
     }
-    return position;
   }
 
   public getPositions(): Map<SecurityType, Array<Position>>{
     const result = SecurityService.getSecurityTypeEmptyPositionMap();
     this.http.get<Array<Position>>(`${environment.apiUrl}/position`).subscribe((res: IPosition[]) => {
       for (let i = 0; i < res.length; i++) {
-        // const type = res[i].security.type;
-        const type = SecurityType.STOCK;
+        const type = res[i].security.type;
         const positions = result.get(type);
         if (!positions) { continue; }
-        const p = new Position(res[i]);
+        const p = this.convertInputPosition(res[i]);
         positions.push(p);
       }
     });
@@ -43,5 +47,27 @@ export class DealService {
     this.http.get<Position>(`${environment.apiUrl}/position/${positionId}`, {params: {['showEvent']: showEvent.toString()}})
       .subscribe(res => result = res);
     return result;
+  }
+
+  public convertInputPosition(dto: IPosition): Position{
+    const p = new Position();
+    p.id = dto.id;
+    p.security = new Security(dto.security);
+    p.company = dto.company;
+    p.openDate = dto.openDate;
+    p.closeDate = dto.closeDate;
+    p.totalResult = dto.totalResult;
+    p.totalCommission = dto.totalCommission;
+    p.buyPrice = dto.buyPrice;
+    p.sumBuyPrice = dto.buyPrice * dto.volume;
+    p.actualPrice = dto.actualPrice;
+    p.sumActualPrice = dto.actualPrice * dto.volume;
+    p.volume = dto.volume;
+    p.events = dto.events;
+    p.currency = this.exchangeService.getCurrencyByCode(dto.currencyCode);
+    p.profit = dto.profit || 0;
+    p.profitPercent = dto.profitPercent || 0;
+    p.share = dto.share * 100;
+    return p;
   }
 }

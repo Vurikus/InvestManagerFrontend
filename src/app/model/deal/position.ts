@@ -1,16 +1,22 @@
 import {ICompany} from "../ICompany";
-import {Security} from "../security";
+import {ISecurity, Security} from "../ISecurity";
 import {IPositionEvent} from "./positionEvent";
+import {Currency, CurrencyInfo} from "../currencyInfo";
 
 export interface IPosition {
   id: number;
-  security: Security;
+  security: ISecurity;
   company: ICompany;
   openDate: Date;
   closeDate: Date;
   totalResult: number;
   totalCommission: number;
-  price: number;
+  buyPrice: number;
+  actualPrice: number;
+  currencyCode?: string;
+  profit: number;
+  profitPercent: number;
+  share: number;
   volume: number;
   events: Array<IPositionEvent>;
 }
@@ -23,30 +29,27 @@ export class Position implements IPosition{
   closeDate: Date;
   totalResult: number;
   totalCommission: number;
-  price: number;
+  buyPrice: number;
+  sumBuyPrice: number;
+  actualPrice: number;
+  sumActualPrice: number;
+  profit: number;
+  profitPercent: number;
+  share: number;
+  currency: Currency;
   volume: number;
   events: Array<IPositionEvent>;
 
-  constructor(p?: IPosition) {
-    if (p){
-      this.id = p.id;
-      this.security = p.security;
-      this.company = p.company;
-      this.openDate = p.openDate;
-      this.closeDate = p.closeDate;
-      this.totalResult = p.totalResult;
-      this.totalCommission = p.totalCommission;
-      this.price = p.price;
-      this.volume = p.volume;
-      this.events = p.events;
-    }
-  }
-
-  public setSecurity(s: Security): void{
-    this.security = s;
+  constructor() {
+    this.openDate = new Date();
+    this.security = new Security();
   }
 
   public addEvent(price: number, volume: number, commission: number, buy: boolean): void{
 
+  }
+
+  public isNew(): boolean{
+    return this.id === null || this.id === undefined;
   }
 }

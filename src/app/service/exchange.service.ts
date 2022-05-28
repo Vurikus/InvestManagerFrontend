@@ -25,7 +25,6 @@ export class ExchangeService {
   }
 
   public getCurrencyByCode(code: string): Currency {
-    console.log(this.currencies);
     if (this.currencies.length === 0) {
       this.loadCurrencies();
     }

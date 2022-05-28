@@ -4,10 +4,15 @@
     <table class="table">
       <thead>
       <tr>
-        <th colspan="2">Наименование</th>
+        <th [attr.colspan] = "2">Наименование</th>
         <th>Дата открытия</th>
-        <th>Цена в портфеле</th>
+        <th>Цена покупки</th>
+        <th>Цена сейчас</th>
+        <th>Комиссии</th>
+        <th>Прибыль</th>
+        <th>Прибыль (%)</th>
         <th>Объем</th>
+        <th>Доля</th>
         <th>Обновить позицию</th>
       </tr>
       </thead>
@@ -19,18 +24,26 @@
             </tr>
             <tr *ngFor="let position of positionsByType(type.name); let i = index">
               <td class="primary-column">{{i + 1}}</td>
-              <td class="primary-column">{{position.company.organisationName}}</td>
+              <td class="primary-column">{{position.company ? position.company.organisationName : position.security.ticker}}</td>
               <td>{{position.openDate | date:'dd-MM-yyyy' }}</td>
-              <td>{{position.price}}</td>
-              <td>{{position.volume}}</td>
-              <td><button (click)="changeVisibleDialog()">Обновить</button></td>
+              <td><span>{{position.sumBuyPrice | number: '1.0-2'}}</span></td>
+              <td><span>{{position.sumActualPrice | number: '1.0-2'}}</span></td>
+              <td><span>{{position.totalCommission | number: '1.0-2'}}</span></td>
+              <td><span>{{position.profit | number: '1.0-2'}}</span></td>
+              <td><span>{{position.profitPercent | number: '1.0-2'}}</span></td>
+              <td><span>{{position.volume}}</span></td>
+              <td><span>{{position.share | number: '1.0-2'}}%</span></td>
+              <td><button (click)="editPosition(position)">Обновить</button></td>
             </tr>
           </ng-container>
         </ng-container>
+        <tr>
+          <td [attr.colspan] = "size"><button (click)="createPosition()">Добавить</button></td>
+        </tr>
       </tbody>
     </table>
     <div *ngIf="dialogService.isVisibleDialog()">
-      <app-dialog-position></app-dialog-position>
+      <app-dialog-position [position]="selectedPosition" (updatedPosition)="updatePosition($event)"></app-dialog-position>
     </div>
   </div>
 </div>
