@@ -38,15 +38,16 @@ export class Position implements IPosition{
   share: number;
   currency: Currency;
   volume: number;
-  events: Array<IPositionEvent>;
+  events: Array<IPositionEvent> = [];
 
   constructor() {
     this.openDate = new Date();
     this.security = new Security();
+    this.currency = this.security.currency;
   }
 
-  public addEvent(price: number, volume: number, commission: number, buy: boolean): void{
-
+  public addEvent(event: IPositionEvent): void{
+    this.events.push(event);
   }
 
   public isNew(): boolean{

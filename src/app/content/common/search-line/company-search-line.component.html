@@ -1,7 +1,7 @@
 <ng-container>
-  <div class="search-block">
-    <input class="search-line-input" type="text" placeholder="..." [(ngModel)]="inputSearch" (ngModelChange)="sendLine()">
-    <div class="search-list" *ngIf="showedCompanies.length > 0">
+  <div class="list-block">
+    <input class="line-input" type="text" placeholder="..." [(ngModel)]="inputSearch" (ngModelChange)="sendLine()">
+    <div class="list-select" *ngIf="showedCompanies.length > 0">
       <p class="row" *ngFor="let company of showedCompanies" (click)="select(company)">
         <span> {{company.ticker}}</span>
         <span> {{company.organisationName}}</span>

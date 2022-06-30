@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Position} from "../model/deal/position";
-import {ISecurity, SecurityDisplayType, SecurityType} from "../model/ISecurity";
+import {ISecurity, ISecurityByType, SecurityDisplayType, SecurityType} from "../model/ISecurity";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -18,8 +18,8 @@ export class SecurityService {
     return map;
   }
 
-  public getSecurities(types?: SecurityType[]): Observable<Array<ISecurity>>{
-    return this.http.get<Array<ISecurity>>(`${environment.apiUrl}/security`, {params: {['type']: types}});
+  public getSecurities(types?: SecurityType[]): Observable<ISecurityByType>{
+    return this.http.get<ISecurityByType>(`${environment.apiUrl}/security`, {params: {['type']: types}});
   }
 
   public getSecurityTypes(): SecurityDisplayType[]{

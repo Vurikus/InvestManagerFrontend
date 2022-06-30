@@ -20,10 +20,9 @@ export class DealService {
 
   public addEvent(position: Position, event?: IPositionEvent): Observable<IPosition>{
     if (position.id){
-      console.log('with id');
       return this.http.post<IPosition>(`${environment.apiUrl}/position/${position.id}/event`, event);
     } else {
-      console.log('without id');
+      position.addEvent(event);
       return this.http.post<IPosition>(`${environment.apiUrl}/position`, position);
     }
   }
@@ -52,7 +51,8 @@ export class DealService {
   public convertInputPosition(dto: IPosition): Position{
     const p = new Position();
     p.id = dto.id;
-    p.security = new Security(dto.security);
+    const currency = this.exchangeService.getCurrencyByCode(dto.currencyCode);
+    p.security = new Security(dto.security, currency);
     p.company = dto.company;
     p.openDate = dto.openDate;
     p.closeDate = dto.closeDate;

@@ -17,7 +17,7 @@ export class ExchangeService {
   private abbreviations: Array<Abbreviation> = [];
 
   public static defaultCurrency(): Currency{
-    return {name: 'Рубль', code: 'RUR', rate: 1, shortDisplayName: 'руб.'};
+    return {name: 'Рубль', code: 'RUB', rate: 1, shortDisplayName: 'руб.'};
   }
 
   public static defaultAbbreviation(): Abbreviation{

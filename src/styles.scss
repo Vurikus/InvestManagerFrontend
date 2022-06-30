@@ -1400,6 +1400,62 @@ timepicker {
 }
 
 /*********************************
+			form
+**********************************/
+.text-input {
+
+}
+
+/*********************************
+			search-list
+**********************************/
+.list-block {
+  align-items: center;
+  width: 250px;
+  &:hover{
+    .list-select {
+      visibility: visible;
+      transition: 0.5s;
+    }
+  }
+}
+
+.list-box {
+  @extend .custom_input;
+  width: 250px;
+}
+
+.line-input {
+  @extend .list-box;
+  color: $text_dark;
+  &:hover{
+    background-color: $cursor_pointer_bg_hover;
+    border-color: $cursor_pointer_border;
+    transition: 0.3s;
+  }
+}
+
+.list-select {
+  @extend .list-box;
+  @include scroll($pink);
+  overflow-y: scroll;
+  visibility: hidden;
+  position: absolute;
+  z-index: 999;
+  transition: 0.3s;
+  outline: none;
+  cursor: pointer;
+  max-height: 200px;
+  .row {
+    color: $text_dark;
+    margin: 0;
+    &:hover {
+      background-color: $cursor_pointer_border;
+    }
+  }
+}
+
+/*********************************
 			modal
 **********************************/
 .modal-dialog {
@@ -1421,6 +1477,7 @@ timepicker {
   color: $text_lightest;
   text-shadow: 0 1px 0 #000000;
   opacity: 0.7;
+  margin: 25px;
 }
 
 .modal-header {
@@ -1689,7 +1746,7 @@ g {
   .auto {
     cursor: auto;
   }
-  .cell {
+  .form-table-cell {
     cursor: cell;
   }
   .context-menu {

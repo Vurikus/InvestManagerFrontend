@@ -1,47 +1,47 @@
 @import "src/assets/scss/variables";
 @import "src/styles";
-
-.search-block {
-  align-items: center;
-  &:hover{
-    .search-list {
-      visibility: visible;
-      transition: 0.5s;
-    }
-  }
-}
-
-.search-box {
-  @extend .custom_input;
-  width: 250px;
-}
-
-.search-line-input {
-  @extend .search-box;
-  color: $text_dark;
-  &:hover{
-    background-color: $cursor_pointer_bg_hover;
-    border-color: $cursor_pointer_border;
-    transition: 0.3s;
-  }
-}
-
-.search-list {
-  @extend .search-box;
-  @include scroll($pink);
-  overflow-y: scroll;
-  visibility: hidden;
-  position: absolute;
-  z-index: 999;
-  transition: 0.3s;
-  outline: none;
-  cursor: pointer;
-  max-height: 200px;
-  .row {
-    color: $text_dark;
-    margin: 0;
-    &:hover {
-      background-color: $cursor_pointer_border;
-    }
-  }
-}
+//
+//.search-block {
+//  align-items: center;
+//  &:hover{
+//    .search-list {
+//      visibility: visible;
+//      transition: 0.5s;
+//    }
+//  }
+//}
+//
+//.search-box {
+//  @extend .custom_input;
+//  width: 250px;
+//}
+//
+//.search-line-input {
+//  @extend .search-box;
+//  color: $text_dark;
+//  &:hover{
+//    background-color: $cursor_pointer_bg_hover;
+//    border-color: $cursor_pointer_border;
+//    transition: 0.3s;
+//  }
+//}
+//
+//.search-list {
+//  @extend .search-box;
+//  @include scroll($pink);
+//  overflow-y: scroll;
+//  visibility: hidden;
+//  position: absolute;
+//  z-index: 999;
+//  transition: 0.3s;
+//  outline: none;
+//  cursor: pointer;
+//  max-height: 200px;
+//  .row {
+//    color: $text_dark;
+//    margin: 0;
+//    &:hover {
+//      background-color: $cursor_pointer_border;
+//    }
+//  }
+//}

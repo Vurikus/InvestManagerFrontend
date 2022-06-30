@@ -1,33 +1,73 @@
 <div class="centerpoint">
-    <div class="dialog">
-      <h2>{{position.isNew() ? 'Создание новой позиции' : 'Добавление операции к позиции' | uppercase}}</h2>
-      <button (click)="close()">&times;</button>
-        <label>
-          <select [disabled]="!position.isNew()" (ngModelChange)="changeSecurityType($event)" [(ngModel)]="position.security.type">
-            <option *ngFor="let securityType of securityService.getSecurityTypes()" [ngValue]="securityType.type">{{securityType.displayName}}</option>
-          </select>
-        </label>
-        <label>
-          <select [disabled]="!position.isNew() && securities.length > 0" [(ngModel)]="position.security">
-            <option *ngFor="let security of securities" [ngValue]="security">{{security.ticker}}</option>
-          </select>
-        </label>
-        <label>Date
-          <input name="openDate" type="date" [(ngModel)]="event.date"/>
-        </label>
-        <label>price</label>
-          <input name="price" type="number" min="0" [(ngModel)]="event.price"/>
-        <label>volume</label>
-          <input name="volume" type="number" min="0" [(ngModel)]="event.volume"/>
-        <label>currency</label>
-          <select [disabled]="!position.isNew()" [(ngModel)]="position.currency">
-            <option *ngFor="let currency of exchangeService.allowedCurrencies()" [ngValue]="currency">{{currency.name}}</option>
-          </select>
-        <label>commission</label>
-          <input name="commission" type="number" min="0" [(ngModel)]="event.commission"/>
-        <label>buy
-          <input name="isBuy" type="checkbox" [(ngModel)]="event.buy"/>
-        </label>
-        <button (click)="savePosition()">Сохранить</button>
+  <div class="dialog">
+    <h2
+      class="dialog-header">{{position.isNew() ? 'Создание новой позиции' : 'Добавление операции к позиции' | uppercase}}</h2>
+    <button class="close" (click)="close()">&times;</button>
+    <div class="form-table">
+      <div class="form-table-row">
+        <p class="form-table-cell">Тип позиции</p>
+        <div class="list-block form-table-cell">
+          <input [disabled]="!position.isNew()" class="line-input" type="text" placeholder="..."
+                 [(ngModel)]="currentSecurityType.displayName">
+          <div [hidden]="!position.isNew()" class="list-select" *ngIf="securityService.getSecurityTypes().length > 0">
+            <p class="row" *ngFor="let securityType of securityService.getSecurityTypes()"
+               (click)="changeSecurityType(securityType.type)">
+              <span> {{securityType.displayName}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="form-table-row">
+        <p class="form-table-cell">Наименование</p>
+        <div class="list-block form-table-cell">
+          <input [disabled]="!position.isNew()" class="line-input" type="text" placeholder="..." [(ngModel)]="searchSecurityLine"
+                 (ngModelChange)="findSecurity()">
+          <div [hidden]="!position.isNew()" class="list-select" *ngIf="securities.length > 0">
+            <p class="row" *ngFor="let security of securities" (click)="setSecurity(security)">
+              <span> {{security.ticker}}</span>
+              <span> {{security.name}}</span>
+              <span *ngIf="security.type !== 'BOND'"> {{security.isin}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="form-table-row">
+        <p class="form-table-cell">Дата события</p>
+        <div class="form-table-cell">
+          <input class="line-input" name="eventDate" type="date" [(ngModel)]="event.date"/>
+        </div>
+      </div>
+      <div class="form-table-row">
+        <p class="form-table-cell">Цена лота</p>
+        <div class="form-table-cell">
+          <input class="line-input" name="price" type="number" min="0" [(ngModel)]="event.price">
+        </div>
+      </div>
+      <div class="form-table-row">
+        <p class="form-table-cell">Объем</p>
+        <div class="form-table-cell">
+          <input class="line-input" name="volume" type="number" min="0" [(ngModel)]="event.volume">
+        </div>
+      </div>
+      <div class="form-table-row">
+        <p class="form-table-cell">Валюта</p>
+        <div class="list-block form-table-cell">
+          <input disabled class="line-input" type="text" [(ngModel)]="position.currency.shortDisplayName">
+        </div>
+      </div>
+      <div class="form-table-row">
+        <p class="form-table-cell">Комиссия</p>
+        <div class="form-table-cell">
+          <input class="line-input" name="commission" type="number" min="0" [(ngModel)]="event.commission">
+        </div>
+      </div>
+      <div class="form-table-row">
+        <p class="form-table-cell">Покупка</p>
+        <div class="form-table-cell">
+          <input class="line-input" name="isBuy" type="checkbox" [(ngModel)]="event.buy">
+        </div>
+      </div>
     </div>
+    <button (click)="savePosition()">Сохранить</button>
+  </div>
 </div>

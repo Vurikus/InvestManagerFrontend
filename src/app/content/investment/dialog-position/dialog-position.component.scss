@@ -22,3 +22,26 @@
   width: 80%;
   height: 70%;
 }
+
+.dialog-header {
+  display: flex;
+  justify-content: center;
+}
+
+.close {
+  margin-top: -50px;
+}
+
+.form-table {
+  display: table;
+  position: relative;
+  margin: auto;
+}
+
+.form-table-row {
+  display: table-row;
+}
+
+.form-table-cell {
+  display: table-cell;
+}

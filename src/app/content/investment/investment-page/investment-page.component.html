@@ -8,6 +8,7 @@
         <th>Дата открытия</th>
         <th>Цена покупки</th>
         <th>Цена сейчас</th>
+        <th>Валюта</th>
         <th>Комиссии</th>
         <th>Прибыль</th>
         <th>Прибыль (%)</th>
@@ -28,6 +29,7 @@
               <td>{{position.openDate | date:'dd-MM-yyyy' }}</td>
               <td><span>{{position.sumBuyPrice | number: '1.0-2'}}</span></td>
               <td><span>{{position.sumActualPrice | number: '1.0-2'}}</span></td>
+              <td><span>{{position.currency.shortDisplayName}}</span></td>
               <td><span>{{position.totalCommission | number: '1.0-2'}}</span></td>
               <td><span>{{position.profit | number: '1.0-2'}}</span></td>
               <td><span>{{position.profitPercent | number: '1.0-2'}}</span></td>
